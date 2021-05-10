@@ -28,8 +28,7 @@ checker-qual = { group = "org.checkerframework", name = "checker-qual", version.
 guava = { group = "com.google.guava", name = "guava", version.ref = "guava" }
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 guice-core = { group = "com.google.inject", name = "guice", version.ref = "guice" }
-guice-assisted = { group = "com.google.inject.extensions", name = "guice-assisted" }
-
+guice-assisted = { group = "com.google.inject.extensions", name = "guice-assistedinject", version.ref = "guice" }
 # Incendo
 cloud-core = { group = "cloud.commandframework", name = "cloud-core", version.ref = "cloud" }
 cloud-paper = { group = "cloud.commandframework", name = "cloud-paper", version.ref = "cloud" }

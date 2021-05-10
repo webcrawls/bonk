@@ -1,10 +1,11 @@
 dependencies {
-    api(projects.bonkCore)
     api(projects.bonkApi)
+    api(projects.bonkCore)
 
     compileOnly(libs.paper)
 
     api(libs.adventure.bukkit)
+    api(libs.minimessage)
     api(libs.cloud.paper)
 }
 
