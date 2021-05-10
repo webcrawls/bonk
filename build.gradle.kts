@@ -22,6 +22,8 @@ subprojects {
 
     repositories {
         mavenCentral()
+
+        maven("https://papermc.io/repo/repository/maven-public/")
     }
 
     tasks {
