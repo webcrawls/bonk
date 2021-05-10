@@ -45,5 +45,5 @@ minimessage = { group = "net.kyori", name = "adventure-text-minimessage", versio
 paper = { group = "com.destroystokyo.paper", name = "paper-api", version.ref = "paper" }
 
 [bundles]
-guice = [guice-core, guice-assisted]
+guice = ["guice-core", "guice-assisted"]
 
