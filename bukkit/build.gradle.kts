@@ -1,6 +1,11 @@
 dependencies {
     api(projects.bonkCore)
-    compileOnly("com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT")
+    api(projects.bonkApi)
+
+    compileOnly(libs.paper)
+
+    api(libs.adventure.bukkit)
+    api(libs.cloud.paper)
 }
 
 tasks {
@@ -13,9 +18,17 @@ tasks {
             }
         }
 
-//        dependencies {
-//
-//        }
+        dependencies {
+            exclude(dependency("com.google.guava:"))
+            exclude(dependency("com.google.errorprone:"))
+            exclude(dependency("org.checkerframework:"))
+        }
+
+        relocates(
+                "cloud.commandframework",
+                "net.kyori",
+                "com.google.inject",
+        )
 
         archiveClassifier.set(null as String?)
         archiveFileName.set(project.name + ".jar")
