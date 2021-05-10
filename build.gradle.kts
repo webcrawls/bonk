@@ -33,7 +33,7 @@ subprojects {
             gpl3OnlyLicense()
 
             javaVersions {
-                target.set(14)
+                target.set(16)
             }
         }
 
