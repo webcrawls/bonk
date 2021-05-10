@@ -5,7 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 /**
  * The class entrypoint for Bonk.
  */
-public final class BonkPlugin extends JavaPlugin {
+public final class BukkitBonkPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
