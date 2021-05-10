@@ -1,4 +1,4 @@
-rootProject.name = "BingBonk"
+rootProject.name = "bonk"
 
 include("core", "bukkit", "api")
 project(":core").name = "bonk-core"

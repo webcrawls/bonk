@@ -1,4 +1,4 @@
-package dev.kscott.bingbonk.bukkit.listeners;
+package dev.kscott.bonk.bukkit.listeners;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;

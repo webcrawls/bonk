@@ -1,4 +1,4 @@
-package dev.kscott.bingbonk.bukkit;
+package dev.kscott.bonk.bukkit;
 
 import org.bukkit.plugin.java.JavaPlugin;
 

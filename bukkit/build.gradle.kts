@@ -9,6 +9,11 @@ dependencies {
 }
 
 tasks {
+
+    build {
+        dependsOn(named("shadowJar"))
+    }
+
     shadowJar {
         fun relocates(vararg dependencies: String) {
             dependencies.forEach {
