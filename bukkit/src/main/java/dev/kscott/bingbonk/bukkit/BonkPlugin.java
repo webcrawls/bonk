@@ -3,7 +3,7 @@ package dev.kscott.bingbonk.bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
- * The class entrypoint for BingBonk.
+ * The class entrypoint for Bonk.
  */
 public final class BonkPlugin extends JavaPlugin {
 
