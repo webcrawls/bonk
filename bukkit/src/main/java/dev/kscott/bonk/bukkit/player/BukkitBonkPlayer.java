@@ -40,7 +40,7 @@ public class BukkitBonkPlayer implements BonkPlayer {
      * {@return the name}
      */
     @Override
-    public @NonNull String getUsername() {
+    public @NonNull String username() {
         return this.player.getName();
     }
 
@@ -48,7 +48,7 @@ public class BukkitBonkPlayer implements BonkPlayer {
      * {@return the health of the player}
      */
     @Override
-    public double getHealth() {
+    public double health() {
         return this.player.getHealth();
     }
 
@@ -56,7 +56,7 @@ public class BukkitBonkPlayer implements BonkPlayer {
      * {@return if the player is playing or not}
      */
     @Override
-    public boolean isPlaying() {
+    public boolean playing() {
         // TODO implement playing check
         return false;
     }
@@ -65,7 +65,7 @@ public class BukkitBonkPlayer implements BonkPlayer {
      * {@return the player's current weapon}
      */
     @Override
-    public @Nullable BonkWeapon getCurrentWeapon() {
+    public @Nullable BonkWeapon weapon() {
         // TODO weapons
         return null;
     }

@@ -17,7 +17,7 @@ subprojects {
     apply {
         plugin<ShadowPlugin>()
         plugin<IndraPlugin>()
-        plugin<IndraCheckstylePlugin>()
+//        plugin<IndraCheckstylePlugin>()
         plugin<IndraPublishingPlugin>()
     }
 

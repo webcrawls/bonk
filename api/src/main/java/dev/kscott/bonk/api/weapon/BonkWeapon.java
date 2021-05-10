@@ -11,26 +11,26 @@ public interface BonkWeapon {
     /**
      * {@return the id of this weapon}
      */
-    @NonNull String getId();
+    @NonNull String id();
 
     /**
      * {@return the name of this weapon}
      */
-    @NonNull Component getName();
+    @NonNull Component name();
 
     /**
      * {@return the description of this weapon}
      */
-    @NonNull Component[] getDescription();
+    @NonNull Component[] description();
 
     /**
      * {@return the strength of this weapon}
      */
-    double getStrength();
+    double strength();
 
     /**
      * {@return the damage of this weapon}
      */
-    double getDamage();
+    double damage();
 
 }

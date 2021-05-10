@@ -32,12 +32,12 @@ public interface BonkPlayer extends Identity, Identified, ForwardingAudience.Sin
      * {@return the username}
      */
     @Pure
-    @NonNull String getUsername();
+    @NonNull String username();
 
     /**
      * {@return the health}
      */
-    double getHealth();
+    double health();
 
     /**
      * Returns if the player is playing or not.
@@ -49,18 +49,18 @@ public interface BonkPlayer extends Identity, Identified, ForwardingAudience.Sin
      *
      * @return if the player is playing or not.
      */
-    boolean isPlaying();
+    boolean playing();
 
     /**
      * Returns the current weapon of this player.
      * <p>
      * If there is no weapon selected (which may happen in certain cases),
      * this will return null. It is recommended you check if the player is playing
-     * with {@link BonkPlayer#isPlaying} before getting their weapon.
+     * with {@link BonkPlayer#playing} before getting their weapon.
      *
      * @return the current weapon
      */
-    @Nullable BonkWeapon getCurrentWeapon();
+    @Nullable BonkWeapon weapon();
 
 
 }
