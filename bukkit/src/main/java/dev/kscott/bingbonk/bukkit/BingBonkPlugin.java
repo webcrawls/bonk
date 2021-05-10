@@ -1,8 +1,8 @@
-package dev.kscott.bingbonk;
+package dev.kscott.bingbonk.bukkit;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class BingBonk extends JavaPlugin {
+public final class BingBonkPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
