@@ -5,6 +5,8 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+import java.util.UUID;
+
 /**
  * The core bonk player class.
  */
@@ -22,6 +24,20 @@ public final class BonkPlayer {
      */
     public BonkPlayer(final @NonNull Player player) {
         this.player = player;
+    }
+
+    /**
+     * {@return the player's uuid}
+     */
+    public @NonNull UUID uuid() {
+        return this.player.getUniqueId();
+    }
+
+    /**
+     * {@return the player's name}
+     */
+    public @NonNull String name() {
+        return this.player.getName();
     }
 
     /**
