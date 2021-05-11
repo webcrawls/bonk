@@ -1,4 +1,4 @@
-package dev.kscott.bonk.core.command;
+package dev.kscott.bonk.bukkit.command;
 
 import cloud.commandframework.CommandManager;
 import dev.kscott.bonk.api.player.BonkPlayer;

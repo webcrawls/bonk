@@ -62,5 +62,16 @@ public interface BonkPlayer extends Identity, Identified, ForwardingAudience.Sin
      */
     @Nullable BonkWeapon weapon();
 
+    /**
+     * {@return the player's position}
+     */
+    @NonNull PlayerPosition position();
+
+    /**
+     * Sets the player's position to {@code position}.
+     *
+     * @param position desired position
+     */
+    void position(final @NonNull PlayerPosition position);
 
 }

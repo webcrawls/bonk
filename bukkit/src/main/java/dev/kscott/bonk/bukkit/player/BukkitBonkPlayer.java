@@ -1,6 +1,7 @@
 package dev.kscott.bonk.bukkit.player;
 
 import dev.kscott.bonk.api.player.BonkPlayer;
+import dev.kscott.bonk.api.player.PlayerPosition;
 import dev.kscott.bonk.api.weapon.BonkWeapon;
 import net.kyori.adventure.audience.Audience;
 import org.bukkit.entity.Player;
@@ -13,6 +14,8 @@ import java.util.UUID;
  * The BukkitBonkPlayer.
  */
 public class BukkitBonkPlayer implements BonkPlayer {
+
+    private @NonNull PlayerPosition position;
 
     /**
      * The {@link Player} attached to this class.
