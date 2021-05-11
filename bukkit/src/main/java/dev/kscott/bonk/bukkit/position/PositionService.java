@@ -18,12 +18,12 @@ public class PositionService {
     /**
      * Collection of positions to spawn players at.
      */
-    private final @NonNull Collection<GamePosition> gameSpawnPositions;
+    private final @NonNull Collection<@NonNull GamePosition> gameSpawnPositions;
 
     /**
      * Collection of positions to spawn boxes at.
      */
-    private final @NonNull Collection<GamePosition> boxPositions;
+    private final @NonNull Collection<@NonNull GamePosition> boxPositions;
 
     /**
      * Constructs {@code PositionService}.
@@ -34,4 +34,24 @@ public class PositionService {
         this.gameSpawnPositions = List.of();
     }
 
+    /**
+     * {@return the position of the lobby spawn}
+     */
+    public @NonNull GamePosition getLobbySpawnPosition() {
+        return lobbySpawnPosition;
+    }
+
+    /**
+     * {@return the collection of game spawnpoints}
+     */
+    public @NonNull Collection<@NonNull GamePosition> getGameSpawnPositions() {
+        return gameSpawnPositions;
+    }
+
+    /**
+     * {@return the collection of box spawnpoints}
+     */
+    public @NonNull Collection<@NonNull GamePosition> getBoxPositions() {
+        return boxPositions;
+    }
 }
