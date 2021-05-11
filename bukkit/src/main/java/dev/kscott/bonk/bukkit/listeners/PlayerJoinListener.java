@@ -22,8 +22,8 @@ public final class PlayerJoinListener implements Listener {
     private static final Component[] MOTD_COMPONENTS = ArrayHelper.create(
             MiniMessage.get().parse("<gradient:#b01e13:#de5a50:#b01e13><st>                                        </st></gradient>"),
             MiniMessage.get().parse("<gray>Welcome to <color:#de5a50>Bonk!</color:#de5a50></gray>"),
-            MiniMessage.get().parse("<gray>Developed by kadenscott, with lots of help from Bing.</gray>"),
-            MiniMessage.get().parse("<gray>Check out the source on <dark_aqua>GitHub!</dark_aqua></gray>"),
+            MiniMessage.get().parse("<gray>Developed by bluely, with lots of help from Bing.</gray>"),
+            MiniMessage.get().parse("<gray>Check out the code on <dark_aqua>GitHub!</dark_aqua></gray>"),
             MiniMessage.get().parse("<gradient:#b01e13:#de5a50:#b01e13><st>                                        </st></gradient>")
     );
 
