@@ -1,5 +1,8 @@
 package dev.kscott.bonk.bukkit.position;
 
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
+import org.bukkit.World;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.Collection;
@@ -9,6 +12,11 @@ import java.util.List;
  * Provides {@link GamePosition}s.
  */
 public class PositionService {
+
+    /**
+     * The world of the game.
+     */
+    private final @NonNull World world;
 
     /**
      * The lobby spawn position.
@@ -27,8 +35,14 @@ public class PositionService {
 
     /**
      * Constructs {@code PositionService}.
+     *
+     * @param world the game world
      */
-    public PositionService() {
+    @Inject
+    public PositionService(
+            final @NonNull @Named("gameWorld") World world
+    ) {
+        this.world = world;
         this.lobbySpawnPosition = new GamePosition(-69.5, 117, -456.5, 0, 0);
         this.boxPositions = List.of();
         this.gameSpawnPositions = List.of();
@@ -42,14 +56,14 @@ public class PositionService {
     }
 
     /**
-     * {@return the collection of game spawnpoints}
+     * {@return the collection of game spawn points}
      */
     public @NonNull Collection<@NonNull GamePosition> spawnPositions() {
         return gameSpawnPositions;
     }
 
     /**
-     * {@return the collection of box spawnpoints}
+     * {@return the collection of box spawn points}
      */
     public @NonNull Collection<@NonNull GamePosition> boxPositions() {
         return boxPositions;
