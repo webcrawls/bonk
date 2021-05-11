@@ -35,7 +35,7 @@ public class BukkitModule extends AbstractModule {
     }
 
     /**
-     * Binds plugin & audience classes.
+     * Binds plugin and audience classes.
      */
     @Override
     public void configure() {
