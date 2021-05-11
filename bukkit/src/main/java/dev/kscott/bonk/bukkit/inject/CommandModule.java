@@ -17,7 +17,7 @@ import java.util.function.Function;
 /**
  * Provides the command manager.
  */
-public class CommandModule extends AbstractModule {
+public final class CommandModule extends AbstractModule {
 
     /**
      * The command manager.

@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Provides {@link GamePosition}s.
  */
-public class PositionService {
+public final class PositionService {
 
     /**
      * The world of the game.

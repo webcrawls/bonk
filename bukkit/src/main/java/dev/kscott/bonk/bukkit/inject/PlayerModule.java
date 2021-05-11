@@ -6,7 +6,7 @@ import com.google.inject.Singleton;
 import dev.kscott.bonk.bukkit.player.PlayerService;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
-public class PlayerModule extends AbstractModule {
+public final class PlayerModule extends AbstractModule {
 
     private final @NonNull PlayerService service;
 

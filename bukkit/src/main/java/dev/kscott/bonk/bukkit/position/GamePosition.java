@@ -9,7 +9,7 @@ package dev.kscott.bonk.bukkit.position;
  * @param pitch the pitch
  * @param yaw the yaw
  */
-public record GamePosition(
+public final record GamePosition(
         double x,
         double y,
         double z,

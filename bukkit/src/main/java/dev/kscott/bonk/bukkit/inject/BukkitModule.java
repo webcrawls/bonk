@@ -9,7 +9,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 /**
  * Provides Bukkit-related classes.
  */
-public class BukkitModule extends AbstractModule {
+public final class BukkitModule extends AbstractModule {
 
     /**
      * The {@link BukkitBonkPlugin} to provide.

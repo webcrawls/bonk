@@ -12,7 +12,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 /**
  * Manages the Bonk game.
  */
-public class BonkGame {
+public final class BonkGame {
 
     /**
      * The injector provided by the parent class
