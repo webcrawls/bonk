@@ -1,17 +1,11 @@
 package dev.kscott.bonk.bukkit;
 
-import cloud.commandframework.CommandManager;
-import cloud.commandframework.bukkit.CloudBukkitCapabilities;
-import cloud.commandframework.execution.AsynchronousCommandExecutionCoordinator;
-import cloud.commandframework.paper.PaperCommandManager;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import dev.kscott.bonk.bukkit.game.BonkGame;
 import dev.kscott.bonk.bukkit.inject.BukkitModule;
 import dev.kscott.bonk.bukkit.utils.ArrayHelper;
-import org.bukkit.command.CommandSender;
 import org.bukkit.event.Listener;
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
@@ -41,12 +35,21 @@ public final class BukkitBonkPlugin extends JavaPlugin {
      * Constructs {@code BukkitBonkPlugin}.
      */
     public BukkitBonkPlugin() {
+        // Initialize Guice shenanigans
         this.injector = Guice.createInjector(
                 new BukkitModule(this)
         );
 
         this.bonkGame = injector.getInstance(BonkGame.class);
         this.injector = bonkGame.load();
+
+        // Register events
+        for (final @NonNull Class<? extends Listener> klazz : LISTENERS) {
+            this.getServer().getPluginManager().registerEvents(
+                    this.injector.getInstance(klazz),
+                    this
+            );
+        }
     }
 
 }
