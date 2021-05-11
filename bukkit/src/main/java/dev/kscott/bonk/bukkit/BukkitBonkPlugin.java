@@ -43,7 +43,10 @@ public final class BukkitBonkPlugin extends JavaPlugin {
 
         this.bonkGame = injector.getInstance(BonkGame.class);
         this.injector = bonkGame.load();
+    }
 
+    @Override
+    public void onEnable() {
         // Register events
         for (final @NonNull Class<? extends Listener> klazz : LISTENERS) {
             this.getServer().getPluginManager().registerEvents(
