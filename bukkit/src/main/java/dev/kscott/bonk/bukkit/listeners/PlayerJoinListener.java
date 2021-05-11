@@ -16,17 +16,6 @@ import org.checkerframework.checker.nullness.qual.NonNull;
  */
 public final class PlayerJoinListener implements Listener {
 
-    /**
-     * An array of components to send to players on login.
-     */
-    private static final Component[] MOTD_COMPONENTS = ArrayHelper.create(
-            MiniMessage.get().parse("<gradient:#b01e13:#de5a50:#b01e13><st>                                        </st></gradient>"),
-            MiniMessage.get().parse("<gray>Welcome to <color:#de5a50>Bonk!</color:#de5a50></gray>"),
-            MiniMessage.get().parse("<gray>Developed by bluely, with lots of help from Bing.</gray>"),
-            MiniMessage.get().parse("<gray>Check out the code on <dark_aqua>GitHub!</dark_aqua></gray>"),
-            MiniMessage.get().parse("<gradient:#b01e13:#de5a50:#b01e13><st>                                        </st></gradient>")
-    );
-
     private final @NonNull PlayerService playerService;
 
     /**
@@ -39,12 +28,12 @@ public final class PlayerJoinListener implements Listener {
         this.playerService = playerService;
     }
 
+    /**
+     * Handles the player join event.
+     * @param event {@link PlayerJoinEvent}
+     */
     @EventHandler
     public void handlePlayerJoin(final @NonNull PlayerJoinEvent event) {
-        final @NonNull Player player = event.getPlayer();
-
-        for (final @NonNull Component component : MOTD_COMPONENTS) {
-            player.sendMessage(component);
-        }
+        this.playerService.player(event.getPlayer());
     }
 }
