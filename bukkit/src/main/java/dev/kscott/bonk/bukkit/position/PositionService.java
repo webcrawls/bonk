@@ -37,21 +37,21 @@ public class PositionService {
     /**
      * {@return the position of the lobby spawn}
      */
-    public @NonNull GamePosition getLobbySpawnPosition() {
+    public @NonNull GamePosition lobbyPosition() {
         return lobbySpawnPosition;
     }
 
     /**
      * {@return the collection of game spawnpoints}
      */
-    public @NonNull Collection<@NonNull GamePosition> getGameSpawnPositions() {
+    public @NonNull Collection<@NonNull GamePosition> spawnPositions() {
         return gameSpawnPositions;
     }
 
     /**
      * {@return the collection of box spawnpoints}
      */
-    public @NonNull Collection<@NonNull GamePosition> getBoxPositions() {
+    public @NonNull Collection<@NonNull GamePosition> boxPositions() {
         return boxPositions;
     }
 }
