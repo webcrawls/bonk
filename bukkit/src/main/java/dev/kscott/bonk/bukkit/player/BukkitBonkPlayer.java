@@ -80,4 +80,23 @@ public class BukkitBonkPlayer implements BonkPlayer {
     public @NonNull Audience audience() {
         return this;
     }
+
+    /**
+     * {@return the player's position}
+     */
+    @Override
+    public @NonNull PlayerPosition position() {
+        return this.position;
+    }
+
+    /**
+     * Sets the player's position.
+     *
+     * @param position desired position
+     */
+    @Override
+    public void position(final @NonNull PlayerPosition position) {
+        // TODO: Teleport player
+        this.position = position;
+    }
 }
