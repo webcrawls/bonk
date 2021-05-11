@@ -2,6 +2,7 @@ package dev.kscott.bonk.bukkit.game;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import dev.kscott.bonk.bukkit.inject.AudienceModule;
 import dev.kscott.bonk.bukkit.inject.CommandModule;
 import dev.kscott.bonk.bukkit.inject.PlayerModule;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -53,7 +54,8 @@ public class BonkGame {
     public @NonNull Injector load() {
         this.injector = this.parentInjector.createChildInjector(
                 new CommandModule(this.plugin),
-                new PlayerModule()
+                new PlayerModule(),
+                new AudienceModule()
         );
 
         return this.injector;

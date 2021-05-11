@@ -20,18 +20,12 @@ public class BukkitModule extends AbstractModule {
     private final @NonNull BukkitBonkPlugin plugin;
 
     /**
-     * The {@link AudienceProvider} to provide.
-     */
-    private final @NonNull BukkitAudiences audienceProvider;
-
-    /**
      * Constructs {@code BukkitModule}.
      *
      * @param plugin the plugin
      */
     public BukkitModule(final @NonNull BukkitBonkPlugin plugin) {
         this.plugin = plugin;
-        this.audienceProvider = BukkitAudiences.create(plugin);
     }
 
     /**
@@ -42,8 +36,5 @@ public class BukkitModule extends AbstractModule {
         this.bind(Plugin.class).toInstance(this.plugin);
         this.bind(JavaPlugin.class).toInstance(this.plugin);
         this.bind(BukkitBonkPlugin.class).toInstance(this.plugin);
-
-        this.bind(AudienceProvider.class).toInstance(this.audienceProvider);
-        this.bind(BukkitAudiences.class).toInstance(this.audienceProvider);
     }
 }
