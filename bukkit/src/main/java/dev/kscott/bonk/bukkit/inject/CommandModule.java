@@ -45,7 +45,7 @@ public class CommandModule extends AbstractModule {
                 commandManager.registerAsynchronousCompletions();
             }
         } catch (Exception e) {
-            throw new RuntimeException("Failed to initialize the CommandManager");
+            throw new RuntimeException("Failed to initialize the CommandManager", e);
         }
     }
 
