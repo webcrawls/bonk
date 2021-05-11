@@ -29,7 +29,6 @@ tasks {
 
         relocates(
                 "cloud.commandframework",
-                "net.kyori",
                 "com.google.inject",
         )
 
