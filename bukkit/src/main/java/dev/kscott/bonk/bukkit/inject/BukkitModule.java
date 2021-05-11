@@ -2,10 +2,7 @@ package dev.kscott.bonk.bukkit.inject;
 
 import com.google.inject.AbstractModule;
 import dev.kscott.bonk.bukkit.BukkitBonkPlugin;
-import net.kyori.adventure.platform.AudienceProvider;
-import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
