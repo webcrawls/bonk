@@ -1,6 +1,4 @@
 dependencies {
-    api(projects.bonkApi)
-
     compileOnly(libs.paper)
 
     api(libs.adventure.bukkit)
