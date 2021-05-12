@@ -70,12 +70,14 @@ public class BlockService {
 
         state.setType(Material.AIR);
 
+        final int delay = minRegenTime == maxRegenTime ? minRegenTime : this.random.nextInt(maxRegenTime - minRegenTime) + minRegenTime;
+
         new BukkitRunnable() {
             @Override
             public void run() {
                 state.update(true);
             }
-        }.runTaskLater(this.plugin, this.random.nextInt(maxRegenTime - minRegenTime) + minRegenTime);
+        }.runTaskLater(this.plugin, delay);
     }
 
 }
