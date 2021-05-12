@@ -12,8 +12,8 @@ public interface BaseCommand {
     /**
      * Registers this command with {@code commandManager}.
      *
-     * @param commandManager CommandManager to register with
+     * @param manager CommandManager to register with
      */
-    void register(final @NonNull CommandManager<CommandSender> commandManager);
+    void register(final @NonNull CommandManager<@NonNull CommandSender> manager);
 
 }
