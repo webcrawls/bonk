@@ -10,7 +10,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 /**
  * Manages commands.
  */
-public class CommandService {
+public final class CommandService {
 
     /**
      * An array of {@link BaseCommand}s to register.
