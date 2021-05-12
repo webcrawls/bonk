@@ -27,6 +27,11 @@ public class WeaponService {
     private final @NonNull NamespacedKey weaponKey;
 
     /**
+     * The default weapon.
+     */
+    private final @NonNull Weapon defaultWeapon;
+
+    /**
      * Constructs {@link WeaponService}.
      *
      * @param plugin the plugin
@@ -39,6 +44,8 @@ public class WeaponService {
         this.weaponKey = new NamespacedKey(plugin, "weapon");
 
         this.registerDefaults();
+
+        this.defaultWeapon = this.weaponMap.entrySet().iterator().next().getValue();
     }
 
     /**
@@ -81,6 +88,13 @@ public class WeaponService {
      */
     public @Nullable Weapon weapon(final @NonNull String id) {
         return this.weaponMap.get(id);
+    }
+
+    /**
+     * {@return the default weapon}
+     */
+    public @NonNull Weapon defaultWeapon() {
+        return this.defaultWeapon;
     }
 
     /**
