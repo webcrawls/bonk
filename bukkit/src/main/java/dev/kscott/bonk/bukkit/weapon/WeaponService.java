@@ -17,11 +17,6 @@ import java.util.*;
 public class WeaponService {
 
     /**
-     * The plugin.
-     */
-    private final @NonNull JavaPlugin plugin;
-
-    /**
      * The id->weapon map.
      */
     private final @NonNull Map<@NonNull String, @NonNull Weapon> weaponMap;
@@ -40,7 +35,6 @@ public class WeaponService {
     public WeaponService(
             final @NonNull JavaPlugin plugin
     ) {
-        this.plugin = plugin;
         this.weaponMap = new HashMap<>();
         this.weaponKey = new NamespacedKey(plugin, "weapon");
 
