@@ -8,6 +8,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -41,12 +42,18 @@ public abstract class Weapon {
     private final @NonNull NamespacedKey weaponKey;
 
     /**
+     * The sounds of the weapon.
+     */
+    private final @NonNull List<WeaponSoundDefinition> sounds;
+
+    /**
      * Constructs Weapon.
      *
      * @param id          id
      * @param name        name
      * @param description description
      * @param material    material
+     * @param sounds      sounds to play when used
      * @param weaponKey   namespaced key
      */
     public Weapon(
@@ -54,12 +61,15 @@ public abstract class Weapon {
             final @NonNull Component name,
             final @NonNull List<Component> description,
             final @NonNull Material material,
+            final @NonNull List<WeaponSoundDefinition> sounds,
             final @NonNull NamespacedKey weaponKey
     ) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.material = material;
+        this.weaponKey = weaponKey;
+        this.sounds = sounds;
     }
 
 
@@ -81,7 +91,14 @@ public abstract class Weapon {
      * {@return the description}
      */
     public @NonNull List<Component> description() {
-        return description;
+        return Collections.unmodifiableList(this.description);
+    }
+
+    /**
+     * {@return the weapon sounds}
+     */
+    public @NonNull List<WeaponSoundDefinition> sounds() {
+        return Collections.unmodifiableList(this.sounds);
     }
 
     /**
