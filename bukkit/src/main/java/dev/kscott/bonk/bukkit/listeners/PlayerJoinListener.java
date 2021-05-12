@@ -2,10 +2,6 @@ package dev.kscott.bonk.bukkit.listeners;
 
 import com.google.inject.Inject;
 import dev.kscott.bonk.bukkit.player.PlayerService;
-import dev.kscott.bonk.bukkit.utils.ArrayHelper;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.minimessage.MiniMessage;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -30,6 +26,7 @@ public final class PlayerJoinListener implements Listener {
 
     /**
      * Handles the player join event.
+     *
      * @param event {@link PlayerJoinEvent}
      */
     @EventHandler
