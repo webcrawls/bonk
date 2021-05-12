@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Represents a playable Bonk weapon.
  */
-public abstract class Weapon {
+public class Weapon {
 
     /**
      * The id of this weapon.
