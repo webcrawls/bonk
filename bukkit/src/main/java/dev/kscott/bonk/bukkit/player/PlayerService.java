@@ -70,7 +70,7 @@ public final class PlayerService {
             throw new RuntimeException("Tried to create a player that is not online!");
         }
 
-        boolean ingame = ingame(player);
+        boolean ingame = playing(player);
 
         if (ingame) {
             for (final @NonNull BonkPlayer bonkPlayer : players) {
@@ -93,12 +93,12 @@ public final class PlayerService {
     }
 
     /**
-     * Returns {@code true} if {@code player} is in Bonk; {@code false} if otherwise.
+     * Returns {@code true} if {@code player} is playing Bonk; {@code false} if otherwise.
      *
      * @param player player
-     * @return {@code true} if {@code player} is in Bonk; {@code false} if otherwise
+     * @return {@code true} if {@code player} is playing Bonk; {@code false} if otherwise
      */
-    public boolean ingame(final @NonNull Player player) {
+    public boolean playing(final @NonNull Player player) {
         for (final @NonNull BonkPlayer bonkPlayer : players) {
             if (bonkPlayer.uuid().equals(player.getUniqueId())) {
                 return true;
