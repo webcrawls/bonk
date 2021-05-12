@@ -25,7 +25,7 @@ public final class PlayerService {
             MiniMessage.get().parse("<gray>Developed by bluely, with lots of help from Bing.</gray>"),
             MiniMessage.get().parse("<gray>Check out the code on <dark_aqua>GitHub!</dark_aqua></gray>"),
             Component.empty(),
-            MiniMessage.get().parse("<gray>To start playing, run <aqua>/play</aqua>."),
+            MiniMessage.get().parse("<gray>To change your Bonk weapon, run <aqua>/weapons</aqua>."),
             MiniMessage.get().parse("<gradient:#b01e13:#de5a50:#b01e13><st>                                        </st></gradient>")
     );
 
