@@ -1,6 +1,7 @@
 package dev.kscott.bonk.bukkit.player;
 
 import dev.kscott.bonk.bukkit.position.GamePosition;
+import dev.kscott.bonk.bukkit.weapon.Weapon;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -18,12 +19,22 @@ public final class BonkPlayer {
     private final @NonNull Player player;
 
     /**
+     * The weapon the player is using. Defaults to Stick.
+     */
+    private @NonNull Weapon weapon;
+
+    /**
      * Constructs {@code BonkPlayer}.
      *
      * @param player the player to associate with this {@code BonkPlayer}
+     * @param weapon the weapon to give the player
      */
-    public BonkPlayer(final @NonNull Player player) {
+    public BonkPlayer(
+            final @NonNull Player player,
+            final @NonNull Weapon weapon
+    ) {
         this.player = player;
+        this.weapon = weapon;
     }
 
     /**

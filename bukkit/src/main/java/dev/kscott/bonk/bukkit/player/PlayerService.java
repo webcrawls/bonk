@@ -3,6 +3,7 @@ package dev.kscott.bonk.bukkit.player;
 import com.google.inject.Inject;
 import dev.kscott.bonk.bukkit.position.PositionService;
 import dev.kscott.bonk.bukkit.utils.ArrayHelper;
+import dev.kscott.bonk.bukkit.weapon.WeaponService;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.entity.Player;
@@ -40,18 +41,28 @@ public final class PlayerService {
     private final @NonNull PositionService positionService;
 
     /**
+     * The WeaponService dependency.
+     */
+    private final @NonNull WeaponService weaponService;
+
+    /**
      * Stores all online Bonk players.
      */
     private final @NonNull Set<BonkPlayer> players;
 
     /**
      * Constructs {@code PlayerService}.
+     *
+     * @param positionService the PositionService dependency
+     * @param weaponService the WeaponService dependency
      */
     @Inject
     public PlayerService(
-            final @NonNull PositionService positionService
+            final @NonNull PositionService positionService,
+            final @NonNull WeaponService weaponService
     ) {
         this.positionService = positionService;
+        this.weaponService = weaponService;
         this.players = new HashSet<>();
     }
 
@@ -116,7 +127,7 @@ public final class PlayerService {
      * @return the {@link BonkPlayer}
      */
     private @NonNull BonkPlayer createNewBonkPlayer(final @NonNull Player player) {
-        final @NonNull BonkPlayer bonkPlayer = new BonkPlayer(player);
+        final @NonNull BonkPlayer bonkPlayer = new BonkPlayer(player, this.weaponService.defaultWeapon());
 
         players.add(bonkPlayer);
 
