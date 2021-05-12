@@ -24,6 +24,8 @@ public final class PlayerService {
             MiniMessage.get().parse("<gray>Welcome to <color:#de5a50>Bonk!</color:#de5a50></gray>"),
             MiniMessage.get().parse("<gray>Developed by bluely, with lots of help from Bing.</gray>"),
             MiniMessage.get().parse("<gray>Check out the code on <dark_aqua>GitHub!</dark_aqua></gray>"),
+            Component.empty(),
+            MiniMessage.get().parse("<gray>To start playing, run <aqua>/play</aqua>."),
             MiniMessage.get().parse("<gradient:#b01e13:#de5a50:#b01e13><st>                                        </st></gradient>")
     );
 
@@ -83,6 +85,9 @@ public final class PlayerService {
         return bonkPlayer;
     }
 
+    /**
+     * @param player
+     */
     public void left(final @NonNull Player player) {
         players.removeIf(bonkPlayer -> bonkPlayer.uuid().equals(player.getUniqueId()));
     }
@@ -115,7 +120,7 @@ public final class PlayerService {
 
         players.add(bonkPlayer);
 
-        bonkPlayer.position(this.positionService.lobbyPosition());
+        bonkPlayer.position(this.positionService.spawnPosition());
 
         if (SEND_MOTD) {
             for (final @NonNull Component component : MOTD_COMPONENTS) {
