@@ -7,6 +7,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.util.*;
 
@@ -74,6 +75,16 @@ public class WeaponService {
      */
     public void register(final @NonNull Weapon weapon) {
         this.weaponMap.put(weapon.id(), weapon);
+    }
+
+    /**
+     * Returns a weapon with the id {@code id}.
+     *
+     * @param id id of the weapon
+     * @return if there is no weapon with id {@code id}, returns null; otherwise returns the weapon
+     */
+    public @Nullable Weapon weapon(final @NonNull String id) {
+        return this.weaponMap.get(id);
     }
 
     /**
