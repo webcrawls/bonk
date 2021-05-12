@@ -43,6 +43,8 @@ public class WeaponService {
         this.plugin = plugin;
         this.weaponMap = new HashMap<>();
         this.weaponKey = new NamespacedKey(plugin, "weapon");
+
+        this.registerDefaults();
     }
 
     /**
