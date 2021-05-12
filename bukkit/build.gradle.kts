@@ -4,7 +4,7 @@ dependencies {
     api(libs.minimessage)
     api(libs.cloud.paper)
     api(libs.bundles.guice)
-    api(libs.corn)
+    api(libs.bundles.corn)
 }
 
 tasks {

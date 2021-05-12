@@ -47,9 +47,10 @@ minimessage = { group = "net.kyori", name = "adventure-text-minimessage", versio
 paper = { group = "com.destroystokyo.paper", name = "paper-api", version.ref = "paper" }
 
 # Corn
-corn = { group = "broccolai.corn", name = "corn-core", version.ref = "corn" }
+corn-core = { group = "broccolai.corn", name = "corn-core", version.ref = "corn" }
 corn-paper = { group = "broccolai.corn", name = "corn-paper", version.ref = "corn" }
+corn-adventure = { group = "broccolai.corn", name = "corn-adventure", version.ref = "corn" }
 
 [bundles]
 guice = ["guice-core", "guice-assisted"]
-
+corn = ["corn-core", "corn-paper", "corn-adventure"]
