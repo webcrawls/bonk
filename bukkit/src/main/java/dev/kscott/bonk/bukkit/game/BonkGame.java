@@ -4,7 +4,6 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import dev.kscott.bonk.bukkit.inject.CommandModule;
 import dev.kscott.bonk.bukkit.inject.GameModule;
-import dev.kscott.bonk.bukkit.inject.PlayerModule;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -54,7 +53,6 @@ public final class BonkGame {
     public @NonNull Injector load() {
         this.injector = this.parentInjector.createChildInjector(
                 new CommandModule(this.plugin),
-                new PlayerModule(),
                 new GameModule(this.plugin)
         );
 
