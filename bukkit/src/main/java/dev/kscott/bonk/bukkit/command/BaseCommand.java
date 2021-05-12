@@ -1,6 +1,7 @@
 package dev.kscott.bonk.bukkit.command;
 
 import cloud.commandframework.CommandManager;
+import org.bukkit.command.CommandSender;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
@@ -13,6 +14,6 @@ public interface BaseCommand {
      *
      * @param commandManager CommandManager to register with
      */
-    void register(final @NonNull CommandManager<CommandService> commandManager);
+    void register(final @NonNull CommandManager<CommandSender> commandManager);
 
 }
