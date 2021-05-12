@@ -4,6 +4,7 @@ dependencies {
     api(libs.minimessage)
     api(libs.cloud.paper)
     api(libs.bundles.guice)
+    api(libs.corn)
 }
 
 tasks {
@@ -30,6 +31,7 @@ tasks {
         relocates(
                 "cloud.commandframework",
                 "com.google.inject",
+                "broccolai.corn"
         )
 
         archiveClassifier.set(null as String?)

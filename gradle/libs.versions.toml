@@ -20,6 +20,9 @@ minimessage = "4.1.0-SNAPSHOT"
 # Bukkit
 paper = "1.16.5-R0.1-SNAPSHOT"
 
+# Corn
+corn = "2.1.0"
+
 [libraries]
 # Tooling
 checker-qual = { group = "org.checkerframework", name = "checker-qual", version.ref = "checker-qual" }
@@ -42,6 +45,9 @@ minimessage = { group = "net.kyori", name = "adventure-text-minimessage", versio
 
 # Bukkit
 paper = { group = "com.destroystokyo.paper", name = "paper-api", version.ref = "paper" }
+
+# Corn
+corn = { group = "broccolai.corn", name = "corn-core", version.ref = "corn" }
 
 [bundles]
 guice = ["guice-core", "guice-assisted"]
