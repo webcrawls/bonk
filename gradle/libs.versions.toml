@@ -48,6 +48,7 @@ paper = { group = "com.destroystokyo.paper", name = "paper-api", version.ref = "
 
 # Corn
 corn = { group = "broccolai.corn", name = "corn-core", version.ref = "corn" }
+corn-paper = { group = "broccolai.corn", name = "corn-paper", version.ref = "corn" }
 
 [bundles]
 guice = ["guice-core", "guice-assisted"]
