@@ -18,12 +18,19 @@ public final class BonkPlayer {
     private final @NonNull Player player;
 
     /**
+     * If true, the player is actively playing bonk.
+     * If false, the player isn't playing, but still in bonk (i.e. in the lobby).
+     */
+    private @NonNull PlayerState state;
+
+    /**
      * Constructs {@code BonkPlayer}.
      *
      * @param player the player to associate with this {@code BonkPlayer}
      */
     public BonkPlayer(final @NonNull Player player) {
         this.player = player;
+        this.state = PlayerState.PRE_GAME;
     }
 
     /**
@@ -71,4 +78,21 @@ public final class BonkPlayer {
         ));
     }
 
+    /**
+     * {@return true if the player is playing (i.e. in the arena), false if the player isn't (i.e. in the lobby)}
+     */
+    public @NonNull PlayerState state() {
+        return this.state;
+    }
+
+    /**
+     * Sets the player's PlayerState.
+     * <p>
+     * Has no affect on the player other than modifying the internal value.
+     *
+     * @param state player state
+     */
+    public void state(final @NonNull PlayerState state) {
+        this.state = state;
+    }
 }
