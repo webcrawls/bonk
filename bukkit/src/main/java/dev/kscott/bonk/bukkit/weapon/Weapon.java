@@ -108,7 +108,7 @@ public class Weapon {
         return AdventureItemBuilder.adventure(this.material)
                 .name(this.name)
                 .loreComponents(this.description)
-                .data(this.weaponKey, PersistentDataType.STRING, "")
+                .data(this.weaponKey, PersistentDataType.STRING, this.id)
                 .build();
     }
 }
