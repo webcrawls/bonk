@@ -15,7 +15,7 @@ import java.util.Random;
 /**
  * Handles interaction with game blocks.
  */
-public class BlockService {
+public final class BlockService {
 
     /**
      * The plugin.
