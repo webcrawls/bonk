@@ -3,8 +3,11 @@ package dev.kscott.bonk.bukkit.inject;
 import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import com.google.inject.Provides;
+import com.google.inject.Scopes;
 import com.google.inject.assistedinject.AssistedInject;
 import com.google.inject.name.Named;
+import dev.kscott.bonk.bukkit.player.PlayerService;
+import dev.kscott.bonk.bukkit.weapon.WeaponService;
 import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -43,6 +46,12 @@ public final class GameModule extends AbstractModule {
     @Named("gameWorld")
     public @NonNull World gameWorld() {
         return this.gameWorld;
+    }
+
+    @Override
+    public void configure() {
+        this.bind(WeaponService.class).in(Scopes.SINGLETON);
+        this.bind(PlayerService.class).in(Scopes.SINGLETON);
     }
 
 }
