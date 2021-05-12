@@ -51,7 +51,22 @@ public final class PositionService {
         this.world = world;
         this.lobbySpawnPosition = new GamePosition(-69.5, 117, -456.5, 0, 0);
         this.boxPositions = List.of();
-        this.gameSpawnPositions = List.of();
+
+        this.gameSpawnPositions = List.of(
+                new GamePosition(-79.5, 105, -91.5, 0, 0),
+                new GamePosition(-79.5, 105, -91.5, -90, 0),
+                new GamePosition(-79.5, 105, -91.5, 180, 0),
+                new GamePosition(-79.5, 105, -91.5, 90, 0),
+                new GamePosition(-67.5, 97, -79.5, 90, 0),
+                new GamePosition(-67.5, 97, -79.5, 180, 0),
+                new GamePosition(-91.5, 97, -79.5, -90, 0),
+                new GamePosition(-91.5, 97, -79.5, 180, 0),
+                new GamePosition(-79.5, 94, -77, 0, 0),
+                new GamePosition(-79.5, 94, -77, -90, 0),
+                new GamePosition(-79.5, 94, -77, 180, 0),
+                new GamePosition(-79.5, 94, -77, 90, 0)
+        );
+
         this.random = new Random();
     }
 
