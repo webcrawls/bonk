@@ -63,12 +63,14 @@ public final class PlayerService {
      * @param player player
      * @return the {@link BonkPlayer}
      */
-    public @NonNull BonkPlayer player(final @NonNull Player player) {
+    public @NonNull BonkPlayer joined(final @NonNull Player player) {
         if (!player.isOnline()) {
             throw new RuntimeException("Tried to create a player that is not online!");
         }
 
-        if (playing(player)) {
+        boolean ingame = ingame(player);
+
+        if (ingame) {
             for (final @NonNull BonkPlayer bonkPlayer : players) {
                 if (bonkPlayer.uuid().equals(player.getUniqueId())) {
                     return bonkPlayer;
@@ -81,13 +83,17 @@ public final class PlayerService {
         return bonkPlayer;
     }
 
+    public void left(final @NonNull Player player) {
+        players.removeIf(bonkPlayer -> bonkPlayer.uuid().equals(player.getUniqueId()));
+    }
+
     /**
-     * Returns {@code true} if {@code player} is online; {@code false} if otherwise.
+     * Returns {@code true} if {@code player} is in Bonk; {@code false} if otherwise.
      *
      * @param player player
-     * @return {@code true} if {@code player} is online; {@code false} if otherwise
+     * @return {@code true} if {@code player} is in Bonk; {@code false} if otherwise
      */
-    public boolean playing(final @NonNull Player player) {
+    public boolean ingame(final @NonNull Player player) {
         for (final @NonNull BonkPlayer bonkPlayer : players) {
             if (bonkPlayer.uuid().equals(player.getUniqueId())) {
                 return true;

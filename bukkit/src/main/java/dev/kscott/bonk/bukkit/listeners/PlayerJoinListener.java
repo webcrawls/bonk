@@ -31,6 +31,6 @@ public final class PlayerJoinListener implements Listener {
      */
     @EventHandler
     public void handlePlayerJoin(final @NonNull PlayerJoinEvent event) {
-        this.playerService.player(event.getPlayer());
+        this.playerService.joined(event.getPlayer());
     }
 }
