@@ -16,7 +16,7 @@ public final class CommandService {
      * An array of {@link BaseCommand}s to register.
      */
     private static final @NonNull Class<? extends BaseCommand>[] COMMANDS = ArrayHelper.create(
-
+        WeaponCommand.class
     );
 
     /**
