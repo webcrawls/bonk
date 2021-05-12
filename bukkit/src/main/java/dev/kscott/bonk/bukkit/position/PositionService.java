@@ -88,7 +88,7 @@ public final class PositionService {
      * {@return a random spawn position}
      */
     public @NonNull GamePosition spawnPosition() {
-        final int index = random.nextInt(this.gameSpawnPositions.size());
+        final int index = this.random.nextInt(this.gameSpawnPositions.size());
 
         return this.gameSpawnPositions.get(index);
     }
@@ -104,8 +104,15 @@ public final class PositionService {
      * {@return a random box position}
      */
     public @NonNull GamePosition boxPosition() {
-        final int index = random.nextInt(this.boxPositions.size());
+        final int index = this.random.nextInt(this.boxPositions.size());
 
         return this.boxPositions.get(index);
+    }
+
+    /**
+     * {@return the game's world}
+     */
+    public @NonNull World world() {
+        return this.world;
     }
 }
