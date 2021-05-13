@@ -13,6 +13,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
@@ -50,12 +52,17 @@ public final class PlayerService {
     private final @NonNull PositionService positionService;
 
     /**
+     * THe plugn dependency.
+     */
+    private final @NonNull JavaPlugin plugin;
+
+    /**
      * The WeaponService dependency.
      */
     private final @NonNull WeaponService weaponService;
 
     /**
-     * Stores all online Bonk players.
+     * Holds all online Bonk players.
      */
     private final @NonNull Set<BonkPlayer> players;
 
@@ -64,15 +71,18 @@ public final class PlayerService {
      *
      * @param positionService the PositionService dependency
      * @param weaponService   the WeaponService dependency
+     * @param plugin the plugin dependency
      */
     @Inject
     public PlayerService(
             final @NonNull PositionService positionService,
-            final @NonNull WeaponService weaponService
+            final @NonNull WeaponService weaponService,
+            final @NonNull JavaPlugin plugin
     ) {
         this.positionService = positionService;
         this.weaponService = weaponService;
         this.players = new HashSet<>();
+        this.plugin = plugin;
     }
 
     /**
@@ -195,8 +205,6 @@ public final class PlayerService {
     public void reset(final @NonNull BonkPlayer bonkPlayer) {
         final @NonNull Player player = bonkPlayer.player();
 
-        bonkPlayer.position(this.positionService.spawnPosition());
-
         player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0.25);
         player.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(24);
         player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
@@ -207,6 +215,15 @@ public final class PlayerService {
 
         player.getInventory().clear();
         player.getInventory().addItem(bonkPlayer.weapon().itemStack());
+
+        new BukkitRunnable() {
+
+            @Override
+            public void run() {
+                bonkPlayer.position(positionService.spawnPosition());
+            }
+
+        }.runTaskLater(this.plugin, 1);
     }
 
 
