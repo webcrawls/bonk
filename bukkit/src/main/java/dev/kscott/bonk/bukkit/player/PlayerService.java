@@ -211,7 +211,7 @@ public final class PlayerService {
         victim.lastAttacker(attackerPlayer);
         victim.lastAttackTime(System.currentTimeMillis());
 
-        // TODO Multihits
+        // TODO Multihit attacks
 
         final @Nullable ItemStack weaponItem = attackerPlayer.getInventory().getItemInMainHand();
 
