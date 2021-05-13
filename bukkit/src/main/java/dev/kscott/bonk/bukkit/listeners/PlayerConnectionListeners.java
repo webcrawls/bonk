@@ -5,6 +5,7 @@ import dev.kscott.bonk.bukkit.player.PlayerService;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
@@ -25,12 +26,22 @@ public final class PlayerConnectionListeners implements Listener {
     }
 
     /**
-     * Handles the player join event.
+     * Handles player joins.
      *
      * @param event {@link PlayerJoinEvent}
      */
     @EventHandler
     public void handlePlayerJoin(final @NonNull PlayerJoinEvent event) {
         this.playerService.joined(event.getPlayer());
+    }
+
+    /**
+     * Handles player quits.
+     *
+     * @param event {@link PlayerQuitEvent}
+     */
+    @EventHandler
+    public void handlePlayerLeave(final @NonNull PlayerQuitEvent event) {
+        this.playerService.left(event.getPlayer());
     }
 }
