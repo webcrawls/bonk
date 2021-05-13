@@ -16,13 +16,14 @@ public final class CommandService {
      * An array of {@link BaseCommand}s to register.
      */
     private static final @NonNull Class<? extends BaseCommand>[] COMMANDS = ArrayHelper.create(
-        WeaponCommand.class
+            WeaponCommand.class,
+            BonkCommand.class
     );
 
     /**
      * Constructs {@code CommandService}.
      *
-     * @param injector the Guice injector
+     * @param injector       the Guice injector
      * @param commandManager the CommandManager
      */
     @Inject
