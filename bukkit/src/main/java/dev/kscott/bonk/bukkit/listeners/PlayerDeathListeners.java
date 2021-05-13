@@ -1,5 +1,6 @@
 package dev.kscott.bonk.bukkit.listeners;
 
+import com.google.inject.Inject;
 import dev.kscott.bonk.bukkit.player.PlayerService;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -21,6 +22,7 @@ public class PlayerDeathListeners implements Listener {
      *
      * @param playerService the player service
      */
+    @Inject
     public PlayerDeathListeners(final @NonNull PlayerService playerService) {
         this.playerService = playerService;
     }
