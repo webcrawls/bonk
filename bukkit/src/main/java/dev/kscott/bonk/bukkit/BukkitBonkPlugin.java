@@ -4,10 +4,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import dev.kscott.bonk.bukkit.game.BonkGame;
 import dev.kscott.bonk.bukkit.inject.BukkitModule;
-import dev.kscott.bonk.bukkit.listeners.BlockInteractListener;
-import dev.kscott.bonk.bukkit.listeners.PlayerConnectionListeners;
-import dev.kscott.bonk.bukkit.listeners.PlayerDeathListeners;
-import dev.kscott.bonk.bukkit.listeners.PlayerMovementListeners;
+import dev.kscott.bonk.bukkit.listeners.*;
 import dev.kscott.bonk.bukkit.utils.ArrayHelper;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -25,7 +22,8 @@ public final class BukkitBonkPlugin extends JavaPlugin {
             PlayerConnectionListeners.class,
             BlockInteractListener.class,
             PlayerMovementListeners.class,
-            PlayerDeathListeners.class
+            PlayerDeathListeners.class,
+            PlayerDamageListener.class
     );
 
     /**
