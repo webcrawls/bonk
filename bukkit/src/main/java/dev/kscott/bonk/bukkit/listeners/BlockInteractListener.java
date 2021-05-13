@@ -70,7 +70,6 @@ public class BlockInteractListener implements Listener {
      */
     @EventHandler
     public void blockBreakListener(final @NonNull BlockBreakEvent event) {
-        System.out.println("Block");
         event.setCancelled(true);
         final @NonNull Block block = event.getBlock();
 
