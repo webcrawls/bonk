@@ -83,4 +83,10 @@ public final class BonkPlayer {
         ));
     }
 
+    /**
+     * {@return the player's selected weapon}
+     */
+    public @NonNull Weapon weapon() {
+        return this.weapon;
+    }
 }
