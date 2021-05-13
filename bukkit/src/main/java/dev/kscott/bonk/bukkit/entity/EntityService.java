@@ -10,17 +10,21 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Provides methods for interacting with entities.
+ */
 public final class EntityService {
 
     /**
      * Launches entities away from the provided Location.
      * <p>
      * If {@code dropoff} is true, then the farther away an entity is from {@code location}, the lesser knockback they'll take.
-     * @param location
-     * @param radius
-     * @param power
-     * @param dropoff
-     * @return
+     *
+     * @param location the location of the launch point
+     * @param radius the radius of the launch
+     * @param power the power of the launch
+     * @param dropoff should power dropoff be enabled
+     * @return a map where the key is an entity, and the value is the power of the knockback they received
      */
     public @NonNull Map<Entity, Double> launchEntities(
             final @NonNull Location location,
@@ -40,9 +44,9 @@ public final class EntityService {
             // TODO: better dropoff calculation
             final double knockback = dropoff ? power - distance : power;
 
-            final @NonNull Vector knockbackVector = entityLocation.toVector().subtract(location.toVector());
+            @NonNull Vector knockbackVector = entityLocation.toVector().add(location.toVector().multiply(-1));
 
-            knockbackVector.setY(knockback);
+            knockbackVector.add(new Vector(0, knockback, 0));
 
             livingEntity.setVelocity(knockbackVector);
 
