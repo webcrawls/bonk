@@ -1,6 +1,7 @@
 package dev.kscott.bonk.bukkit.inject;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.name.Names;
 import dev.kscott.bonk.bukkit.BukkitBonkPlugin;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -35,6 +36,6 @@ public final class BukkitModule extends AbstractModule {
         this.bind(Plugin.class).toInstance(this.plugin);
         this.bind(JavaPlugin.class).toInstance(this.plugin);
         this.bind(BukkitBonkPlugin.class).toInstance(this.plugin);
-        this.bind(Logger.class).toInstance(this.plugin.getLogger());
+        this.bind(Logger.class).annotatedWith(Names.named("pluginLogger")).toInstance(this.plugin.getLogger());
     }
 }
