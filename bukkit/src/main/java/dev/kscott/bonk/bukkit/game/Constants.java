@@ -34,7 +34,22 @@ public class Constants {
      */
     public static class Keys {
 
+        /**
+         * The {@link NamespacedKey} to be used for bonk weapon ids.
+         */
         public static final @NonNull NamespacedKey ITEM_WEAPON_KEY = new NamespacedKey("bonk", "weapon");
+
+    }
+
+    /**
+     * Magic numbers.
+     */
+    public static class Numbers {
+
+        /**
+         * Minecraft's gravitational constant.
+         */
+        public static final double GRAVITY = -0.0784000015258789;
 
     }
 
