@@ -209,6 +209,7 @@ public final class PlayerService {
         player.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(24);
         player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
         player.setGameMode(GameMode.SURVIVAL);
+        player.setFoodLevel(20);
 
         player.removePotionEffect(Constants.Potions.JUMP_BOOST.getType());
         player.addPotionEffect(Constants.Potions.JUMP_BOOST);
