@@ -13,6 +13,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -66,6 +67,7 @@ public final class BonkGame {
         this.parentInjector = parentInjector;
         this.plugin = plugin;
         this.loggingService = loggingService;
+        this.enabledMinigames = new ArrayList<>();
     }
 
     /**
@@ -94,6 +96,7 @@ public final class BonkGame {
         for (final @NonNull Class<? extends Minigame> klazz : MINIGAMES) {
             final @NonNull Minigame minigame = this.injector.getInstance(klazz);
             this.loggingService.debug("Enabled minigame "+minigame.getClass().getSimpleName());
+            this.enabledMinigames.add(minigame);
         }
     }
 
