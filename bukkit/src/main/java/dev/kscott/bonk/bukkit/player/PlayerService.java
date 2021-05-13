@@ -147,7 +147,7 @@ public final class PlayerService {
     /**
      * {@return a collection containing all bonk players}
      */
-    private @NonNull Collection<BonkPlayer> players() {
+    public @NonNull Collection<BonkPlayer> players() {
         return Collections.unmodifiableSet(this.players);
     }
 }
