@@ -10,6 +10,8 @@ import org.bukkit.block.BlockState;
 import org.bukkit.block.data.Directional;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -59,6 +61,28 @@ public class BlockInteractListener implements Listener {
         this.random = new Random();
         this.blockService = blockService;
         this.entityService = entityService;
+    }
+
+    /**
+     * Handles block breaks.
+     *
+     * @param event {@link BlockBreakEvent}
+     */
+    @EventHandler
+    public void blockBreakListener(final @NonNull BlockBreakEvent event) {
+        event.setCancelled(true);
+        final @NonNull Block block = event.getBlock();
+
+        this.blockService.destroyBlock(block, 1000, 2000);
+    }
+
+    /**
+     * Handles block places.
+     *
+     * @param event {@link BlockPlaceEvent}
+     */
+    public void blockPlaceListener(final @NonNull BlockPlaceEvent event) {
+        event.setCancelled(true);
     }
 
     /**

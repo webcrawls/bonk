@@ -5,6 +5,7 @@ import com.google.inject.name.Named;
 import dev.kscott.bonk.bukkit.position.PositionService;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -60,14 +61,12 @@ public final class BlockService {
     /**
      * Destroys a block, regenerating it between {@code minRegenTime} and {@code maxRegenTime}, in Minecraft ticks.
      *
-     * @param x            block x-coordinate
-     * @param y            block y-coordinate
-     * @param z            block z-coordinate
+     * @param block        the block
      * @param minRegenTime the minimum regen time
      * @param maxRegenTime the maximum regen time
      */
-    public void destroyBlock(final int x, final int y, final int z, final int minRegenTime, final int maxRegenTime) {
-        final @NonNull BlockState state = this.world.getBlockAt(x, y, z).getState(true);
+    public void destroyBlock(Block block, final int minRegenTime, final int maxRegenTime) {
+        final @NonNull BlockState state = block.getState(true);
 
         state.setType(Material.AIR);
 
