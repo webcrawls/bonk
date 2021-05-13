@@ -6,6 +6,7 @@ import dev.kscott.bonk.bukkit.game.BonkGame;
 import dev.kscott.bonk.bukkit.inject.BukkitModule;
 import dev.kscott.bonk.bukkit.listeners.BlockInteractListener;
 import dev.kscott.bonk.bukkit.listeners.PlayerConnectionListeners;
+import dev.kscott.bonk.bukkit.listeners.PlayerMovementListeners;
 import dev.kscott.bonk.bukkit.utils.ArrayHelper;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -21,7 +22,8 @@ public final class BukkitBonkPlugin extends JavaPlugin {
      */
     private static final Class<? extends Listener>[] LISTENERS = ArrayHelper.create(
             PlayerConnectionListeners.class,
-            BlockInteractListener.class
+            BlockInteractListener.class,
+            PlayerMovementListeners.class
     );
 
     /**
