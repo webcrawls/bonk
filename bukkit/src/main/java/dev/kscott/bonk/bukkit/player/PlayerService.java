@@ -10,6 +10,7 @@ import org.bukkit.GameMode;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -72,6 +73,22 @@ public final class PlayerService {
 
     /**
      * Returns the {@link BonkPlayer} associated with {@code player}.
+     *
+     * @param player player
+     * @return the {@link BonkPlayer}
+     */
+    public @Nullable BonkPlayer player(final @NonNull Player player) {
+        for (final @NonNull BonkPlayer bonkPlayer : players) {
+            if (bonkPlayer.uuid().equals(player.getUniqueId())) {
+                return bonkPlayer;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns the {@link BonkPlayer} associated with {@code player}.
      * <p>
      * If there is no {@link BonkPlayer} associated with {@code player},
      * and {@code player} is online, then a new {@link BonkPlayer} will
@@ -107,6 +124,10 @@ public final class PlayerService {
      */
     public void left(final @NonNull Player player) {
         players.removeIf(bonkPlayer -> bonkPlayer.uuid().equals(player.getUniqueId()));
+    }
+
+    public void died(final @NonNull Player player) {
+
     }
 
     /**
