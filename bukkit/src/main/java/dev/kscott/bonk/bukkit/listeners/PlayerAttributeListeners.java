@@ -1,6 +1,7 @@
 package dev.kscott.bonk.bukkit.listeners;
 
 import com.google.inject.Inject;
+import dev.kscott.bonk.bukkit.log.LoggingService;
 import dev.kscott.bonk.bukkit.utils.PlayerUtils;
 import dev.kscott.bonk.bukkit.weapon.Weapon;
 import dev.kscott.bonk.bukkit.weapon.WeaponService;
@@ -15,7 +16,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Listens on changes to player attributes (like health, hunger, etc)
@@ -28,19 +28,28 @@ public class PlayerAttributeListeners implements Listener {
     private final @NonNull WeaponService weaponService;
 
     /**
+     * The logging service.
+     */
+    private final @NonNull LoggingService loggingService;
+
+    /**
      * Constructs {@code PlayerAttributeListeners}.
      *
-     * @param weaponService the weapon service
+     * @param weaponService  the weapon service
+     * @param loggingService the logging service
      */
     @Inject
     public PlayerAttributeListeners(
-            final @NonNull WeaponService weaponService
+            final @NonNull WeaponService weaponService,
+            final @NonNull LoggingService loggingService
     ) {
         this.weaponService = weaponService;
+        this.loggingService = loggingService;
     }
 
     /**
      * Cancels food level changes.
+     *
      * @param event {@link FoodLevelChangeEvent}
      */
     @EventHandler
@@ -68,6 +77,8 @@ public class PlayerAttributeListeners implements Listener {
         // Only interested in events involving two players
         if (attacker instanceof final @NonNull Player attackerPlayer &&
                 victim instanceof final Player victimPlayer) {
+            this.loggingService.debug("EDBEE Stage 1: Passed");
+
             final @Nullable ItemStack weaponItem = attackerPlayer.getInventory().getItemInMainHand();
 
             // This very much can be true
@@ -75,22 +86,30 @@ public class PlayerAttributeListeners implements Listener {
                 return;
             }
 
+            this.loggingService.debug("EDBEE Stage 2: Passed");
+
             final @Nullable Weapon weapon = this.weaponService.weaponFromItemStack(weaponItem);
 
             if (weapon == null) {
                 return;
             }
 
+            this.loggingService.debug("EDBEE Stage 3: Passed");
+
             // We are dealing with a textbook bonk hit. Launch accordingly.
             final @NonNull Vector velocity = victimPlayer.getVelocity();
 
             if (PlayerUtils.moving(victimPlayer)) {
+                this.loggingService.debug("EDBEE Stage 4a: Passed");
                 velocity.multiply(2.3);
             } else {
+                this.loggingService.debug("EDBEE Stage 4b: Passed");
                 velocity.multiply(3);
             }
 
             victimPlayer.setVelocity(velocity);
+
+            this.loggingService.debug("EDBEE Stage 5: Passed");
         }
     }
 
