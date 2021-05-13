@@ -2,6 +2,7 @@ package dev.kscott.bonk.bukkit.listeners;
 
 import com.google.inject.Inject;
 import dev.kscott.bonk.bukkit.log.LoggingService;
+import dev.kscott.bonk.bukkit.player.PlayerService;
 import dev.kscott.bonk.bukkit.utils.PlayerUtils;
 import dev.kscott.bonk.bukkit.weapon.Weapon;
 import dev.kscott.bonk.bukkit.weapon.WeaponService;
@@ -33,17 +34,25 @@ public class PlayerAttributeListeners implements Listener {
     private final @NonNull LoggingService loggingService;
 
     /**
+     * The player service.
+     */
+    private final @NonNull PlayerService playerService;
+
+    /**
      * Constructs {@code PlayerAttributeListeners}.
      *
      * @param weaponService  the weapon service
      * @param loggingService the logging service
+     * @param playerService the player service
      */
     @Inject
     public PlayerAttributeListeners(
             final @NonNull WeaponService weaponService,
-            final @NonNull LoggingService loggingService
+            final @NonNull LoggingService loggingService,
+            final @NonNull PlayerService playerService
     ) {
         this.weaponService = weaponService;
+        this.playerService = playerService;
         this.loggingService = loggingService;
     }
 
@@ -97,7 +106,7 @@ public class PlayerAttributeListeners implements Listener {
             this.loggingService.debug("EDBEE Stage 3: Passed");
 
             // We are dealing with a textbook bonk hit. Launch accordingly.
-            final @NonNull Vector velocity = victimPlayer.getVelocity();
+            final @NonNull Vector velocity = PlayerUtils.knockbackVector(victim.getLocation(), attacker.getLocation(), 2.3);
 
             if (PlayerUtils.moving(victimPlayer)) {
                 this.loggingService.debug("EDBEE Stage 4a: Passed");
