@@ -33,7 +33,7 @@ public final class BonkGame {
      * Constructs {@code BonkGame}.
      *
      * @param parentInjector the parent injector
-     * @param plugin the plugin
+     * @param plugin         the plugin
      */
     @Inject
     public BonkGame(

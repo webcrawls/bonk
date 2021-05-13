@@ -56,7 +56,7 @@ public final class PlayerService {
      * Constructs {@code PlayerService}.
      *
      * @param positionService the PositionService dependency
-     * @param weaponService the WeaponService dependency
+     * @param weaponService   the WeaponService dependency
      */
     @Inject
     public PlayerService(

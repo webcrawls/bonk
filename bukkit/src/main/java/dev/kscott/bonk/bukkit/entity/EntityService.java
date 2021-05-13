@@ -21,9 +21,9 @@ public final class EntityService {
      * If {@code dropoff} is true, then the farther away an entity is from {@code location}, the lesser knockback they'll take.
      *
      * @param location the location of the launch point
-     * @param radius the radius of the launch
-     * @param power the power of the launch
-     * @param dropoff should power dropoff be enabled
+     * @param radius   the radius of the launch
+     * @param power    the power of the launch
+     * @param dropoff  should power dropoff be enabled
      * @return a map containing all the entities affected by this launch, and how much knockback they received
      */
     public @NonNull Map<Entity, Double> launchEntities(

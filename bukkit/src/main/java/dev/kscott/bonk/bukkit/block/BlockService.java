@@ -40,9 +40,9 @@ public final class BlockService {
     /**
      * Constructs {@code BlockService}.
      *
-     * @param plugin the plugin
+     * @param plugin          the plugin
      * @param positionService the position service
-     * @param world the game world
+     * @param world           the game world
      */
     @Inject
     public BlockService(
@@ -59,14 +59,15 @@ public final class BlockService {
 
     /**
      * Destroys a block, regenerating it between {@code minRegenTime} and {@code maxRegenTime}, in Minecraft ticks.
-     * @param x block x-coordinate
-     * @param y block y-coordinate
-     * @param z block z-coordinate
+     *
+     * @param x            block x-coordinate
+     * @param y            block y-coordinate
+     * @param z            block z-coordinate
      * @param minRegenTime the minimum regen time
      * @param maxRegenTime the maximum regen time
      */
     public void destroyBlock(final int x, final int y, final int z, final int minRegenTime, final int maxRegenTime) {
-        final @NonNull BlockState state =  this.world.getBlockAt(x, y, z).getState(true);
+        final @NonNull BlockState state = this.world.getBlockAt(x, y, z).getState(true);
 
         state.setType(Material.AIR);
 

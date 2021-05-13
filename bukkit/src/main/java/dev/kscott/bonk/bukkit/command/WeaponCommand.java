@@ -90,7 +90,7 @@ public final class WeaponCommand implements BaseCommand {
         final @Nullable Weapon weapon = this.weaponService.weapon(id);
 
         if (weapon == null) {
-            sender.sendMessage(Component.text("There is no weapon with the id '"+id+"'. Get all weapon ids with /weapons."));
+            sender.sendMessage(Component.text("There is no weapon with the id '" + id + "'. Get all weapon ids with /weapons."));
             return;
         }
 
