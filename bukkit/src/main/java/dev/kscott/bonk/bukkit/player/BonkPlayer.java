@@ -3,8 +3,10 @@ package dev.kscott.bonk.bukkit.player;
 import dev.kscott.bonk.bukkit.position.GamePosition;
 import dev.kscott.bonk.bukkit.weapon.Weapon;
 import org.bukkit.Location;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.util.UUID;
 
@@ -24,6 +26,16 @@ public final class BonkPlayer {
     private final @NonNull Weapon weapon;
 
     /**
+     * The last attacker who hit this player.
+     */
+    private @Nullable Entity lastAttacker;
+
+    /**
+     * The last time, in milliseconds, this player was attacked.
+     */
+    private long lastAttackTime;
+
+    /**
      * Constructs {@code BonkPlayer}.
      *
      * @param player the player to associate with this {@code BonkPlayer}
@@ -35,6 +47,8 @@ public final class BonkPlayer {
     ) {
         this.player = player;
         this.weapon = weapon;
+        this.lastAttacker = null;
+        this.lastAttackTime = 0;
     }
 
     /**
@@ -94,5 +108,37 @@ public final class BonkPlayer {
      */
     public @NonNull Player player() {
         return this.player;
+    }
+
+    /**
+     * {@return this player's last attacker}
+     */
+    public @Nullable Entity lastAttacker() {
+        return this.lastAttacker;
+    }
+
+    /**
+     * {@return when this player was last attacked}
+     */
+    public long lastAttackTime() {
+        return this.lastAttackTime;
+    }
+
+    /**
+     * Sets this player's last attacker.
+     *
+     * @param lastAttacker entity
+     */
+    public void lastAttacker(final @NonNull Entity lastAttacker) {
+        this.lastAttacker = lastAttacker;
+    }
+
+    /**
+     * Sets this player's last attack time.
+     *
+     * @param lastAttackTime last attack time (in ms, as unix timestamp)
+     */
+    public void lastAttackTime(final long lastAttackTime) {
+        this.lastAttackTime = lastAttackTime;
     }
 }
