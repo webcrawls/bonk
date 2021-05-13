@@ -1,11 +1,14 @@
 package dev.kscott.bonk.bukkit.weapon;
 
 import com.google.inject.Inject;
+import dev.kscott.bonk.bukkit.game.Constants;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
-import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
@@ -90,6 +93,30 @@ public class WeaponService {
      */
     public @NonNull Collection<Weapon> weapons() {
         return Collections.unmodifiableCollection(this.weaponMap.values());
+    }
+
+    /**
+     * Checks if {@code itemStack} is a Bonk weapon. If it is, return the Weapon instance.
+     *
+     * @param itemStack itemStack
+     * @return weapon
+     */
+    public @Nullable Weapon weaponFromItemStack(final @NonNull ItemStack itemStack) {
+        if (!itemStack.hasItemMeta()) {
+            return null;
+        }
+
+        final @NonNull ItemMeta itemMeta = itemStack.getItemMeta();
+
+        final @NonNull PersistentDataContainer container = itemMeta.getPersistentDataContainer();
+
+        if (!container.has(Constants.Keys.ITEM_WEAPON_KEY, PersistentDataType.STRING)) {
+            return null;
+        }
+
+        final @NonNull String id = Objects.requireNonNull(container.get(Constants.Keys.ITEM_WEAPON_KEY, PersistentDataType.STRING));
+
+        return this.weapon(id);
     }
 
 }
