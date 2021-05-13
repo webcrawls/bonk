@@ -24,7 +24,7 @@ public final class EntityService {
      * @param radius the radius of the launch
      * @param power the power of the launch
      * @param dropoff should power dropoff be enabled
-     * @return a map where the key is an entity, and the value is the power of the knockback they received
+     * @return a map containing all the entities affected by this launch, and how much knockback they received
      */
     public @NonNull Map<Entity, Double> launchEntities(
             final @NonNull Location location,
