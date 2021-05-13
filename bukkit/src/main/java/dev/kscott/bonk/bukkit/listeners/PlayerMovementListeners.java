@@ -3,6 +3,7 @@ package dev.kscott.bonk.bukkit.listeners;
 import com.destroystokyo.paper.event.player.PlayerJumpEvent;
 import com.google.common.cache.LoadingCache;
 import com.google.inject.Inject;
+import dev.kscott.bonk.bukkit.player.PlayerDeathCause;
 import dev.kscott.bonk.bukkit.player.PlayerService;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -54,7 +55,7 @@ public class PlayerMovementListeners implements Listener {
 
         // Reset player if y >= 0
         if (from.getBlockY() <= 1) {
-            this.playerService.reset(player);
+            this.playerService.died(player, PlayerDeathCause.VOID);
             return;
         }
 

@@ -72,7 +72,7 @@ public final class PlayerService {
      *
      * @param positionService the PositionService dependency
      * @param weaponService   the WeaponService dependency
-     * @param plugin the plugin dependency
+     * @param plugin          the plugin dependency
      */
     @Inject
     public PlayerService(
@@ -148,9 +148,24 @@ public final class PlayerService {
     /**
      * Handles a player's death.
      *
+     * @param player player who died
+     * @param cause  cause of death
+     */
+    public void died(final @NonNull Player player, final @NonNull PlayerDeathCause cause) {
+        // Reset player
+        this.reset(player);
+
+        // TODO dispatch death cause to server
+    }
+
+    /**
+     * Handles a player's death.
+     *
      * @param event {@link PlayerDeathEvent}
      */
     public void died(final @NonNull PlayerDeathEvent event) {
+        event.setCancelled(true);
+
         final @NonNull Player player = event.getEntity();
         final @Nullable BonkPlayer bonkPlayer = this.player(player);
 
@@ -158,12 +173,15 @@ public final class PlayerService {
             return;
         }
 
-        // TODO Set killstreak to 0
-        // TODO Score subtract
-        event.setCancelled(true);
+        final @NonNull PlayerDeathCause cause = PlayerDeathCause.cause(event);
 
-        // Reset player
-        this.reset(bonkPlayer);
+        if (cause == PlayerDeathCause.PLAYER) {
+            // TODO increment attacker's killstreak
+        }
+
+        this.died(player, cause);
+
+        // TODO Set killstreak to 0
     }
 
     /**
@@ -202,7 +220,7 @@ public final class PlayerService {
      * Handles attacks between players.
      *
      * @param attackerPlayer the player who attacked
-     * @param victimPlayer the player who was attacked
+     * @param victimPlayer   the player who was attacked
      */
     public void attacked(final @NonNull Player attackerPlayer, final @NonNull Player victimPlayer) {
         final @NonNull BonkPlayer attacker = Objects.requireNonNull(this.player(attackerPlayer));
