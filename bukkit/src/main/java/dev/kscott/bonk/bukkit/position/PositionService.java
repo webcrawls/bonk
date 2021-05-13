@@ -25,11 +25,6 @@ public final class PositionService {
     private final @NonNull Random random;
 
     /**
-     * The lobby spawn position.
-     */
-    private final @NonNull GamePosition lobbySpawnPosition;
-
-    /**
      * Collection of positions to spawn players at.
      */
     private final @NonNull List<@NonNull GamePosition> gameSpawnPositions;
@@ -49,7 +44,6 @@ public final class PositionService {
             final @NonNull @Named("gameWorld") World world
     ) {
         this.world = world;
-        this.lobbySpawnPosition = new GamePosition(-69.5, 117, -456.5, 0, 0);
         this.boxPositions = List.of();
 
         this.gameSpawnPositions = List.of(
@@ -68,13 +62,6 @@ public final class PositionService {
         );
 
         this.random = new Random();
-    }
-
-    /**
-     * {@return the position of the lobby spawn}
-     */
-    public @NonNull GamePosition lobbyPosition() {
-        return this.lobbySpawnPosition;
     }
 
     /**
