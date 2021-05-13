@@ -81,6 +81,7 @@ public class BlockInteractListener implements Listener {
      *
      * @param event {@link BlockPlaceEvent}
      */
+    @EventHandler
     public void blockPlaceListener(final @NonNull BlockPlaceEvent event) {
         event.setCancelled(true);
     }
