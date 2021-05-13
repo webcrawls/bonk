@@ -31,8 +31,8 @@ public final class PlayerConnectionListeners implements Listener {
      * @param event {@link PlayerJoinEvent}
      */
     @EventHandler
-    public void handlePlayerJoin(final @NonNull PlayerJoinEvent event) {
-        this.playerService.joined(event.getPlayer());
+    public void playerJoin(final @NonNull PlayerJoinEvent event) {
+        this.playerService.joined(event);
     }
 
     /**
@@ -41,7 +41,7 @@ public final class PlayerConnectionListeners implements Listener {
      * @param event {@link PlayerQuitEvent}
      */
     @EventHandler
-    public void handlePlayerLeave(final @NonNull PlayerQuitEvent event) {
-        this.playerService.left(event.getPlayer());
+    public void playerLeave(final @NonNull PlayerQuitEvent event) {
+        this.playerService.quit(event);
     }
 }

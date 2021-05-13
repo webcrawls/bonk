@@ -1,6 +1,7 @@
 package dev.kscott.bonk.bukkit.player;
 
 import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import dev.kscott.bonk.bukkit.position.PositionService;
 import dev.kscott.bonk.bukkit.utils.ArrayHelper;
 import dev.kscott.bonk.bukkit.weapon.WeaponService;
@@ -9,6 +10,9 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.GameMode;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
@@ -16,6 +20,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Manages the players of Bonk.
@@ -51,6 +57,11 @@ public final class PlayerService {
     private final @NonNull WeaponService weaponService;
 
     /**
+     * The logger.
+     */
+    private final @NonNull Logger logger;
+
+    /**
      * Stores all online Bonk players.
      */
     private final @NonNull Set<BonkPlayer> players;
@@ -60,14 +71,17 @@ public final class PlayerService {
      *
      * @param positionService the PositionService dependency
      * @param weaponService   the WeaponService dependency
+     * @param logger          the plugin logger
      */
     @Inject
     public PlayerService(
             final @NonNull PositionService positionService,
-            final @NonNull WeaponService weaponService
-    ) {
+            final @NonNull WeaponService weaponService,
+            final @NonNull @Named("pluginLogger") Logger logger
+            ) {
         this.positionService = positionService;
         this.weaponService = weaponService;
+        this.logger = logger;
         this.players = new HashSet<>();
     }
 
@@ -88,16 +102,18 @@ public final class PlayerService {
     }
 
     /**
-     * Returns the {@link BonkPlayer} associated with {@code player}.
+     * Returns the {@link BonkPlayer} associated with {@code event#getPlayer}.
      * <p>
-     * If there is no {@link BonkPlayer} associated with {@code player},
+     * If there is no {@link BonkPlayer} associated with {@code event#getPlayer},
      * and {@code player} is online, then a new {@link BonkPlayer} will
      * be created and {@code player} will be initialized into the game.
      *
-     * @param player player
+     * @param event {@link PlayerJoinEvent}
      * @return the {@link BonkPlayer}
      */
-    public @NonNull BonkPlayer joined(final @NonNull Player player) {
+    public @NonNull BonkPlayer joined(final @NonNull PlayerJoinEvent event) {
+        final @NonNull Player player = event.getPlayer();
+
         if (!player.isOnline()) {
             throw new RuntimeException("Tried to create a player that is not online!");
         }
@@ -120,14 +136,34 @@ public final class PlayerService {
     /**
      * Removes a player from Bonk.
      *
-     * @param player player to remove
+     * @param event {@link PlayerQuitEvent}
      */
-    public void left(final @NonNull Player player) {
-        players.removeIf(bonkPlayer -> bonkPlayer.uuid().equals(player.getUniqueId()));
+    public void quit(final @NonNull PlayerQuitEvent event) {
+        // TODO restore inventory
+        // TODO teleport back to previous location
+        players.removeIf(bonkPlayer -> bonkPlayer.uuid().equals(event.getPlayer().getUniqueId()));
     }
 
-    public void died(final @NonNull Player player) {
+    /**
+     * Handles a player's death.
+     *
+     * @param event {@link PlayerDeathEvent}
+     */
+    public void died(final @NonNull PlayerDeathEvent event) {
+        final @NonNull Player player = event.getEntity();
+        final @Nullable BonkPlayer bonkPlayer = this.player(player);
 
+        if (bonkPlayer == null) {
+            this.logger.log(Level.INFO, "Tried to call PlayerService#died with a player who is not playing Bonk!");
+            return;
+        }
+
+        // TODO Set killstreak to 0
+        // TODO Score subtract
+        event.setCancelled(true);
+
+        // Reset player
+        this.reset(bonkPlayer);
     }
 
     /**
@@ -137,13 +173,30 @@ public final class PlayerService {
      * @return {@code true} if {@code player} is playing Bonk; {@code false} if otherwise
      */
     public boolean playing(final @NonNull Player player) {
-        for (final @NonNull BonkPlayer bonkPlayer : players) {
-            if (bonkPlayer.uuid().equals(player.getUniqueId())) {
-                return true;
-            }
-        }
+        return this.player(player) != null;
+    }
 
-        return false;
+    /**
+     * {@return a collection containing all bonk players}
+     */
+    public @NonNull Collection<BonkPlayer> players() {
+        return Collections.unmodifiableSet(this.players);
+    }
+
+    /**
+     * Handles a player's respawn.
+     *
+     * @param bonkPlayer player to reset
+     */
+    public void reset(final @NonNull BonkPlayer bonkPlayer) {
+        final @NonNull Player player = bonkPlayer.player();
+
+        bonkPlayer.position(this.positionService.spawnPosition());
+
+        player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0.25);
+        player.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(24);
+        player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
+        player.setGameMode(GameMode.SURVIVAL);
     }
 
 
@@ -160,11 +213,6 @@ public final class PlayerService {
 
         bonkPlayer.position(this.positionService.spawnPosition());
 
-        player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0.25);
-        player.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(24);
-        player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
-        player.setGameMode(GameMode.SURVIVAL);
-
         if (SEND_MOTD) {
             for (final @NonNull Component component : MOTD_COMPONENTS) {
                 player.sendMessage(component);
@@ -178,10 +226,4 @@ public final class PlayerService {
         return bonkPlayer;
     }
 
-    /**
-     * {@return a collection containing all bonk players}
-     */
-    public @NonNull Collection<BonkPlayer> players() {
-        return Collections.unmodifiableSet(this.players);
-    }
 }
