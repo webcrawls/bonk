@@ -1,5 +1,8 @@
 package dev.kscott.bonk.bukkit.chat;
 
-public class ChatService {
+/**
+ * Handles chat stuff.
+ */
+public final class ChatService {
 
 }
