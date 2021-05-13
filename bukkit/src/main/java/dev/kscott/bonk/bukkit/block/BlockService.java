@@ -68,7 +68,7 @@ public final class BlockService {
     public void destroyBlock(Block block, final int minRegenTime, final int maxRegenTime) {
         final @NonNull BlockState state = block.getState(true);
 
-        state.setType(Material.AIR);
+        block.setType(Material.AIR);
 
         final int delay = minRegenTime == maxRegenTime ? minRegenTime : this.random.nextInt(maxRegenTime - minRegenTime) + minRegenTime;
 

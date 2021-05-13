@@ -70,10 +70,11 @@ public class BlockInteractListener implements Listener {
      */
     @EventHandler
     public void blockBreakListener(final @NonNull BlockBreakEvent event) {
+        System.out.println("Block");
         event.setCancelled(true);
         final @NonNull Block block = event.getBlock();
 
-        this.blockService.destroyBlock(block, 1000, 2000);
+        this.blockService.destroyBlock(block, 20, 40);
     }
 
     /**
