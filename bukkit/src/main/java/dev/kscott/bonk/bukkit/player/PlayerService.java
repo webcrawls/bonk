@@ -6,6 +6,8 @@ import dev.kscott.bonk.bukkit.utils.ArrayHelper;
 import dev.kscott.bonk.bukkit.weapon.WeaponService;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.GameMode;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
@@ -137,11 +139,20 @@ public final class PlayerService {
 
         bonkPlayer.position(this.positionService.spawnPosition());
 
+        player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0.25);
+        player.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(24);
+        player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
+        player.setGameMode(GameMode.SURVIVAL);
+
         if (SEND_MOTD) {
             for (final @NonNull Component component : MOTD_COMPONENTS) {
                 player.sendMessage(component);
             }
         }
+
+        // TODO: Save inventory/attributes before joining to reuse after player leaves Bonk
+        player.getInventory().clear();
+        player.getInventory().addItem(bonkPlayer.weapon().itemStack());
 
         return bonkPlayer;
     }
