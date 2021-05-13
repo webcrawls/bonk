@@ -3,17 +3,17 @@ package dev.kscott.bonk.bukkit.position;
 /**
  * Represents a position in the game.
  *
- * @param x the x coordinate
- * @param y the y coordinate
- * @param z the z coordinate
+ * @param x     the x coordinate
+ * @param y     the y coordinate
+ * @param z     the z coordinate
+ * @param yaw   the yaw
  * @param pitch the pitch
- * @param yaw the yaw
  */
 public final record GamePosition(
         double x,
         double y,
         double z,
-        float pitch,
-        float yaw
+        float yaw,
+        float pitch
 ) {
 }
