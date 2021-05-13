@@ -2,6 +2,7 @@ package dev.kscott.bonk.bukkit.player;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import dev.kscott.bonk.bukkit.game.Constants;
 import dev.kscott.bonk.bukkit.position.PositionService;
 import dev.kscott.bonk.bukkit.utils.ArrayHelper;
 import dev.kscott.bonk.bukkit.weapon.WeaponService;
@@ -184,7 +185,7 @@ public final class PlayerService {
     }
 
     /**
-     * Handles a player's respawn.
+     * Resets a player: attributes, inventory, and position.
      *
      * @param bonkPlayer player to reset
      */
@@ -197,6 +198,12 @@ public final class PlayerService {
         player.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(24);
         player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
         player.setGameMode(GameMode.SURVIVAL);
+
+        player.removePotionEffect(Constants.Potions.JUMP_BOOST.getType());
+        player.addPotionEffect(Constants.Potions.JUMP_BOOST);
+
+        player.getInventory().clear();
+        player.getInventory().addItem(bonkPlayer.weapon().itemStack());
     }
 
 
@@ -209,9 +216,7 @@ public final class PlayerService {
     private @NonNull BonkPlayer createNewBonkPlayer(final @NonNull Player player) {
         final @NonNull BonkPlayer bonkPlayer = new BonkPlayer(player, this.weaponService.defaultWeapon());
 
-        players.add(bonkPlayer);
-
-        bonkPlayer.position(this.positionService.spawnPosition());
+        // TODO: Save inventory/attributes before joining to reuse after player leaves Bonk
 
         if (SEND_MOTD) {
             for (final @NonNull Component component : MOTD_COMPONENTS) {
@@ -219,9 +224,9 @@ public final class PlayerService {
             }
         }
 
-        // TODO: Save inventory/attributes before joining to reuse after player leaves Bonk
-        player.getInventory().clear();
-        player.getInventory().addItem(bonkPlayer.weapon().itemStack());
+        players.add(bonkPlayer);
+
+        reset(bonkPlayer);
 
         return bonkPlayer;
     }
