@@ -173,7 +173,22 @@ public final class PlayerService {
     }
 
     /**
-     * Resets a player: attributes, inventory, and position.
+     * {@link PlayerService#reset(BonkPlayer)}
+     *
+     * @param player player to reset
+     */
+    public void reset(final @NonNull Player player) {
+        final @Nullable BonkPlayer bonkPlayer = this.player(player);
+
+        if (bonkPlayer == null) {
+            return;
+        }
+
+        this.reset(bonkPlayer);
+    }
+
+    /**
+     * Resets a bonkPlayer: attributes, inventory, position and game data.
      *
      * @param bonkPlayer player to reset
      */
