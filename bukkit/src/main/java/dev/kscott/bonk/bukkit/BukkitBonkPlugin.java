@@ -23,7 +23,7 @@ public final class BukkitBonkPlugin extends JavaPlugin {
             BlockInteractListener.class,
             PlayerMovementListeners.class,
             PlayerDeathListeners.class,
-            PlayerDamageListener.class
+            PlayerAttributeListeners.class
     );
 
     /**
