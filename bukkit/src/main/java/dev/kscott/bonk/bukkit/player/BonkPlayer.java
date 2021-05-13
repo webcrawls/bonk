@@ -89,4 +89,11 @@ public final class BonkPlayer {
     public @NonNull Weapon weapon() {
         return this.weapon;
     }
+
+    /**
+     * {@return the player}
+     */
+    public @NonNull Player player() {
+        return this.player;
+    }
 }
