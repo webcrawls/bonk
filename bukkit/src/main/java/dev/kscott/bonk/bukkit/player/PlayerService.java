@@ -1,7 +1,6 @@
 package dev.kscott.bonk.bukkit.player;
 
 import com.google.inject.Inject;
-import com.google.inject.name.Named;
 import dev.kscott.bonk.bukkit.game.Constants;
 import dev.kscott.bonk.bukkit.position.PositionService;
 import dev.kscott.bonk.bukkit.utils.ArrayHelper;
@@ -21,8 +20,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Manages the players of Bonk.
@@ -58,11 +55,6 @@ public final class PlayerService {
     private final @NonNull WeaponService weaponService;
 
     /**
-     * The logger.
-     */
-    private final @NonNull Logger logger;
-
-    /**
      * Stores all online Bonk players.
      */
     private final @NonNull Set<BonkPlayer> players;
@@ -72,17 +64,14 @@ public final class PlayerService {
      *
      * @param positionService the PositionService dependency
      * @param weaponService   the WeaponService dependency
-     * @param logger          the plugin logger
      */
     @Inject
     public PlayerService(
             final @NonNull PositionService positionService,
-            final @NonNull WeaponService weaponService,
-            final @NonNull @Named("pluginLogger") Logger logger
-            ) {
+            final @NonNull WeaponService weaponService
+    ) {
         this.positionService = positionService;
         this.weaponService = weaponService;
-        this.logger = logger;
         this.players = new HashSet<>();
     }
 
@@ -155,7 +144,6 @@ public final class PlayerService {
         final @Nullable BonkPlayer bonkPlayer = this.player(player);
 
         if (bonkPlayer == null) {
-            this.logger.log(Level.INFO, "Tried to call PlayerService#died with a player who is not playing Bonk!");
             return;
         }
 
