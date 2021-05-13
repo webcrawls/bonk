@@ -5,7 +5,7 @@ import com.google.inject.Injector;
 import dev.kscott.bonk.bukkit.game.BonkGame;
 import dev.kscott.bonk.bukkit.inject.BukkitModule;
 import dev.kscott.bonk.bukkit.listeners.BlockInteractListener;
-import dev.kscott.bonk.bukkit.listeners.PlayerJoinListener;
+import dev.kscott.bonk.bukkit.listeners.PlayerConnectionListeners;
 import dev.kscott.bonk.bukkit.utils.ArrayHelper;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -20,7 +20,7 @@ public final class BukkitBonkPlugin extends JavaPlugin {
      * An array of {@link Listener} classes to initialize during startup.
      */
     private static final Class<? extends Listener>[] LISTENERS = ArrayHelper.create(
-            PlayerJoinListener.class,
+            PlayerConnectionListeners.class,
             BlockInteractListener.class
     );
 

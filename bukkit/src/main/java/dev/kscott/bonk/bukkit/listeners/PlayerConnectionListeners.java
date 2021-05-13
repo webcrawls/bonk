@@ -10,7 +10,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 /**
  * Listens on player join events.
  */
-public final class PlayerJoinListener implements Listener {
+public final class PlayerConnectionListeners implements Listener {
 
     private final @NonNull PlayerService playerService;
 
@@ -20,7 +20,7 @@ public final class PlayerJoinListener implements Listener {
      * @param playerService the PlayerService
      */
     @Inject
-    public PlayerJoinListener(final @NonNull PlayerService playerService) {
+    public PlayerConnectionListeners(final @NonNull PlayerService playerService) {
         this.playerService = playerService;
     }
 
