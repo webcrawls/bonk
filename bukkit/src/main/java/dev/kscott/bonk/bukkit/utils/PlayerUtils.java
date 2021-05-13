@@ -1,5 +1,6 @@
 package dev.kscott.bonk.bukkit.utils;
 
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -22,6 +23,24 @@ public final class PlayerUtils {
      */
     public static boolean moving(final @NonNull Player player) {
         return !player.getVelocity().equals(stillVector);
+    }
+
+    /**
+     * Calculates the knockback vector between two entities, with a given power.
+     *
+     * @param attacker the attacker entity
+     * @param victim   the victim entity
+     * @param power    the strength of the knockback - set to 1 for default
+     * @return new calculated {@link Vector}
+     */
+    public static @NonNull Vector knockbackVector(
+            final @NonNull Entity attacker,
+            final @NonNull Entity victim,
+            final double power
+    ) {
+        return victim.getLocation().toVector().subtract(attacker.getLocation().toVector())
+                .normalize()
+                .multiply(power);
     }
 
 }
