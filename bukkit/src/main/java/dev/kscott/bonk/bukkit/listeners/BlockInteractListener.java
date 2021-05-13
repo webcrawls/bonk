@@ -95,7 +95,7 @@ public class BlockInteractListener implements Listener {
         // Regen between 2-4 seconds
         final int regenTime = random.nextInt(80) + 40;
 
-        this.entityService.launchEntities(block.getLocation(), 4, 2, true);
+        this.entityService.launchEntities(block.getLocation(), 4, 2, false);
 
         new BukkitRunnable() {
             @Override
