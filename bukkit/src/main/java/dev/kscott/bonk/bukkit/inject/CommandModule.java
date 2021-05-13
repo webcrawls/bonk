@@ -54,7 +54,7 @@ public final class CommandModule extends AbstractModule {
      */
     @Provides
     @Singleton
-    public CommandManager<CommandSender> provideCommandManager() {
+    public CommandManager<CommandSender> commandManager() {
         return this.commandManager;
     }
 
@@ -63,7 +63,7 @@ public final class CommandModule extends AbstractModule {
      */
     @Provides
     @Singleton
-    public PaperCommandManager<CommandSender> providePaperCommandManager() {
+    public PaperCommandManager<CommandSender> paperCommandManager() {
         return this.commandManager;
     }
 
