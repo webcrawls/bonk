@@ -4,6 +4,8 @@ import com.google.inject.Inject;
 import dev.kscott.bonk.bukkit.game.Constants;
 import dev.kscott.bonk.bukkit.position.PositionService;
 import dev.kscott.bonk.bukkit.utils.ArrayHelper;
+import dev.kscott.bonk.bukkit.utils.PlayerUtils;
+import dev.kscott.bonk.bukkit.weapon.Weapon;
 import dev.kscott.bonk.bukkit.weapon.WeaponService;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -13,15 +15,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.Vector;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Manages the players of Bonk.
@@ -195,6 +196,47 @@ public final class PlayerService {
         }
 
         this.reset(bonkPlayer);
+    }
+
+    /**
+     * Handles attacks between players.
+     *
+     * @param attackerPlayer the player who attacked
+     * @param victimPlayer the player who was attacked
+     */
+    public void attacked(final @NonNull Player attackerPlayer, final @NonNull Player victimPlayer) {
+        final @NonNull BonkPlayer attacker = Objects.requireNonNull(this.player(attackerPlayer));
+        final @NonNull BonkPlayer victim = Objects.requireNonNull(this.player(victimPlayer));
+
+        victim.lastAttacker(attackerPlayer);
+        victim.lastAttackTime(System.currentTimeMillis());
+
+        // TODO Multihits
+
+        final @Nullable ItemStack weaponItem = attackerPlayer.getInventory().getItemInMainHand();
+
+        // This very much can be true
+        if (weaponItem == null) {
+            return;
+        }
+
+        final @Nullable Weapon weapon = this.weaponService.weaponFromItemStack(weaponItem);
+
+        if (weapon == null) {
+            return;
+        }
+
+        // We are dealing with a textbook bonk hit. Launch accordingly.
+        final @NonNull Vector velocity = PlayerUtils.knockbackVector(victimPlayer.getLocation(), attackerPlayer.getLocation(), 2.3);
+
+        if (PlayerUtils.moving(victimPlayer)) {
+            velocity.multiply(2.3);
+        } else {
+            velocity.multiply(3);
+        }
+
+        victimPlayer.setVelocity(velocity);
+
     }
 
     /**

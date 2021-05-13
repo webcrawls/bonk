@@ -86,39 +86,7 @@ public class PlayerAttributeListeners implements Listener {
         // Only interested in events involving two players
         if (attacker instanceof final @NonNull Player attackerPlayer &&
                 victim instanceof final Player victimPlayer) {
-            this.loggingService.debug("EDBEE Stage 1: Passed");
-
-            final @Nullable ItemStack weaponItem = attackerPlayer.getInventory().getItemInMainHand();
-
-            // This very much can be true
-            if (weaponItem == null) {
-                return;
-            }
-
-            this.loggingService.debug("EDBEE Stage 2: Passed");
-
-            final @Nullable Weapon weapon = this.weaponService.weaponFromItemStack(weaponItem);
-
-            if (weapon == null) {
-                return;
-            }
-
-            this.loggingService.debug("EDBEE Stage 3: Passed");
-
-            // We are dealing with a textbook bonk hit. Launch accordingly.
-            final @NonNull Vector velocity = PlayerUtils.knockbackVector(victim.getLocation(), attacker.getLocation(), 2.3);
-
-            if (PlayerUtils.moving(victimPlayer)) {
-                this.loggingService.debug("EDBEE Stage 4a: Passed");
-                velocity.multiply(2.3);
-            } else {
-                this.loggingService.debug("EDBEE Stage 4b: Passed");
-                velocity.multiply(3);
-            }
-
-            victimPlayer.setVelocity(velocity);
-
-            this.loggingService.debug("EDBEE Stage 5: Passed");
+            this.playerService.attacked(attackerPlayer, victimPlayer);
         }
     }
 
