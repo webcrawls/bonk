@@ -21,8 +21,7 @@ public final class BonkPlayer {
     /**
      * The weapon the player is using. Defaults to Stick.
      */
-    private @NonNull
-    final Weapon weapon;
+    private final @NonNull Weapon weapon;
 
     /**
      * Constructs {@code BonkPlayer}.
