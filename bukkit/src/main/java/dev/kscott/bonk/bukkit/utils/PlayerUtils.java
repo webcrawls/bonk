@@ -1,6 +1,6 @@
 package dev.kscott.bonk.bukkit.utils;
 
-import org.bukkit.entity.Entity;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -26,19 +26,19 @@ public final class PlayerUtils {
     }
 
     /**
-     * Calculates the knockback vector between two entities, with a given power.
+     * Calculates the knockback vector between two locations, with a given power.
      *
-     * @param attacker the attacker entity
-     * @param victim   the victim entity
-     * @param power    the strength of the knockback - set to 1 for default
+     * @param location1 the first location
+     * @param location2 the second location
+     * @param power     the strength of the knockback - set to 1 for default
      * @return new calculated {@link Vector}
      */
     public static @NonNull Vector knockbackVector(
-            final @NonNull Entity attacker,
-            final @NonNull Entity victim,
+            final @NonNull Location location1,
+            final @NonNull Location location2,
             final double power
     ) {
-        return victim.getLocation().toVector().subtract(attacker.getLocation().toVector())
+        return location1.toVector().subtract(location2.toVector())
                 .normalize()
                 .multiply(power);
     }
