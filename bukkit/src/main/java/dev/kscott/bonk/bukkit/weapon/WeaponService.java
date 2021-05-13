@@ -22,30 +22,20 @@ public class WeaponService {
     private final @NonNull Map<@NonNull String, @NonNull Weapon> weaponMap;
 
     /**
-     * The key to use for weapon ids.
-     */
-    private final @NonNull NamespacedKey weaponKey;
-
-    /**
      * The default weapon.
      */
     private final @NonNull Weapon defaultWeapon;
 
     /**
      * Constructs {@link WeaponService}.
-     *
-     * @param plugin the plugin
      */
     @Inject
-    public WeaponService(
-            final @NonNull JavaPlugin plugin
-    ) {
+    public WeaponService() {
         this.weaponMap = new HashMap<>();
-        this.weaponKey = new NamespacedKey(plugin, "weapon");
 
         this.registerDefaults();
 
-        this.defaultWeapon = this.weaponMap.entrySet().iterator().next().getValue();
+        this.defaultWeapon = Objects.requireNonNull(this.weapon("stick"));
     }
 
     /**
@@ -57,8 +47,7 @@ public class WeaponService {
                 Component.text("Stick"),
                 List.of(Component.text("The original Bonk stick, circa 2019.")),
                 Material.STICK,
-                List.of(new WeaponSoundDefinition(Sound.BLOCK_BAMBOO_BREAK, 1, 1)),
-                this.weaponKey
+                List.of(new WeaponSoundDefinition(Sound.BLOCK_BAMBOO_BREAK, 1, 1))
         )); // Stick
 
         this.register(new Weapon(
@@ -66,8 +55,7 @@ public class WeaponService {
                 Component.text("Blaze"),
                 List.of(Component.text("The Bonk stick, with a bit more flare.")),
                 Material.BLAZE_ROD,
-                List.of(new WeaponSoundDefinition(Sound.ENTITY_BLAZE_HURT, 0.2F, 1)),
-                this.weaponKey
+                List.of(new WeaponSoundDefinition(Sound.ENTITY_BLAZE_HURT, 0.2F, 1))
         )); // Blaze
     }
 
