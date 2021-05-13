@@ -99,7 +99,9 @@ public final class PlayerService {
     }
 
     /**
-     * @param player
+     * Removes a player from Bonk.
+     *
+     * @param player player to remove
      */
     public void left(final @NonNull Player player) {
         players.removeIf(bonkPlayer -> bonkPlayer.uuid().equals(player.getUniqueId()));
