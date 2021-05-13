@@ -6,6 +6,8 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+import java.util.logging.Logger;
+
 /**
  * Provides Bukkit-related classes.
  */
@@ -33,5 +35,6 @@ public final class BukkitModule extends AbstractModule {
         this.bind(Plugin.class).toInstance(this.plugin);
         this.bind(JavaPlugin.class).toInstance(this.plugin);
         this.bind(BukkitBonkPlugin.class).toInstance(this.plugin);
+        this.bind(Logger.class).toInstance(this.plugin.getLogger());
     }
 }
