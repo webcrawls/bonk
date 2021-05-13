@@ -78,8 +78,8 @@ public final class BonkPlayer {
                 position.x(),
                 position.y(),
                 position.z(),
-                position.yaw(),
-                position.pitch()
+                position.pitch(),
+                position.yaw()
         ));
     }
 
