@@ -50,7 +50,7 @@ public final class BukkitBonkPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        this.injector = bonkGame.load();
+        this.injector = this.bonkGame.load();
 
         // Register events
         for (final @NonNull Class<? extends Listener> klazz : LISTENERS) {
@@ -59,6 +59,8 @@ public final class BukkitBonkPlugin extends JavaPlugin {
                     this
             );
         }
+
+        this.bonkGame.enable();
     }
 
 }
