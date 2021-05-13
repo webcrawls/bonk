@@ -9,6 +9,8 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.entity.Player;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -140,5 +142,12 @@ public final class PlayerService {
         }
 
         return bonkPlayer;
+    }
+
+    /**
+     * {@return a collection containing all bonk players}
+     */
+    private @NonNull Collection<BonkPlayer> players() {
+        return Collections.unmodifiableSet(this.players);
     }
 }
