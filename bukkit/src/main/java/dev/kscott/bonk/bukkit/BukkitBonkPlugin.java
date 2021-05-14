@@ -52,12 +52,12 @@ public final class BukkitBonkPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        this.bonkGame = injector.getInstance(BonkGame.class);
-
         this.injector = this.injector.createChildInjector(
                 new CommandModule(this),
                 new GameModule(this)
         );
+
+        this.bonkGame = injector.getInstance(BonkGame.class);
 
         this.injector.getInstance(CommandService.class); // Initialize command service
 
