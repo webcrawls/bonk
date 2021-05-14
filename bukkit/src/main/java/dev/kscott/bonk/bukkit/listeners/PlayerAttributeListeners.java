@@ -73,7 +73,7 @@ public class PlayerAttributeListeners implements Listener {
         if (entity instanceof Player) {
             if (event.getCause() == EntityDamageEvent.DamageCause.FALL) {
                 // Jump boost absorbs a lot of damage
-                event.setDamage(event.getDamage() * 1.35);
+//                event.setDamage(event.getDamage() * 1.35);
             }
         }
     }
