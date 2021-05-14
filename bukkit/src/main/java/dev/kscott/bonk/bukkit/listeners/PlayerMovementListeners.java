@@ -1,18 +1,18 @@
 package dev.kscott.bonk.bukkit.listeners;
 
-import com.destroystokyo.paper.event.player.PlayerJumpEvent;
-import com.google.common.cache.LoadingCache;
 import com.google.inject.Inject;
-import dev.kscott.bonk.bukkit.player.PlayerDeathCause;
+import dev.kscott.bonk.bukkit.player.DoubleJumpService;
+import dev.kscott.bonk.bukkit.player.cause.PlayerDeathCauseOld;
 import dev.kscott.bonk.bukkit.player.PlayerService;
+import dev.kscott.bonk.bukkit.utils.PlayerUtils;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.Vector;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
@@ -31,17 +31,25 @@ public class PlayerMovementListeners implements Listener {
     private final @NonNull PlayerService playerService;
 
     /**
+     * The double jump service.
+     */
+    private final @NonNull DoubleJumpService doubleJumpService;
+
+    /**
      * Constructs {@link PlayerMovementListeners}.
      *
      * @param plugin the plugin
      * @param playerService the player service
+     * @param doubleJumpService the double jump service
      */
     @Inject
     public PlayerMovementListeners(
             final @NonNull JavaPlugin plugin,
-            final @NonNull PlayerService playerService
+            final @NonNull PlayerService playerService,
+            final @NonNull DoubleJumpService doubleJumpService
     ) {
         this.plugin = plugin;
+        this.doubleJumpService = doubleJumpService;
         this.playerService = playerService;
     }
 
@@ -55,10 +63,27 @@ public class PlayerMovementListeners implements Listener {
 
         // Reset player if y >= 0
         if (from.getBlockY() <= 1) {
-            this.playerService.died(player, PlayerDeathCause.VOID);
+            this.playerService.died(player, PlayerDeathCauseOld.VOID);
             return;
         }
 
+    }
+
+    /**
+     * Handles the double jump.
+     *
+     * @param event event
+     */
+    @EventHandler
+    public void playerShift(final @NonNull PlayerToggleSneakEvent event) {
+        final @NonNull Player player = event.getPlayer();
+
+        if (!PlayerUtils.isNearGround(player)) {
+            if (this.doubleJumpService.canDoubleJump(player)) {
+                player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDER_DRAGON_FLAP, 0.5F, 1F);
+                this.doubleJumpService.doubleJump(player);
+            }
+        }
     }
 
 }
