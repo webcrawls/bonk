@@ -1,7 +1,7 @@
 package dev.kscott.bonk.bukkit.utils;
 
-import dev.kscott.bonk.bukkit.game.Constants;
 import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -45,13 +45,16 @@ public final class PlayerUtils {
     }
 
     /**
-     * Returns {@code true} if the player is near the ground, {@code false} if not.
+     * Checks if the player is near the ground.
      *
      * @param player player
      * @return boolean
      */
-    public static boolean nearGround(final @NonNull Player player) {
-        return player.getVelocity().getY() == Constants.Numbers.GRAVITY;
+    public static boolean isNearGround(Player player) {
+        Block block1 = player.getLocation().getBlock();
+        Block block2 = player.getLocation().clone().subtract(0, 1, 0).getBlock();
+
+        return !block1.isEmpty() || !block2.isEmpty();
     }
 
 }
