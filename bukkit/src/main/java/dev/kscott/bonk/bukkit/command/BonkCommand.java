@@ -2,6 +2,7 @@ package dev.kscott.bonk.bukkit.command;
 
 import cloud.commandframework.Command;
 import cloud.commandframework.CommandManager;
+import cloud.commandframework.arguments.standard.StringArgument;
 import cloud.commandframework.context.CommandContext;
 import com.google.inject.Inject;
 import dev.kscott.bonk.bukkit.player.BonkPlayer;
@@ -45,6 +46,11 @@ public final class BonkCommand implements BaseCommand {
         manager.command(builder.handler(this::handleBonk));
         manager.command(builder.literal("players")
                 .handler(this::handlePlayers));
+
+        manager.command(builder.literal("minigame")
+                .argument(StringArgument.of("minigame"))
+                .argument(StringArgument.of("operation"))
+        );
     }
 
     /**
