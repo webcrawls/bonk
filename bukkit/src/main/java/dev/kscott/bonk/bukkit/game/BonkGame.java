@@ -100,4 +100,8 @@ public final class BonkGame {
         }
     }
 
+    private void tick() {
+
+    }
+
 }
