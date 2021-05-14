@@ -47,7 +47,7 @@ public final class DoubleJumpService {
      * @param player player
      * @param can    boolean
      */
-    private void canDoubleJump(final @NonNull Player player, final boolean can) {
+    public void canDoubleJump(final @NonNull Player player, final boolean can) {
         if (can) {
             this.doubleJumpedPlayers.remove(player.getUniqueId());
         } else {
