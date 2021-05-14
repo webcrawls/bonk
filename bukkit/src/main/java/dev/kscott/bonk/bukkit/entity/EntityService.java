@@ -36,6 +36,7 @@ public final class EntityService {
 
         final @NonNull Map<Entity, Double> knockbackMap = new HashMap<>();
 
+        // Loop through every entity and apply knockback effect
         for (final @NonNull LivingEntity livingEntity : entities) {
             final @NonNull Location entityLocation = livingEntity.getLocation();
 
