@@ -2,6 +2,7 @@ package dev.kscott.bonk.bukkit.player;
 
 import com.google.inject.Inject;
 import dev.kscott.bonk.bukkit.game.Constants;
+import dev.kscott.bonk.bukkit.player.cause.PlayerDeathCauseOld;
 import dev.kscott.bonk.bukkit.position.PositionService;
 import dev.kscott.bonk.bukkit.utils.ArrayHelper;
 import dev.kscott.bonk.bukkit.utils.PlayerUtils;
@@ -12,6 +13,7 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.GameMode;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -145,17 +147,8 @@ public final class PlayerService {
         players.removeIf(bonkPlayer -> bonkPlayer.uuid().equals(event.getPlayer().getUniqueId()));
     }
 
-    /**
-     * Handles a player's death.
-     *
-     * @param player player who died
-     * @param cause  cause of death
-     */
-    public void died(final @NonNull Player player, final @NonNull PlayerDeathCause cause) {
-        // Reset player
+    public void died(final @NonNull Player player, final @NonNull PlayerDeathCauseOld cause) {
         this.reset(player);
-
-        // TODO dispatch death cause to server
     }
 
     /**
@@ -173,13 +166,13 @@ public final class PlayerService {
             return;
         }
 
-        final @NonNull PlayerDeathCause cause = PlayerDeathCause.cause(event);
+        final @NonNull PlayerDeathCauseOld cause = PlayerDeathCauseOld.cause(event);
 
-        if (cause == PlayerDeathCause.PLAYER) {
+        if (cause == PlayerDeathCauseOld.PLAYER) {
             // TODO increment attacker's killstreak
         }
 
-        this.died(player, cause);
+        this.reset(bonkPlayer);
 
         // TODO Set killstreak to 0
     }
