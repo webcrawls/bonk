@@ -80,7 +80,7 @@ public class PlayerAttributeListeners implements Listener {
 
         // Only interested in events involving two players
         if (attacker instanceof final @NonNull Player attackerPlayer &&
-                victim instanceof final Player victimPlayer) {
+                victim instanceof final @NonNull Player victimPlayer) {
             this.playerService.attacked(attackerPlayer, victimPlayer);
         }
     }
