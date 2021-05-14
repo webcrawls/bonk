@@ -4,22 +4,15 @@ import com.google.inject.Inject;
 import dev.kscott.bonk.bukkit.player.BonkPlayer;
 import dev.kscott.bonk.bukkit.player.PlayerService;
 import io.papermc.paper.event.player.AsyncChatEvent;
-import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
-import java.awt.*;
 import java.util.Collection;
-import java.util.Objects;
 
 /**
  * Handles chat stuff.
@@ -40,7 +33,7 @@ public final class ChatService {
      * Constructs {@code ChatService}.
      *
      * @param playerService the player service
-     * @param plugin the plugin
+     * @param plugin        the plugin
      */
     @Inject
     public ChatService(
@@ -58,7 +51,7 @@ public final class ChatService {
      */
     public void chat(final @NonNull AsyncChatEvent event) {
         final @NonNull Component text = MiniMessage.get()
-                .parse("<gradient:#72e5ed:#d4f7fa><bold>"+event.getPlayer().getName()+"</bold></gradient> <gray>\\></gray>")
+                .parse("<gradient:#72e5ed:#d4f7fa><bold>" + event.getPlayer().getName() + "</bold></gradient> <gray>\\></gray>")
                 .append(event.message().style(Style.style(TextColor.color(192, 205, 207))));
 
 

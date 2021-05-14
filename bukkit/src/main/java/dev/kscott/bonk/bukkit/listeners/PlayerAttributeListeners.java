@@ -3,8 +3,6 @@ package dev.kscott.bonk.bukkit.listeners;
 import com.google.inject.Inject;
 import dev.kscott.bonk.bukkit.log.LoggingService;
 import dev.kscott.bonk.bukkit.player.PlayerService;
-import dev.kscott.bonk.bukkit.utils.PlayerUtils;
-import dev.kscott.bonk.bukkit.weapon.Weapon;
 import dev.kscott.bonk.bukkit.weapon.WeaponService;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -13,10 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.util.Vector;
 import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Listens on changes to player attributes (like health, hunger, etc)
@@ -43,7 +38,7 @@ public class PlayerAttributeListeners implements Listener {
      *
      * @param weaponService  the weapon service
      * @param loggingService the logging service
-     * @param playerService the player service
+     * @param playerService  the player service
      */
     @Inject
     public PlayerAttributeListeners(

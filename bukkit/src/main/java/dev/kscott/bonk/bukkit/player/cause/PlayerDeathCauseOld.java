@@ -1,4 +1,4 @@
-package dev.kscott.bonk.bukkit.player;
+package dev.kscott.bonk.bukkit.player.cause;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -10,7 +10,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 /**
  * Represents a Bonk player's death cause.
  */
-public enum PlayerDeathCause {
+public enum PlayerDeathCauseOld {
 
     /**
      * When a player is killed by another player.
@@ -30,12 +30,12 @@ public enum PlayerDeathCause {
     UNKNOWN;
 
     /**
-     * Determines the {@link PlayerDeathCause} from a {@link PlayerDeathEvent}.
+     * Determines the {@link PlayerDeathCauseOld} from a {@link PlayerDeathEvent}.
      *
      * @param event event
      * @return cause
      */
-    public static @NonNull PlayerDeathCause cause(final @NonNull PlayerDeathEvent event) {
+    public static @NonNull PlayerDeathCauseOld cause(final @NonNull PlayerDeathEvent event) {
         final @Nullable EntityDamageEvent damageEvent = event.getEntity().getLastDamageCause();
 
         if (damageEvent == null) {

@@ -10,7 +10,6 @@ import dev.kscott.bonk.bukkit.utils.ArrayHelper;
 import dev.kscott.bonk.bukkit.utils.PlayerUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.PufferFish;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.checkerframework.checker.nullness.qual.NonNull;

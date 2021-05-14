@@ -68,7 +68,7 @@ public final class LoggingService {
      */
     public void debug(final @NonNull String message) {
         if (DEBUG) {
-            this.logger.info("[BONK_DBG] "+message);
+            this.logger.info("[BONK_DBG] " + message);
         }
     }
 
