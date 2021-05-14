@@ -50,13 +50,12 @@ public final class BonkGame {
      */
     private @MonotonicNonNull Injector injector;
 
-
     /**
      * Constructs {@code BonkGame}.
      *
      * @param parentInjector the parent injector
      * @param plugin         the plugin
-     * @param loggingService         the logging service
+     * @param loggingService the logging service
      */
     @Inject
     public BonkGame(
@@ -71,31 +70,13 @@ public final class BonkGame {
     }
 
     /**
-     * Loads {@code BonkGame}'s dependencies.
-     * <p>
-     * The injector is created using the injector passed into the constructor.
-     *
-     * @return {@code BonkGame}'s dependencies
-     */
-    public @NonNull Injector load() {
-        this.injector = this.parentInjector.createChildInjector(
-                new CommandModule(this.plugin),
-                new GameModule(this.plugin)
-        );
-
-        this.injector.getInstance(CommandService.class);
-
-        return this.injector;
-    }
-
-    /**
      * Enables the Bonk game.
      */
     public void enable() {
         // load minigames
         for (final @NonNull Class<? extends Minigame> klazz : MINIGAMES) {
             final @NonNull Minigame minigame = this.injector.getInstance(klazz);
-            this.loggingService.debug("Enabled minigame "+minigame.getClass().getSimpleName());
+            this.loggingService.debug("Enabled minigame " + minigame.getClass().getSimpleName());
             this.enabledMinigames.add(minigame);
         }
     }

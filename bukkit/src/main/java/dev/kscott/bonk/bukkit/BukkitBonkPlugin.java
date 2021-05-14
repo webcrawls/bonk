@@ -2,12 +2,16 @@ package dev.kscott.bonk.bukkit;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import dev.kscott.bonk.bukkit.command.CommandService;
 import dev.kscott.bonk.bukkit.game.BonkGame;
 import dev.kscott.bonk.bukkit.inject.BukkitModule;
+import dev.kscott.bonk.bukkit.inject.CommandModule;
+import dev.kscott.bonk.bukkit.inject.GameModule;
 import dev.kscott.bonk.bukkit.listeners.*;
 import dev.kscott.bonk.bukkit.utils.ArrayHelper;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
@@ -34,7 +38,7 @@ public final class BukkitBonkPlugin extends JavaPlugin {
     /**
      * The {@code BonkGame} instance.
      */
-    private final @NonNull BonkGame bonkGame;
+    private @MonotonicNonNull BonkGame bonkGame;
 
     /**
      * Constructs {@code BukkitBonkPlugin}.
@@ -44,13 +48,18 @@ public final class BukkitBonkPlugin extends JavaPlugin {
         this.injector = Guice.createInjector(
                 new BukkitModule(this)
         );
-
-        this.bonkGame = injector.getInstance(BonkGame.class);
     }
 
     @Override
     public void onEnable() {
-        this.injector = this.bonkGame.load();
+        this.bonkGame = injector.getInstance(BonkGame.class);
+
+        this.injector = this.injector.createChildInjector(
+                new CommandModule(this),
+                new GameModule(this)
+        );
+
+        this.injector.getInstance(CommandService.class); // Initialize command service
 
         // Register events
         for (final @NonNull Class<? extends Listener> klazz : LISTENERS) {
