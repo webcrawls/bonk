@@ -2,6 +2,7 @@ package dev.kscott.bonk.bukkit.player;
 
 import com.google.inject.Inject;
 import dev.kscott.bonk.bukkit.game.Constants;
+import dev.kscott.bonk.bukkit.log.LoggingService;
 import dev.kscott.bonk.bukkit.player.death.DeathCause;
 import dev.kscott.bonk.bukkit.position.PositionService;
 import dev.kscott.bonk.bukkit.utils.ArrayHelper;
@@ -68,6 +69,11 @@ public final class PlayerService {
     private final @NonNull WeaponService weaponService;
 
     /**
+     * The logging service.
+     */
+    private final @NonNull LoggingService loggingService;
+
+    /**
      * Holds all online Bonk players.
      */
     private final @NonNull Set<BonkPlayer> players;
@@ -77,16 +83,19 @@ public final class PlayerService {
      *
      * @param positionService the PositionService dependency
      * @param weaponService   the WeaponService dependency
+     * @param loggingService  the LoggingService depenedncy
      * @param plugin          the plugin dependency
      */
     @Inject
     public PlayerService(
             final @NonNull PositionService positionService,
             final @NonNull WeaponService weaponService,
+            final @NonNull LoggingService loggingService,
             final @NonNull JavaPlugin plugin
     ) {
         this.positionService = positionService;
         this.weaponService = weaponService;
+        this.loggingService = loggingService;
         this.players = new HashSet<>();
         this.plugin = plugin;
     }
@@ -255,11 +264,15 @@ public final class PlayerService {
         // We are dealing with a textbook bonk hit. Launch accordingly.
         final @NonNull Vector velocity = PlayerUtils.knockbackVector(victimPlayer.getLocation(), attackerPlayer.getLocation(), 2.3);
 
+        this.loggingService.debug(victimPlayer+" Base velocity: "+velocity);
+
         if (PlayerUtils.moving(victimPlayer)) {
             velocity.multiply(2.3);
         } else {
             velocity.multiply(3);
         }
+
+        this.loggingService.debug(victimPlayer+" New velocity: "+velocity);
 
         victimPlayer.setVelocity(velocity);
 
