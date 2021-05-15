@@ -22,7 +22,7 @@ public final class BukkitBonkPlugin extends JavaPlugin {
     /**
      * An array of {@link Listener} classes to initialize during startup.
      */
-    private static final Class<? extends Listener>[] LISTENERS = ArrayHelper.create(
+    private static final @NonNull Class<? extends Listener>[] LISTENERS = ArrayHelper.create(
             PlayerConnectionListeners.class,
             BlockInteractListener.class,
             PlayerMovementListeners.class,
