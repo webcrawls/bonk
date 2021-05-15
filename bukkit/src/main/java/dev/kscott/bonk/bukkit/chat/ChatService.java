@@ -67,4 +67,8 @@ public final class ChatService {
         }.runTask(this.plugin);
     }
 
+    public void broadcastDeath(final @NonNull AsyncChatEvent event) {
+
+    }
+
 }
