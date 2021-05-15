@@ -279,6 +279,8 @@ public final class PlayerService {
         player.setGameMode(GameMode.SURVIVAL);
         player.setFoodLevel(20);
 
+        player.setFallDistance(0);
+
         player.removePotionEffect(Constants.Potions.JUMP_BOOST.getType());
         player.addPotionEffect(Constants.Potions.JUMP_BOOST);
 
