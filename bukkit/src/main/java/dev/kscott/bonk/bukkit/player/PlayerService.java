@@ -1,6 +1,7 @@
 package dev.kscott.bonk.bukkit.player;
 
 import com.google.inject.Inject;
+import dev.kscott.bonk.bukkit.chat.ChatService;
 import dev.kscott.bonk.bukkit.game.Constants;
 import dev.kscott.bonk.bukkit.player.death.DeathCause;
 import dev.kscott.bonk.bukkit.position.PositionService;
@@ -64,6 +65,11 @@ public final class PlayerService {
     private final @NonNull WeaponService weaponService;
 
     /**
+     * The ChatService dependency.
+     */
+    private final @NonNull ChatService chatService;
+
+    /**
      * Holds all online Bonk players.
      */
     private final @NonNull Set<BonkPlayer> players;
@@ -73,16 +79,19 @@ public final class PlayerService {
      *
      * @param positionService the PositionService dependency
      * @param weaponService   the WeaponService dependency
+     * @param chatService     the ChatService dependency
      * @param plugin          the plugin dependency
      */
     @Inject
     public PlayerService(
             final @NonNull PositionService positionService,
             final @NonNull WeaponService weaponService,
+            final @NonNull ChatService chatService,
             final @NonNull JavaPlugin plugin
     ) {
         this.positionService = positionService;
         this.weaponService = weaponService;
+        this.chatService = chatService;
         this.players = new HashSet<>();
         this.plugin = plugin;
     }
@@ -94,7 +103,7 @@ public final class PlayerService {
      * @return the {@link BonkPlayer}
      */
     public @Nullable BonkPlayer player(final @NonNull Player player) {
-        for (final @NonNull BonkPlayer bonkPlayer : players) {
+        for (final @NonNull BonkPlayer bonkPlayer : this.players()) {
             if (bonkPlayer.uuid().equals(player.getUniqueId())) {
                 return bonkPlayer;
             }
@@ -168,6 +177,8 @@ public final class PlayerService {
 //        }
 
         this.reset(bonkPlayer);
+
+        this.chatService.broadcastDeath(player, cause);
 
         // TODO Set killstreak to 0
     }
