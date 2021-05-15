@@ -1,5 +1,6 @@
 package dev.kscott.bonk.bukkit.utils;
 
+import dev.kscott.bonk.bukkit.game.Constants;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -24,6 +25,16 @@ public final class PlayerUtils {
      */
     public static boolean moving(final @NonNull Player player) {
         return !player.getVelocity().equals(stillVector);
+    }
+
+    /**
+     * If the player is moving in the {@code y} direction, returns {@code true}; other {@code false}
+     *
+     * @param player player
+     * @return true for moving, false if not
+     */
+    public static boolean movingY(final @NonNull Player player) {
+        return player.getVelocity().getY() != Constants.Numbers.GRAVITY;
     }
 
     /**
