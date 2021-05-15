@@ -2,7 +2,7 @@ package dev.kscott.bonk.bukkit.player;
 
 import com.google.inject.Inject;
 import dev.kscott.bonk.bukkit.game.Constants;
-import dev.kscott.bonk.bukkit.player.cause.PlayerDeathCauseOld;
+import dev.kscott.bonk.bukkit.player.death.DeathCause;
 import dev.kscott.bonk.bukkit.position.PositionService;
 import dev.kscott.bonk.bukkit.utils.ArrayHelper;
 import dev.kscott.bonk.bukkit.utils.PlayerUtils;
@@ -146,8 +146,30 @@ public final class PlayerService {
         players.removeIf(bonkPlayer -> bonkPlayer.uuid().equals(event.getPlayer().getUniqueId()));
     }
 
-    public void died(final @NonNull Player player, final @NonNull PlayerDeathCauseOld cause) {
-        this.reset(player);
+    /**
+     * Handles a player's death.
+     *
+     * @param player player
+     * @param cause  cause of death
+     */
+    public void died(final @NonNull Player player, final @NonNull DeathCause cause) {
+        final @Nullable BonkPlayer bonkPlayer = this.player(player);
+
+        if (bonkPlayer == null) {
+            return;
+        }
+
+//        if (cause instanceof EntityDeathCause entityDeathCause) {
+//            final @NonNull Entity killer = entityDeathCause.killer();
+//
+//            if (killer instanceof Player killerPlayer) {
+//                // TODO increment attacker's killstreak
+//            }
+//        }
+
+        this.reset(bonkPlayer);
+
+        // TODO Set killstreak to 0
     }
 
     /**
@@ -158,22 +180,9 @@ public final class PlayerService {
     public void died(final @NonNull PlayerDeathEvent event) {
         event.setCancelled(true);
 
-        final @NonNull Player player = event.getEntity();
-        final @Nullable BonkPlayer bonkPlayer = this.player(player);
+        final @NonNull DeathCause cause = DeathCause.fromEvent(event);
 
-        if (bonkPlayer == null) {
-            return;
-        }
-
-        final @NonNull PlayerDeathCauseOld cause = PlayerDeathCauseOld.cause(event);
-
-        if (cause == PlayerDeathCauseOld.PLAYER) {
-            // TODO increment attacker's killstreak
-        }
-
-        this.reset(bonkPlayer);
-
-        // TODO Set killstreak to 0
+        this.died(event.getEntity(), cause);
     }
 
     /**
