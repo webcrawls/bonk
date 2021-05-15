@@ -60,6 +60,8 @@ public final class BukkitBonkPlugin extends JavaPlugin {
 
         this.bonkGame = injector.getInstance(BonkGame.class);
 
+        this.bonkGame.enable();
+
         this.injector.getInstance(CommandService.class); // Initialize command service
 
         // Register events
@@ -70,7 +72,6 @@ public final class BukkitBonkPlugin extends JavaPlugin {
             );
         }
 
-        this.bonkGame.enable();
     }
 
 }
