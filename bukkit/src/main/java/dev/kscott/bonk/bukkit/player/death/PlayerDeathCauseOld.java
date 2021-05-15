@@ -1,4 +1,4 @@
-package dev.kscott.bonk.bukkit.player.cause;
+package dev.kscott.bonk.bukkit.player.death;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
