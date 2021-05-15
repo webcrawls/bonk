@@ -245,6 +245,7 @@ public final class PlayerService {
             return;
         }
 
+        // TODO fix 'x is not finite' error, not sure what triggers this?
         // We are dealing with a textbook bonk hit. Launch accordingly.
         final @NonNull Vector velocity = PlayerUtils.knockbackVector(victimPlayer.getLocation(), attackerPlayer.getLocation(), 2.3);
 
