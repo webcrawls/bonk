@@ -6,7 +6,6 @@ import com.google.inject.Provides;
 import com.google.inject.Scopes;
 import com.google.inject.name.Named;
 import dev.kscott.bonk.bukkit.block.BlockService;
-import dev.kscott.bonk.bukkit.chat.ChatService;
 import dev.kscott.bonk.bukkit.entity.EntityService;
 import dev.kscott.bonk.bukkit.player.DoubleJumpService;
 import dev.kscott.bonk.bukkit.player.PlayerService;
@@ -55,7 +54,6 @@ public final class GameModule extends AbstractModule {
     public void configure() {
         this.bind(WeaponService.class).in(Scopes.SINGLETON);
         this.bind(PlayerService.class).in(Scopes.SINGLETON);
-        this.bind(ChatService.class).in(Scopes.SINGLETON);
         this.bind(BlockService.class).in(Scopes.SINGLETON);
         this.bind(EntityService.class).in(Scopes.SINGLETON);
         this.bind(DoubleJumpService.class).in(Scopes.SINGLETON);

@@ -1,7 +1,6 @@
 package dev.kscott.bonk.bukkit.player;
 
 import com.google.inject.Inject;
-import dev.kscott.bonk.bukkit.chat.ChatService;
 import dev.kscott.bonk.bukkit.game.Constants;
 import dev.kscott.bonk.bukkit.player.death.DeathCause;
 import dev.kscott.bonk.bukkit.position.PositionService;
@@ -9,7 +8,11 @@ import dev.kscott.bonk.bukkit.utils.ArrayHelper;
 import dev.kscott.bonk.bukkit.utils.PlayerUtils;
 import dev.kscott.bonk.bukkit.weapon.Weapon;
 import dev.kscott.bonk.bukkit.weapon.WeaponService;
+import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextReplacementConfig;
+import net.kyori.adventure.text.format.Style;
+import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.GameMode;
 import org.bukkit.attribute.Attribute;
@@ -65,11 +68,6 @@ public final class PlayerService {
     private final @NonNull WeaponService weaponService;
 
     /**
-     * The ChatService dependency.
-     */
-    private final @NonNull ChatService chatService;
-
-    /**
      * Holds all online Bonk players.
      */
     private final @NonNull Set<BonkPlayer> players;
@@ -79,19 +77,16 @@ public final class PlayerService {
      *
      * @param positionService the PositionService dependency
      * @param weaponService   the WeaponService dependency
-     * @param chatService     the ChatService dependency
      * @param plugin          the plugin dependency
      */
     @Inject
     public PlayerService(
             final @NonNull PositionService positionService,
             final @NonNull WeaponService weaponService,
-            final @NonNull ChatService chatService,
             final @NonNull JavaPlugin plugin
     ) {
         this.positionService = positionService;
         this.weaponService = weaponService;
-        this.chatService = chatService;
         this.players = new HashSet<>();
         this.plugin = plugin;
     }
@@ -178,7 +173,7 @@ public final class PlayerService {
 
         this.reset(bonkPlayer);
 
-        this.chatService.broadcastDeath(player, cause);
+        this.broadcastDeath(player, cause);
 
         // TODO Set killstreak to 0
     }
@@ -298,6 +293,59 @@ public final class PlayerService {
             }
 
         }.runTaskLater(this.plugin, 1);
+    }
+
+    /**
+     * Handles the {@link AsyncChatEvent}.
+     *
+     * @param event chat event
+     */
+    public void chat(final @NonNull AsyncChatEvent event) {
+        final @NonNull Player player = event.getPlayer();
+
+        final boolean playing = this.playing(player);
+
+        if (!playing) {
+            return;
+        }
+
+        event.setCancelled(true);
+
+        final @NonNull Component text = MiniMessage.get()
+                .parse("<gradient:#72e5ed:#d4f7fa><bold>" + event.getPlayer().getName() + "</bold></gradient> <gray>» </gray>")
+                .append(event.message().style(Style.style(TextColor.color(192, 205, 207))));
+
+        this.broadcast(text);
+    }
+
+    /**
+     * Broadcasts a message to all Bonk players.
+     *
+     * @param message message
+     */
+    public void broadcast(final @NonNull Component message) {
+        final @NonNull Collection<BonkPlayer> players = this.players();
+
+        for (final @NonNull BonkPlayer recipient : players) {
+            recipient.player().sendMessage(message);
+        }
+    }
+
+    /**
+     * Broadcasts a player's death.
+     *
+     * @param player player
+     * @param cause  death cause
+     */
+    public void broadcastDeath(final @NonNull Player player, final @NonNull DeathCause cause) {
+        final @NonNull Component component = cause.message();
+        final @NonNull String name = player.getName();
+        this.broadcast(component.replaceText(
+                TextReplacementConfig.builder()
+                        .match("%name%")
+                        .replacement(MiniMessage.get().parse("<gradient:#e8574d:#f0b8b4><bold>" + name + "</bold></gradient>"))
+                        .build()
+        ));
     }
 
 
