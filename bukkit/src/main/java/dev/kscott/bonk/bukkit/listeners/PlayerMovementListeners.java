@@ -3,7 +3,7 @@ package dev.kscott.bonk.bukkit.listeners;
 import com.google.inject.Inject;
 import dev.kscott.bonk.bukkit.player.DoubleJumpService;
 import dev.kscott.bonk.bukkit.player.PlayerService;
-import dev.kscott.bonk.bukkit.player.cause.PlayerDeathCauseOld;
+import dev.kscott.bonk.bukkit.player.death.VoidDeathCause;
 import dev.kscott.bonk.bukkit.utils.PlayerUtils;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -63,7 +63,7 @@ public class PlayerMovementListeners implements Listener {
 
         // Reset player if y >= 0
         if (from.getBlockY() <= 1) {
-            this.playerService.died(player, PlayerDeathCauseOld.VOID);
+            this.playerService.died(player, new VoidDeathCause());
             return;
         }
 
