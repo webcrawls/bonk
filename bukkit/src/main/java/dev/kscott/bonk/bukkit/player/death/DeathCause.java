@@ -19,7 +19,7 @@ public interface DeathCause {
         final @Nullable EntityDamageEvent damageEvent = player.getLastDamageCause();
 
         if (damageEvent == null) {
-            return new VoidDeathCause(player);
+            return new VoidDeathCause();
         }
 
         if (damageEvent instanceof EntityDamageByEntityEvent damageByEntityEvent) {
