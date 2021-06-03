@@ -9,7 +9,6 @@ pipeline {
       steps {
         sh 'gradle clean build'
       }
-
   }
   post {
     always {
