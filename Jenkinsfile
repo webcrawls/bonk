@@ -9,11 +9,11 @@ pipeline {
       steps {
         sh 'gradle clean build'
       }
+    }
   }
   post {
     always {
       archiveArtifacts(artifacts: 'build/libs/*.jar', fingerprint: true)
     }
-
   }
 }
