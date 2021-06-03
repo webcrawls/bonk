@@ -3,14 +3,12 @@ pipeline {
     docker {
       image 'gradle:jdk16-hotspot'
     }
-
   }
   stages {
     stage('Build') {
       steps {
         sh 'gradle clean build'
       }
-    }
 
   }
   post {
