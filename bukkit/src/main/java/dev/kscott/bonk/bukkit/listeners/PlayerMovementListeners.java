@@ -78,7 +78,7 @@ public class PlayerMovementListeners implements Listener {
     public void playerShift(final @NonNull PlayerToggleSneakEvent event) {
         final @NonNull Player player = event.getPlayer();
 
-        if (!PlayerUtils.isNearGround(player)) {
+        if (!PlayerUtils.isNearGround(player) && PlayerUtils.movingY(player)) {
             if (this.doubleJumpService.canDoubleJump(player)) {
                 player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDER_DRAGON_FLAP, 0.5F, 1F);
                 this.doubleJumpService.doubleJump(player);
