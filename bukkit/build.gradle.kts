@@ -1,10 +1,16 @@
 dependencies {
-    compileOnly(libs.paper)
+    compileOnly(libs.paper.api)
 
     api(libs.minimessage)
     api(libs.cloud.paper)
     api(libs.bundles.guice)
     api(libs.bundles.corn)
+
+    implementation(libs.interfaces.paper)
+}
+
+repositories {
+    maven("https://repo.incendo.org/content/repositories/snapshots/")
 }
 
 tasks {
