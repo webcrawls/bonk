@@ -13,26 +13,11 @@ import java.util.UUID;
 /**
  * The core bonk player class.
  */
-public final class BonkPlayer {
+public final class BonkSpirit {
 
-    /**
-     * The player associated with this {@code BonkPlayer}.
-     */
     private final @NonNull Player player;
-
-    /**
-     * The weapon the player is using. Defaults to Stick.
-     */
-    private final @NonNull Weapon weapon;
-
-    /**
-     * The last attacker who hit this player.
-     */
+    private @NonNull Weapon weapon;
     private @Nullable Entity lastAttacker;
-
-    /**
-     * The last time, in milliseconds, this player was attacked.
-     */
     private long lastAttackTime;
 
     /**
@@ -41,7 +26,7 @@ public final class BonkPlayer {
      * @param player the player to associate with this {@code BonkPlayer}
      * @param weapon the weapon to give the player
      */
-    public BonkPlayer(
+    public BonkSpirit(
             final @NonNull Player player,
             final @NonNull Weapon weapon
     ) {
@@ -101,6 +86,15 @@ public final class BonkPlayer {
      */
     public @NonNull Weapon weapon() {
         return this.weapon;
+    }
+
+    /**
+     * Sets the player's weapon.
+     *
+     * @param weapon the weapon
+     */
+    public void weapon(final @NonNull Weapon weapon) {
+        this.weapon = weapon;
     }
 
     /**

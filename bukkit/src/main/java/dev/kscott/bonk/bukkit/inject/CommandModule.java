@@ -3,6 +3,7 @@ package dev.kscott.bonk.bukkit.inject;
 import cloud.commandframework.CommandManager;
 import cloud.commandframework.bukkit.CloudBukkitCapabilities;
 import cloud.commandframework.execution.AsynchronousCommandExecutionCoordinator;
+import cloud.commandframework.execution.CommandExecutionCoordinator;
 import cloud.commandframework.paper.PaperCommandManager;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
@@ -36,7 +37,7 @@ public final class CommandModule extends AbstractModule {
 
             commandManager = new PaperCommandManager<>(
                     plugin,
-                    AsynchronousCommandExecutionCoordinator.<CommandSender>newBuilder().withAsynchronousParsing().build(),
+                    CommandExecutionCoordinator.simpleCoordinator(),
                     mapper,
                     mapper
             );

@@ -75,14 +75,7 @@ public class PlayerAttributeListeners implements Listener {
 
     @EventHandler
     public void playerDamagedByPlayer(final @NonNull EntityDamageByEntityEvent event) {
-        final @NonNull Entity attacker = event.getDamager();
-        final @NonNull Entity victim = event.getEntity();
-
-        // Only interested in events involving two players
-        if (attacker instanceof final @NonNull Player attackerPlayer &&
-                victim instanceof final @NonNull Player victimPlayer) {
-            this.playerService.attacked(attackerPlayer, victimPlayer);
-        }
+        this.playerService.handlePlayerAttack(event);
     }
 
 }

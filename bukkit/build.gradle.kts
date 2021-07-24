@@ -7,10 +7,7 @@ dependencies {
     api(libs.bundles.corn)
 
     implementation(libs.interfaces.paper)
-}
-
-repositories {
-    maven("https://repo.incendo.org/content/repositories/snapshots/")
+    implementation(libs.bluetils.paper)
 }
 
 tasks {

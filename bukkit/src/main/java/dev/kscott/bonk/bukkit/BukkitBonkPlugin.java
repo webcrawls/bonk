@@ -13,6 +13,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.incendo.interfaces.paper.PaperInterfaceListeners;
 
 /**
  * The main Bonk entrypoint.
@@ -53,23 +54,30 @@ public final class BukkitBonkPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        this.injector = this.injector.createChildInjector(
-                new CommandModule(this),
-                new GameModule(this)
-        );
-
-        this.bonkGame = injector.getInstance(BonkGame.class);
-
-        this.bonkGame.enable();
-
-        this.injector.getInstance(CommandService.class); // Initialize command service
-
-        // Register events
-        for (final @NonNull Class<? extends Listener> klazz : LISTENERS) {
-            this.getServer().getPluginManager().registerEvents(
-                    this.injector.getInstance(klazz),
-                    this
+        try {
+            this.injector = this.injector.createChildInjector(
+                    new CommandModule(this),
+                    new GameModule(this)
             );
+
+            this.bonkGame = injector.getInstance(BonkGame.class);
+
+            PaperInterfaceListeners.install(this);
+
+            this.bonkGame.enable();
+
+            this.injector.getInstance(CommandService.class); // Initialize command service
+
+            // Register events
+            for (final @NonNull Class<? extends Listener> klazz : LISTENERS) {
+                this.getServer().getPluginManager().registerEvents(
+                        this.injector.getInstance(klazz),
+                        this
+                );
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            this.getPluginLoader().disablePlugin(this);
         }
 
     }

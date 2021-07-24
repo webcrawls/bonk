@@ -1,7 +1,9 @@
 package dev.kscott.bonk.bukkit.listeners;
 
 import com.google.inject.Inject;
+import dev.kscott.bonk.bukkit.lobby.LobbyService;
 import dev.kscott.bonk.bukkit.player.PlayerService;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -18,7 +20,7 @@ public final class PlayerConnectionListeners implements Listener {
     /**
      * Constructs PlayerJoinListener.
      *
-     * @param playerService the PlayerService
+     * @param playerService the player service
      */
     @Inject
     public PlayerConnectionListeners(final @NonNull PlayerService playerService) {
@@ -32,7 +34,7 @@ public final class PlayerConnectionListeners implements Listener {
      */
     @EventHandler
     public void playerJoin(final @NonNull PlayerJoinEvent event) {
-        this.playerService.joined(event);
+        this.playerService.handlePlayerJoin(event.getPlayer());
     }
 
     /**
@@ -42,6 +44,6 @@ public final class PlayerConnectionListeners implements Listener {
      */
     @EventHandler
     public void playerLeave(final @NonNull PlayerQuitEvent event) {
-        this.playerService.quit(event);
+        this.playerService.handlePlayerLeave(event.getPlayer());
     }
 }

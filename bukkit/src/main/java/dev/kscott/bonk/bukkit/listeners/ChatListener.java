@@ -26,7 +26,7 @@ public class ChatListener implements Listener {
 
     @EventHandler
     public void chat(final @NonNull AsyncChatEvent event) {
-        this.playerService.chat(event);
+//        this.playerService.chat(event);
     }
 
 }

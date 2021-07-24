@@ -34,7 +34,7 @@ public class PlayerDeathListeners implements Listener {
      */
     @EventHandler
     public void playerDeath(final @NonNull PlayerDeathEvent event) {
-        this.playerService.died(event);
+        this.playerService.handlePlayerDeath(event);
     }
 
 

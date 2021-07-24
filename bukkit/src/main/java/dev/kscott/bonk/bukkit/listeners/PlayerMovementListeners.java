@@ -63,7 +63,7 @@ public class PlayerMovementListeners implements Listener {
 
         // Reset player if y >= 0
         if (from.getBlockY() <= 1) {
-            this.playerService.died(player, new VoidDeathCause());
+            this.playerService.handlePlayerDeath(null);
             return;
         }
 

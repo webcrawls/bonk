@@ -5,24 +5,45 @@ import cloud.commandframework.CommandManager;
 import cloud.commandframework.arguments.standard.StringArgument;
 import cloud.commandframework.context.CommandContext;
 import com.google.inject.Inject;
-import dev.kscott.bonk.bukkit.player.BonkPlayer;
+import dev.kscott.bluetils.core.text.Colours;
+import dev.kscott.bluetils.core.text.Styles;
+import dev.kscott.bonk.bukkit.lobby.LobbyService;
+import dev.kscott.bonk.bukkit.player.BonkSpirit;
 import dev.kscott.bonk.bukkit.player.PlayerService;
+import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.event.HoverEvent;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.incendo.interfaces.paper.PlayerViewer;
+import org.incendo.interfaces.paper.type.BookInterface;
 
 import java.util.Collection;
 import java.util.Iterator;
+
+import static net.kyori.adventure.text.Component.*;
+import static org.incendo.interfaces.paper.element.TextElement.of;
 
 /**
  * The /bonk command.
  */
 public final class BonkCommand implements BaseCommand {
 
-    /**
-     * The player service.
-     */
+    // "join" mean when a player joins the server, (sent to lobby)
+    // "play" means when a player joins the active bonk game (i.e. /bonk play)
+    // "leave" is when player leaves server
+    // "quit" is when player quits active game
+
     private final @NonNull PlayerService playerService;
+    private final @NonNull LobbyService lobbyService;
+    private final @NonNull BookInterface noticeInterface;
+    private final @NonNull JavaPlugin plugin;
+    private final @NonNull BossBar bossBar;
 
     /**
      * Constructs {@code BonkCommand}.
@@ -30,8 +51,36 @@ public final class BonkCommand implements BaseCommand {
      * @param playerService the player service
      */
     @Inject
-    public BonkCommand(final @NonNull PlayerService playerService) {
+    public BonkCommand(final @NonNull PlayerService playerService,
+                       final @NonNull LobbyService lobbyService,
+                       final @NonNull JavaPlugin plugin) {
         this.playerService = playerService;
+        this.lobbyService = lobbyService;
+        this.plugin = plugin;
+        this.bossBar = BossBar.bossBar(Component.text("Munch on my balls"), 1, BossBar.Color.BLUE, BossBar.Overlay.NOTCHED_6);
+        this.noticeInterface = BookInterface.builder()
+                .addTransform((pane, view) -> pane
+                        .add(of(text()
+                                .append(text("Welcome to Bonk!", Styles.TEXT_DARK))
+                                .append(newline())
+                                .append(newline())
+                                .append(text()
+                                        .append(text("NOTE: Player movement speed is increased in Bonk. Because of this, it is ", Styles.TEXT_DARK))
+                                        .append(text("highly recommended to disable FOV effects in your video settings.", Styles.TEXT_DARK
+                                                .color(Colours.RED_DARK)
+                                                .decoration(TextDecoration.BOLD, true)
+                                        ))
+                                        .build())
+                                .append(newline())
+                                .append(newline())
+                                .append(text("Click here when you're ready to play.")
+                                        .style(Styles.EMPHASIS)
+                                        .hoverEvent(HoverEvent.showText(Component.text("Click to run /bonk play.")))
+                                        .clickEvent(ClickEvent.runCommand("/bonk play")))
+                                .build()
+                        ))
+                )
+                .build();
     }
 
     /**
@@ -44,6 +93,11 @@ public final class BonkCommand implements BaseCommand {
         final Command.Builder<CommandSender> builder = manager.commandBuilder("bonk");
 
         manager.command(builder.handler(this::handleBonk));
+
+        manager.command(builder.literal("play").handler(this::handleBonkPlay));
+
+        manager.command(builder.literal("leave").handler(this::handleBonkLeave));
+
         manager.command(builder.literal("players")
                 .handler(this::handlePlayers));
 
@@ -51,6 +105,14 @@ public final class BonkCommand implements BaseCommand {
                 .argument(StringArgument.of("minigame"))
                 .argument(StringArgument.of("operation"))
         );
+
+        manager.command(builder.literal("on").handler((ctx) -> {
+            ctx.getSender().showBossBar(bossBar);
+        }));
+
+        manager.command(builder.literal("off").handler((ctx) -> {
+            ctx.getSender().hideBossBar(bossBar);
+        }));
     }
 
     /**
@@ -59,7 +121,43 @@ public final class BonkCommand implements BaseCommand {
      * @param ctx command context
      */
     private void handleBonk(final @NonNull CommandContext<CommandSender> ctx) {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                final @NonNull CommandSender sender = ctx.getSender();
 
+                if (sender instanceof Player player) {
+                    noticeInterface.open(PlayerViewer.of(player));
+                }
+            }
+        }.runTask(this.plugin);
+    }
+
+
+    /**
+     * Handles /bonk.
+     *
+     * @param ctx command context
+     */
+    private void handleBonkPlay(final @NonNull CommandContext<CommandSender> ctx) {
+        final @NonNull CommandSender sender = ctx.getSender();
+
+        if (sender instanceof Player player) {
+            playerService.openPlayMenu(player);
+        }
+    }
+
+    private void handleBonkLeave(final @NonNull CommandContext<CommandSender> ctx) {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                final @NonNull CommandSender sender = ctx.getSender();
+
+                if (sender instanceof Player player) {
+                    playerService.handlePlayerQuit(player);
+                }
+            }
+        }.runTask(this.plugin);
     }
 
     /**
@@ -70,28 +168,28 @@ public final class BonkCommand implements BaseCommand {
     private void handlePlayers(final @NonNull CommandContext<CommandSender> ctx) {
         final @NonNull CommandSender sender = ctx.getSender();
 
-        final @NonNull Collection<BonkPlayer> players = this.playerService.players();
+        final @NonNull Collection<BonkSpirit> players = this.playerService.gamePlayers();
 
         if (players.isEmpty()) {
-            sender.sendMessage(Component.text("There are no players playing Bonk!"));
+            sender.sendMessage(text("There are no players playing Bonk!"));
             return;
         }
 
-        @NonNull Component playersComponent = Component.empty();
+        @NonNull Component playersComponent = empty();
 
-        final @NonNull Iterator<BonkPlayer> pliterator = players.iterator();
+        final @NonNull Iterator<BonkSpirit> pliterator = players.iterator();
 
         while (pliterator.hasNext()) {
-            final @NonNull BonkPlayer player = pliterator.next();
+            final @NonNull BonkSpirit player = pliterator.next();
 
-            playersComponent = playersComponent.append(Component.text(player.name()));
+            playersComponent = playersComponent.append(text(player.name()));
 
             if (pliterator.hasNext()) {
-                playersComponent = playersComponent.append(Component.text(", "));
+                playersComponent = playersComponent.append(text(", "));
             }
         }
 
-        sender.sendMessage(Component.text("There are currently " + players.size() + ":"));
+        sender.sendMessage(text("There are " + players.size() + " player(s) online:"));
         sender.sendMessage(playersComponent);
     }
 }

@@ -2,6 +2,7 @@ package dev.kscott.bonk.bukkit.weapon;
 
 import broccolai.corn.adventure.AdventureItemBuilder;
 import dev.kscott.bonk.bukkit.game.Constants;
+import dev.kscott.bonk.bukkit.weapon.sound.WeaponSoundDefinition;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;

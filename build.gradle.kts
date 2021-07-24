@@ -23,13 +23,14 @@ subprojects {
         mavenCentral()
         sonatypeSnapshots()
 
+        maven("https://repo.incendo.org/content/repositories/snapshots/")
         maven("https://papermc.io/repo/repository/maven-public/")
         maven("https://repo.broccol.ai")
         maven("https://repo.broccol.ai/snapshots")
+        mavenLocal()
     }
 
     tasks {
-
         indra {
             gpl3OnlyLicense()
 
@@ -41,6 +42,9 @@ subprojects {
         processResources {
             expand("version" to rootProject.version)
         }
-
     }
+}
+
+allprojects {
+    tasks.findByPath(":bonk-bukkit:javadoc")?.enabled = false
 }
