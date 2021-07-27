@@ -3,7 +3,7 @@ package dev.kscott.bonk.bukkit.listeners;
 import com.google.inject.Inject;
 import dev.kscott.bonk.bukkit.player.DoubleJumpService;
 import dev.kscott.bonk.bukkit.player.PlayerService;
-import dev.kscott.bonk.bukkit.player.death.VoidDeathCause;
+import dev.kscott.bonk.bukkit.player.death.VoidDeathContext;
 import dev.kscott.bonk.bukkit.utils.PlayerUtils;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -54,16 +54,17 @@ public class PlayerMovementListeners implements Listener {
     }
 
     /**
-     * Processes all {@link PlayerMoveEvent}-related data.
+     * Processes all {@link PlayerMoveEvent} events.
      */
     @EventHandler
     public void playerMoveEvent(final @NonNull PlayerMoveEvent event) {
+        if (!event.hasChangedBlock()) return;
         final @NonNull Player player = event.getPlayer();
         final @NonNull Location from = event.getFrom();
 
         // Reset player if y >= 0
         if (from.getBlockY() <= 1) {
-            this.playerService.handlePlayerDeath(null);
+            this.playerService.handlePlayerDeath(new VoidDeathContext(player, from, System.currentTimeMillis()));
             return;
         }
 
@@ -77,6 +78,10 @@ public class PlayerMovementListeners implements Listener {
     @EventHandler
     public void playerShift(final @NonNull PlayerToggleSneakEvent event) {
         final @NonNull Player player = event.getPlayer();
+
+        if (!this.playerService.inGame(player)) {
+            return;
+        }
 
         if (!PlayerUtils.isNearGround(player) && PlayerUtils.movingY(player)) {
             if (this.doubleJumpService.canDoubleJump(player)) {

@@ -1,22 +1,17 @@
 package dev.kscott.bonk.bukkit.lobby;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 import dev.kscott.bluetils.core.text.Colours;
-import dev.kscott.bluetils.core.text.Messages;
 import dev.kscott.bluetils.core.text.Styles;
-import dev.kscott.bonk.bukkit.BonkInterfaceProvider;
 import dev.kscott.bonk.bukkit.BukkitBonkPlugin;
 import dev.kscott.bonk.bukkit.player.BonkSpirit;
-import dev.kscott.bonk.bukkit.player.PlayerService;
-import net.kyori.adventure.audience.Audience;
-import net.kyori.adventure.audience.ForwardingAudience;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.title.Title;
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -25,16 +20,15 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
-import org.incendo.interfaces.paper.PlayerViewer;
 
-import java.util.*;
-
-import static net.kyori.adventure.bossbar.BossBar.Flag.CREATE_WORLD_FOG;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
 
 /**
  * Handles Bonk lobby stuff.
  */
+@Singleton
 public class LobbyService {
 
     private static final @NonNull MiniMessage miniMessage = MiniMessage.get();
@@ -53,13 +47,12 @@ public class LobbyService {
     /**
      * Constructs {@code LobbyService}.
      *
-     * @param gameWorld     the game world
-     * @param plugin        the plugin
+     * @param gameWorld the game world
+     * @param plugin    the plugin
      */
     @Inject
     public LobbyService(final @NonNull @Named("gameWorld") World gameWorld,
-                        final @NonNull BukkitBonkPlugin plugin,
-                        final @NonNull BonkInterfaceProvider interfaces) {
+                        final @NonNull BukkitBonkPlugin plugin) {
         this.gameWorld = gameWorld;
         this.plugin = plugin;
         this.messagePhase = 0;
@@ -73,7 +66,7 @@ public class LobbyService {
 
         this.members = new HashSet<>();
         this.random = new Random();
-        this.lobbyLocation = new Location(this.gameWorld, -79, 122, -40);
+        this.lobbyLocation = new Location(this.gameWorld, -79.5, 195, -54.5, -180, 0);
 
         this.lobbyRunnable = new BukkitRunnable() {
             @Override
@@ -97,7 +90,7 @@ public class LobbyService {
         this.welcomeTitle = Title.title(
                 Component.text()
                         .append(Component.text("Welcome to "))
-                        .append(Component.text("BONK")
+                        .append(Component.text("Bonk")
                                 .decoration(TextDecoration.BOLD, true)
                                 .color(Colours.YELLOW)
                         )
@@ -136,6 +129,7 @@ public class LobbyService {
      */
     public void remove(final @NonNull BonkSpirit spirit) {
         this.members.remove(spirit);
+        spirit.player().hideBossBar(this.bossBar);
     }
 
     /**

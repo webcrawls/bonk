@@ -27,6 +27,33 @@ public class Constants {
                 false
         );
 
+        public static final @NonNull PotionEffect GLOWING = new PotionEffect(
+                PotionEffectType.GLOWING,
+                9999999,
+                1,
+                true,
+                true,
+                false
+        );
+
+        public static final @NonNull PotionEffect FEATHER = new PotionEffect(
+                PotionEffectType.SLOW_FALLING,
+                100,
+                1,
+                true,
+                true,
+                false
+        );
+
+        public static final @NonNull PotionEffect LEVITATION = new PotionEffect(
+                PotionEffectType.LEVITATION,
+                100,
+                1,
+                true,
+                true,
+                false
+        );
+
     }
 
     /**

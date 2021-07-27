@@ -1,5 +1,6 @@
 package dev.kscott.bonk.bukkit.weapon;
 
+import com.destroystokyo.paper.ParticleBuilder;
 import com.google.inject.Inject;
 import dev.kscott.bluetils.core.text.Colours;
 import dev.kscott.bluetils.core.text.Styles;
@@ -7,8 +8,7 @@ import dev.kscott.bonk.bukkit.game.Constants;
 import dev.kscott.bonk.bukkit.weapon.sound.WeaponSoundDefinition;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
-import org.bukkit.Material;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -19,28 +19,21 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 /**
  * Handles weapons.
  */
 public class WeaponService {
 
-    /**
-     * The id->weapon map.
-     */
-    private final @NonNull List<@NonNull Weapon> weapons;
+    private final @NonNull List<@NonNull Weapon> weapons; // a list of registered weapons
+    private final @NonNull Weapon defaultWeapon; // the default weapon
+    private final @NonNull Random random;
 
-    /**
-     * The default weapon.
-     */
-    private final @NonNull Weapon defaultWeapon;
-
-    /**
-     * Constructs {@link WeaponService}.
-     */
     @Inject
     public WeaponService() {
         this.weapons = new ArrayList<>();
+        this.random = new Random();
 
         this.registerDefaults();
 
@@ -51,17 +44,23 @@ public class WeaponService {
      * Registers default weapons.
      */
     private void registerDefaults() {
+        // Stick
+        // Charged attack: absorb half of all knockback for 5 seconds
         this.register(new Weapon(
                 "stick",
-                Component.text("Stick", Colours.GRAY_DARK),
+                Component.text("Stick", Styles.TEXT).color(Colours.GRAY_DARK),
                 List.of(Component.text("The original Bonk stick, circa 2019.", Styles.TEXT)),
                 Material.STICK,
-                List.of(WeaponSoundDefinition.of(Sound.BLOCK_BAMBOO_BREAK, 0.2F, 1))
-        )); // Stick
+                List.of(WeaponSoundDefinition.of(Sound.BLOCK_BAMBOO_BREAK, 0.2F, 1)),
+                (event) -> {
+                }
+        ));
 
+        // Blaze
+        // Charged move: Send firey tunnel in your direction
         this.register(new Weapon(
                 "blaze",
-                Component.text("Blaze", Colours.ORANGE),
+                Component.text("Blaze", Styles.TEXT).color(Colours.ORANGE),
                 List.of(Component.text()
                                 .append(Component.text("⚠").color(Colours.RED_DARK))
                                 .append(Component.text(" WARNING ", Styles.EMPHASIS).color(Colours.RED_LIGHT))
@@ -70,12 +69,34 @@ public class WeaponService {
                         Component.text("May create third-degree burns...", Styles.TEXT)
                 ),
                 Material.BLAZE_ROD,
-                List.of(WeaponSoundDefinition.of(Sound.ENTITY_BLAZE_HURT, 0.2F, 1))
-        )); // Blaze
+                List.of(WeaponSoundDefinition.of(Sound.ENTITY_BLAZE_HURT, 0.2F, 1)),
+                event -> {
+                    final org.bukkit.entity.Entity entity = event.getEntity();
 
+                    final @NonNull Location location = entity.getLocation();
+
+                    new ParticleBuilder(Particle.LAVA)
+                            .location(location)
+                            .allPlayers()
+                            .offset(0.5, 1, 0.5)
+                            .count(10)
+                            .spawn()
+                            .particle(Particle.REDSTONE)
+                            .data(new Particle.DustOptions(Color.RED, 1))
+                            .particle(Particle.FLAME)
+                            .data(null)
+                            .spawn();
+                }
+        ));
+
+        // Enderpearl (?)
+        // Charged attack: Teleport players away nearby randomly
+
+        // Emerald
+        // Charged attack: Store a location by shift right-clicking, and when activated, you teleport there.
         this.register(new Weapon(
                 "emerald",
-                Component.text("Emerald", Colours.GREEN_LIGHT),
+                Component.text("Emerald", Styles.TEXT).color(Colours.GREEN_LIGHT),
                 List.of(
                         Component.text()
                                 .append(Component.text("⛏ ", Colours.BLUE_LIGHT))
@@ -92,7 +113,24 @@ public class WeaponService {
                         WeaponSoundDefinition.random(Sound.BLOCK_NOTE_BLOCK_BIT, 1F, 0.2F, 1F),
                         WeaponSoundDefinition.random(Sound.BLOCK_NOTE_BLOCK_BIT, 1F, 0.2F, 1F),
                         WeaponSoundDefinition.random(Sound.BLOCK_NOTE_BLOCK_BIT, 1F, 0.2F, 1F)
-                )
+                ),
+                (event) -> {
+                }
+        ));
+
+        // Slime
+        // Charged attack: Replaces blocks below you with slime blocks temporarily
+        this.register(new Weapon(
+                "slimeball",
+                Component.text("Slimeball", Styles.TEXT).color(Colours.GREEN_LIGHT),
+                List.of(),
+                Material.SLIME_BALL,
+                List.of(
+                        WeaponSoundDefinition.of(Sound.ENTITY_SLIME_SQUISH, 1F, 1F)
+                ),
+                (event) -> {
+
+                }
         ));
     }
 

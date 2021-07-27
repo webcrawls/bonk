@@ -2,6 +2,7 @@ package dev.kscott.bonk.bukkit.game;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import dev.kscott.bonk.bukkit.box.BoxService;
 import dev.kscott.bonk.bukkit.log.LoggingService;
 import dev.kscott.bonk.bukkit.minigame.CreeperMinigame;
 import dev.kscott.bonk.bukkit.minigame.Minigame;
@@ -31,28 +32,11 @@ public final class BonkGame {
             CreeperMinigame.class
     );
 
-    /**
-     * The plugin.
-     */
     private final @NonNull JavaPlugin plugin;
-    /**
-     * The pogging service.
-     */
     private final @NonNull LoggingService loggingService;
-
-    /**
-     * The double jump service.
-     */
     private final @NonNull DoubleJumpService doubleJumpService;
-
-    /**
-     * A list of enabled minigames.
-     */
     private final @NonNull List<Minigame> enabledMinigames;
-
-    /**
-     * The injector used by {@code BonkGame}.
-     */
+    private final @NonNull BoxService boxService;
     private final @NonNull Injector injector;
 
     /**
@@ -68,12 +52,14 @@ public final class BonkGame {
             final @NonNull Injector injector,
             final @NonNull JavaPlugin plugin,
             final @NonNull LoggingService loggingService,
+            final @NonNull BoxService boxService,
             final @NonNull DoubleJumpService doubleJumpService
     ) {
         this.injector = injector;
         this.plugin = plugin;
         this.loggingService = loggingService;
         this.doubleJumpService = doubleJumpService;
+        this.boxService = boxService;
         this.enabledMinigames = new ArrayList<>();
     }
 
@@ -95,6 +81,8 @@ public final class BonkGame {
                 tick();
             }
         }.runTaskTimer(this.plugin, 0, 1);
+
+        this.boxService.init();
 
         this.loggingService.debug("Started game tick");
     }

@@ -23,11 +23,14 @@ subprojects {
         mavenCentral()
         sonatypeSnapshots()
 
-        maven("https://repo.incendo.org/content/repositories/snapshots/")
         maven("https://papermc.io/repo/repository/maven-public/")
         maven("https://repo.broccol.ai")
         maven("https://repo.broccol.ai/snapshots")
+        maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
+        maven("https://repo.codemc.io/repository/maven-public/")
+        maven("https://jitpack.io")
         mavenLocal()
+        maven("https://repo.incendo.org/content/repositories/snapshots/")
     }
 
     tasks {

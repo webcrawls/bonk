@@ -2,6 +2,9 @@ name: BingBonk
 version: ${version}
 main: dev.kscott.bonk.bukkit.BukkitBonkPlugin
 api-version: 1.16
+depend:
+  - PlaceholderAPI
+  - TAB
 authors:
   - 'kadenscott <kscottdev@gmail.com>'
   - 'tylerdescott <tylerescottbusiness@gmail.com>'

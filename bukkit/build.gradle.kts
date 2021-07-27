@@ -1,13 +1,18 @@
 dependencies {
+
     compileOnly(libs.paper.api)
 
     api(libs.minimessage)
     api(libs.cloud.paper)
     api(libs.bundles.guice)
     api(libs.bundles.corn)
+    api(libs.adventure.bungee)
 
     implementation(libs.interfaces.paper)
     implementation(libs.bluetils.paper)
+
+    compileOnly(libs.placeholderapi)
+    compileOnly(libs.tab)
 }
 
 tasks {

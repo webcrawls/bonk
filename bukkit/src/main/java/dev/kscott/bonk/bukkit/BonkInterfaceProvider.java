@@ -26,12 +26,12 @@ import java.util.Map;
 
 public class BonkInterfaceProvider {
 
-    private static final @NonNull ItemStack MENU_BG = PaperItemBuilder.paper(Material.GRAY_STAINED_GLASS_PANE)
+    public static final @NonNull ItemStack MENU_BG = PaperItemBuilder.paper(Material.GRAY_STAINED_GLASS_PANE)
             .name(Component.empty())
             .flags(ItemFlag.values())
             .build();
 
-    private static final @NonNull ItemStack MENU_DARK_BG = PaperItemBuilder.paper(Material.BLACK_STAINED_GLASS_PANE)
+    public static final @NonNull ItemStack MENU_DARK_BG = PaperItemBuilder.paper(Material.BLACK_STAINED_GLASS_PANE)
             .name(Component.empty())
             .flags(ItemFlag.values())
             .build();
@@ -44,7 +44,7 @@ public class BonkInterfaceProvider {
                 .addTransform(PaperTransform.chestFill(ItemStackElement.of(MENU_BG)))
                 .addTransform((pane, view) -> {
                     for (int i = 0; i < ChestPane.MINECRAFT_CHEST_WIDTH; i++) {
-                        pane = pane.element(ItemStackElement.of(MENU_DARK_BG), i, 4);
+                        pane = pane.element(ItemStackElement.of(MENU_DARK_BG), i, 3);
                     }
 
                     return pane;
@@ -123,9 +123,9 @@ public class BonkInterfaceProvider {
 
                     for (final @NonNull Component text : weapon.description()) {
                         lore.add(Component.text()
-                                        .append(text.style(Styles.TEXT))
-                                        .style(Styles.TEXT)
-                                        .build());
+                                .append(text.style(Styles.TEXT))
+                                .style(Styles.TEXT)
+                                .build());
                     }
 
                     lore.add(Component.empty());
@@ -153,6 +153,46 @@ public class BonkInterfaceProvider {
                                 )));
                             }
                     ), x, y);
+                })
+                .addTransform((pane, view) -> {
+                    return pane.element(ItemStackElement.of(
+                            PaperItemBuilder.paper(Material.BOOK)
+                                    .name(Component.text("Help", Styles.EMPHASIS))
+                                    .loreComponents(List.of(
+                                            Component.empty(),
+                                            Component.text("Controls:", Styles.TEXT),
+                                            Component.text()
+                                                    .append(Component.text("- ", Styles.TEXT_DARK))
+                                                    .append(Component.keybind("key.use", Styles.EMPHASIS))
+                                                    .append(Component.text(" to fire rockets while", Styles.TEXT))
+                                                    .build(),
+                                            Component.text()
+                                                    .append(Component.text("holding your Bonk weapon, or", Styles.TEXT))
+                                                    .build(),
+                                            Component.text()
+                                                    .append(Component.text("activate powerups on your hotbar.", Styles.TEXT))
+                                                    .build(),
+                                            Component.empty(),
+                                            Component.text()
+                                                    .append(Component.text("- ", Styles.TEXT_DARK))
+                                                    .append(Component.keybind("key.attack", Styles.EMPHASIS))
+                                                    .append(Component.text(" to attack, or open", Styles.TEXT))
+                                                    .build(),
+                                            Component.text()
+                                                    .append(Component.text("item boxes.", Styles.TEXT))
+                                                    .build(),
+                                            Component.empty(),
+                                            Component.text()
+                                                    .append(Component.text("- ", Styles.TEXT_DARK))
+                                                    .append(Component.keybind("key.sneak", Styles.EMPHASIS))
+                                                    .append(Component.text(" while in the air", Styles.TEXT))
+                                                    .build(),
+                                            Component.text()
+                                                    .append(Component.text("to double jump.", Styles.TEXT))
+                                                    .build()
+                                    ))
+                                    .build()
+                    ), 8, 3);
                 })
                 .clickHandler((ctx) -> ctx.cancel(true))
                 .build();

@@ -10,6 +10,7 @@ import dev.kscott.bluetils.core.text.Styles;
 import dev.kscott.bonk.bukkit.lobby.LobbyService;
 import dev.kscott.bonk.bukkit.player.BonkSpirit;
 import dev.kscott.bonk.bukkit.player.PlayerService;
+import dev.kscott.bonk.bukkit.powerup.GliderPowerup;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
@@ -42,6 +43,7 @@ public final class BonkCommand implements BaseCommand {
     private final @NonNull PlayerService playerService;
     private final @NonNull LobbyService lobbyService;
     private final @NonNull BookInterface noticeInterface;
+    private final @NonNull GliderPowerup gliderPowerup;
     private final @NonNull JavaPlugin plugin;
     private final @NonNull BossBar bossBar;
 
@@ -53,9 +55,11 @@ public final class BonkCommand implements BaseCommand {
     @Inject
     public BonkCommand(final @NonNull PlayerService playerService,
                        final @NonNull LobbyService lobbyService,
+                       final @NonNull GliderPowerup gliderPowerup,
                        final @NonNull JavaPlugin plugin) {
         this.playerService = playerService;
         this.lobbyService = lobbyService;
+        this.gliderPowerup = gliderPowerup;
         this.plugin = plugin;
         this.bossBar = BossBar.bossBar(Component.text("Munch on my balls"), 1, BossBar.Color.BLUE, BossBar.Overlay.NOTCHED_6);
         this.noticeInterface = BookInterface.builder()
@@ -107,7 +111,7 @@ public final class BonkCommand implements BaseCommand {
         );
 
         manager.command(builder.literal("on").handler((ctx) -> {
-            ctx.getSender().showBossBar(bossBar);
+            this.gliderPowerup.activate((Player) ctx.getSender());
         }));
 
         manager.command(builder.literal("off").handler((ctx) -> {
@@ -121,16 +125,11 @@ public final class BonkCommand implements BaseCommand {
      * @param ctx command context
      */
     private void handleBonk(final @NonNull CommandContext<CommandSender> ctx) {
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                final @NonNull CommandSender sender = ctx.getSender();
+        final @NonNull CommandSender sender = ctx.getSender();
 
-                if (sender instanceof Player player) {
-                    noticeInterface.open(PlayerViewer.of(player));
-                }
-            }
-        }.runTask(this.plugin);
+        if (sender instanceof Player player) {
+            playerService.openPlayMenu(player);
+        }
     }
 
 
@@ -143,7 +142,7 @@ public final class BonkCommand implements BaseCommand {
         final @NonNull CommandSender sender = ctx.getSender();
 
         if (sender instanceof Player player) {
-            playerService.openPlayMenu(player);
+            playerService.handlePlayerPlay(player);
         }
     }
 
