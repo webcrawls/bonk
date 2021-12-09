@@ -1,12 +1,10 @@
 package dev.kscott.bonk.bukkit.powerup;
 
-import broccolai.corn.paper.PaperItemBuilder;
+import broccolai.corn.paper.item.PaperItemBuilder;
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
-import dev.kscott.bluetils.core.text.Colours;
-import dev.kscott.bluetils.core.text.Styles;
 import dev.kscott.bonk.bukkit.BukkitBonkPlugin;
 import dev.kscott.bonk.bukkit.utils.PlayerUtils;
+import dev.kscott.bonk.bukkit.utils.Styles;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
@@ -17,12 +15,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.Vector;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.util.*;
-
 
 public class GliderPowerup implements Powerup {
 
@@ -122,17 +118,17 @@ public class GliderPowerup implements Powerup {
         final @NonNull List<Component> lore = new ArrayList<>();
 
         lore.add(Component.empty());
-        lore.add(Component.text("A portable pair of wings that", Styles.TEXT));
-        lore.add(Component.text("send you flying through the air.", Styles.TEXT));
+        lore.add(Component.text("A portable pair of wings that", Styles.STYLE_TEXT));
+        lore.add(Component.text("send you flying through the air.", Styles.STYLE_TEXT));
         lore.add(Component.empty());
 
         lore.addAll(Powerup.CONSUMABLE_LORE_FOOTER);
 
-        return PaperItemBuilder.paper(Material.ELYTRA)
+        return PaperItemBuilder.ofType(Material.ELYTRA)
                 .name(NAME)
-                .loreComponents(lore)
-                .flags(ItemFlag.values())
-                .data(Powerup.POWERUP_ITEM_ID_KEY, PersistentDataType.STRING, "glider")
+                .lore(lore)
+                .addFlag(ItemFlag.values())
+                .setData(Powerup.POWERUP_ITEM_ID_KEY, PersistentDataType.STRING, "glider")
                 .build();
     }
 }

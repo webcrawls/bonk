@@ -1,9 +1,9 @@
 package dev.kscott.bonk.bukkit;
 
-import broccolai.corn.paper.PaperItemBuilder;
-import dev.kscott.bluetils.core.text.Colours;
-import dev.kscott.bluetils.core.text.Styles;
+import broccolai.corn.paper.item.PaperItemBuilder;
 import dev.kscott.bonk.bukkit.player.PlayerService;
+import dev.kscott.bonk.bukkit.utils.Colours;
+import dev.kscott.bonk.bukkit.utils.Styles;
 import dev.kscott.bonk.bukkit.weapon.Weapon;
 import dev.kscott.bonk.bukkit.weapon.WeaponService;
 import net.kyori.adventure.text.Component;
@@ -26,14 +26,14 @@ import java.util.Map;
 
 public class BonkInterfaceProvider {
 
-    public static final @NonNull ItemStack MENU_BG = PaperItemBuilder.paper(Material.GRAY_STAINED_GLASS_PANE)
+    public static final @NonNull ItemStack MENU_BG = PaperItemBuilder.ofType(Material.GRAY_STAINED_GLASS_PANE)
             .name(Component.empty())
-            .flags(ItemFlag.values())
+            .addFlag(ItemFlag.values())
             .build();
 
-    public static final @NonNull ItemStack MENU_DARK_BG = PaperItemBuilder.paper(Material.BLACK_STAINED_GLASS_PANE)
+    public static final @NonNull ItemStack MENU_DARK_BG = PaperItemBuilder.ofType(Material.BLACK_STAINED_GLASS_PANE)
             .name(Component.empty())
-            .flags(ItemFlag.values())
+            .addFlag(ItemFlag.values())
             .build();
 
     public static @NonNull ChestInterface main(final @NonNull PlayerService playerService,
@@ -54,26 +54,26 @@ public class BonkInterfaceProvider {
                     int y = 1;
 
                     return pane.element(ItemStackElement.of(
-                            PaperItemBuilder.paper(Material.ENDER_EYE)
-                                    .flags(ItemFlag.values())
-                                    .name(Component.text("Play").style(Styles.EMPHASIS))
-                                    .loreComponents(
+                            PaperItemBuilder.ofType(Material.ENDER_EYE)
+                                    .addFlag(ItemFlag.values())
+                                    .name(Component.text("Play").style(Styles.STYLE_EMPHASIS))
+                                    .lore(
                                             Component.empty(),
-                                            Component.text("Click to play Bonk.", Styles.TEXT),
+                                            Component.text("Click to play Bonk.", Styles.STYLE_TEXT),
                                             Component.empty(),
                                             Component.text()
-                                                    .append(Component.text("NOTE: ", Styles.EMPHASIS.color(Colours.RED_LIGHT)))
-                                                    .append(Component.text("It is ", Styles.TEXT))
-                                                    .append(Component.text("highly recommended ", Styles.TEXT).decorate(TextDecoration.BOLD))
+                                                    .append(Component.text("NOTE: ", Styles.STYLE_EMPHASIS.color(Colours.RED_LIGHT)))
+                                                    .append(Component.text("It is ", Styles.STYLE_TEXT))
+                                                    .append(Component.text("highly recommended ", Styles.STYLE_TEXT).decorate(TextDecoration.BOLD))
                                                     .build(),
                                             Component.text()
-                                                    .append(Component.text("to disable ", Styles.TEXT))
-                                                    .append(Component.text("FOV Effects ", Styles.EMPHASIS))
-                                                    .append(Component.text("in your ", Styles.TEXT))
+                                                    .append(Component.text("to disable ", Styles.STYLE_TEXT))
+                                                    .append(Component.text("FOV Effects ", Styles.STYLE_EMPHASIS))
+                                                    .append(Component.text("in your ", Styles.STYLE_TEXT))
                                                     .build(),
                                             Component.text()
-                                                    .append(Component.text("Video Settings ", Styles.EMPHASIS))
-                                                    .append(Component.text("before playing Bonk.", Styles.TEXT))
+                                                    .append(Component.text("Video Settings ", Styles.STYLE_EMPHASIS))
+                                                    .append(Component.text("before playing Bonk.", Styles.STYLE_TEXT))
                                                     .build(),
                                             Component.empty(),
                                             Component.text()
@@ -83,7 +83,7 @@ public class BonkInterfaceProvider {
                                                             .append(Component.text(playerService.gamePlayers().size())
                                                                     .append(Component.text(playerService.gamePlayers().size() == 1 ? " player" : " players")))
                                                             .append(Component.text(" playing."))
-                                                            .style(Styles.TEXT)
+                                                            .style(Styles.STYLE_TEXT)
                                                             .build()
                                                     )
                                                     .build()
@@ -104,7 +104,7 @@ public class BonkInterfaceProvider {
 
                     final @NonNull Weapon weapon = weapons.get(weaponIndex);
 
-                    final @NonNull Component name = Component.text("Your Weapon", Styles.EMPHASIS);
+                    final @NonNull Component name = Component.text("Your Weapon", Styles.STYLE_EMPHASIS);
 
                     // TODO Barrier icon for locked weapons
                     final @NonNull Material material = weapon.material();
@@ -113,9 +113,9 @@ public class BonkInterfaceProvider {
                     lore.add(Component.empty());
 
                     lore.add(Component.text()
-                            .append(Component.text("Selected: ").style(Styles.TEXT))
+                            .append(Component.text("Selected: ").style(Styles.STYLE_TEXT))
                             .append(weapon.name())
-                            .style(Styles.TEXT)
+                            .style(Styles.STYLE_TEXT)
                             .color(Colours.GREEN_LIGHT)
                             .build());
 
@@ -123,19 +123,19 @@ public class BonkInterfaceProvider {
 
                     for (final @NonNull Component text : weapon.description()) {
                         lore.add(Component.text()
-                                .append(text.style(Styles.TEXT))
-                                .style(Styles.TEXT)
+                                .append(text.style(Styles.STYLE_TEXT))
+                                .style(Styles.STYLE_TEXT)
                                 .build());
                     }
 
                     lore.add(Component.empty());
-                    lore.add(Component.text("Click to select the next weapon.", Styles.TEXT));
+                    lore.add(Component.text("Click to select the next weapon.", Styles.STYLE_TEXT));
 
                     return pane.element(ItemStackElement.of(
-                            PaperItemBuilder.paper(material)
-                                    .flags(ItemFlag.values())
+                            PaperItemBuilder.ofType(material)
+                                    .addFlag(ItemFlag.values())
                                     .name(name)
-                                    .loreComponents(lore)
+                                    .lore(lore)
                                     .build(),
                             (ctx) -> {
                                 int tempIndex = weaponIndex + 1;
@@ -156,39 +156,39 @@ public class BonkInterfaceProvider {
                 })
                 .addTransform((pane, view) -> {
                     return pane.element(ItemStackElement.of(
-                            PaperItemBuilder.paper(Material.BOOK)
-                                    .name(Component.text("Help", Styles.EMPHASIS))
-                                    .loreComponents(List.of(
+                            PaperItemBuilder.ofType(Material.BOOK)
+                                    .name(Component.text("Help", Styles.STYLE_EMPHASIS))
+                                    .lore(List.of(
                                             Component.empty(),
-                                            Component.text("Controls:", Styles.TEXT),
+                                            Component.text("Controls:", Styles.STYLE_TEXT),
                                             Component.text()
-                                                    .append(Component.text("- ", Styles.TEXT_DARK))
-                                                    .append(Component.keybind("key.use", Styles.EMPHASIS))
-                                                    .append(Component.text(" to fire rockets while", Styles.TEXT))
+                                                    .append(Component.text("- ", Styles.STYLE_TEXT_DARK))
+                                                    .append(Component.keybind("key.use", Styles.STYLE_EMPHASIS))
+                                                    .append(Component.text(" to fire rockets while", Styles.STYLE_TEXT))
                                                     .build(),
                                             Component.text()
-                                                    .append(Component.text("holding your Bonk weapon, or", Styles.TEXT))
+                                                    .append(Component.text("holding your Bonk weapon, or", Styles.STYLE_TEXT))
                                                     .build(),
                                             Component.text()
-                                                    .append(Component.text("activate powerups on your hotbar.", Styles.TEXT))
-                                                    .build(),
-                                            Component.empty(),
-                                            Component.text()
-                                                    .append(Component.text("- ", Styles.TEXT_DARK))
-                                                    .append(Component.keybind("key.attack", Styles.EMPHASIS))
-                                                    .append(Component.text(" to attack, or open", Styles.TEXT))
-                                                    .build(),
-                                            Component.text()
-                                                    .append(Component.text("item boxes.", Styles.TEXT))
+                                                    .append(Component.text("activate powerups on your hotbar.", Styles.STYLE_TEXT))
                                                     .build(),
                                             Component.empty(),
                                             Component.text()
-                                                    .append(Component.text("- ", Styles.TEXT_DARK))
-                                                    .append(Component.keybind("key.sneak", Styles.EMPHASIS))
-                                                    .append(Component.text(" while in the air", Styles.TEXT))
+                                                    .append(Component.text("- ", Styles.STYLE_TEXT_DARK))
+                                                    .append(Component.keybind("key.attack", Styles.STYLE_EMPHASIS))
+                                                    .append(Component.text(" to attack, or open", Styles.STYLE_TEXT))
                                                     .build(),
                                             Component.text()
-                                                    .append(Component.text("to double jump.", Styles.TEXT))
+                                                    .append(Component.text("item boxes.", Styles.STYLE_TEXT))
+                                                    .build(),
+                                            Component.empty(),
+                                            Component.text()
+                                                    .append(Component.text("- ", Styles.STYLE_TEXT_DARK))
+                                                    .append(Component.keybind("key.sneak", Styles.STYLE_EMPHASIS))
+                                                    .append(Component.text(" while in the air", Styles.STYLE_TEXT))
+                                                    .build(),
+                                            Component.text()
+                                                    .append(Component.text("to double jump.", Styles.STYLE_TEXT))
                                                     .build()
                                     ))
                                     .build()

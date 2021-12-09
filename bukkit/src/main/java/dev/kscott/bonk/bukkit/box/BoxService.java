@@ -4,11 +4,11 @@ import com.destroystokyo.paper.ParticleBuilder;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
-import dev.kscott.bluetils.core.text.Colours;
-import dev.kscott.bluetils.core.text.Styles;
 import dev.kscott.bonk.bukkit.BukkitBonkPlugin;
 import dev.kscott.bonk.bukkit.player.PlayerService;
 import dev.kscott.bonk.bukkit.powerup.PowerupService;
+import dev.kscott.bonk.bukkit.utils.Colours;
+import dev.kscott.bonk.bukkit.utils.Styles;
 import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
@@ -143,9 +143,9 @@ public class BoxService {
             this.playerService.spirit(player).addRocket(count);
 
             player.sendMessage(Component.text()
-                    .append(Component.text("GET ", Styles.EMPHASIS).color(Colours.GREEN_DARK))
+                    .append(Component.text("GET ", Styles.STYLE_EMPHASIS).color(Colours.GREEN_DARK))
                     .append(Component.text("+" + count + " ").color(Colours.BLUE_LIGHT))
-                    .append(Component.text("rockets", Styles.TEXT)));
+                    .append(Component.text("rockets", Styles.STYLE_TEXT)));
         }
 
         new BukkitRunnable() {

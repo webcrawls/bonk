@@ -1,12 +1,9 @@
 package dev.kscott.bonk.bukkit.utils;
 
 import com.google.inject.Inject;
-import dev.kscott.bluetils.core.text.Colours;
-import dev.kscott.bluetils.core.text.Styles;
 import dev.kscott.bonk.bukkit.BukkitBonkPlugin;
 import dev.kscott.bonk.bukkit.game.DeathfeedService;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.bungeecord.BungeeComponentSerializer;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -66,7 +63,7 @@ public class BonkPlaceholders extends PlaceholderExpansion {
         if (identifier.equals("server_name")) {
             return TextComponent.toLegacyText(this.serializer.serialize(
                     Component.text("Bonk")
-                            .style(Styles.EMPHASIS)
+                            .style(Styles.STYLE_EMPHASIS)
                             .color(Colours.YELLOW)
             ));
         }

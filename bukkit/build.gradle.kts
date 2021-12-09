@@ -1,16 +1,11 @@
 dependencies {
-
     compileOnly(libs.paper.api)
-
     api(libs.minimessage)
     api(libs.cloud.paper)
     api(libs.bundles.guice)
-    api(libs.bundles.corn)
+    api(libs.corn.minecraft.paper)
     api(libs.adventure.bungee)
-
     implementation(libs.interfaces.paper)
-    implementation(libs.bluetils.paper)
-
     compileOnly(libs.placeholderapi)
     compileOnly(libs.tab)
 }
@@ -39,7 +34,8 @@ tasks {
         relocates(
                 "cloud.commandframework",
                 "com.google.inject",
-                "broccolai.corn"
+                "broccolai.corn",
+                "org.incendo.interfaces"
         )
 
         archiveClassifier.set(null as String?)

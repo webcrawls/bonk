@@ -5,12 +5,12 @@ import cloud.commandframework.CommandManager;
 import cloud.commandframework.arguments.standard.StringArgument;
 import cloud.commandframework.context.CommandContext;
 import com.google.inject.Inject;
-import dev.kscott.bluetils.core.text.Colours;
-import dev.kscott.bluetils.core.text.Styles;
 import dev.kscott.bonk.bukkit.lobby.LobbyService;
 import dev.kscott.bonk.bukkit.player.BonkSpirit;
 import dev.kscott.bonk.bukkit.player.PlayerService;
 import dev.kscott.bonk.bukkit.powerup.GliderPowerup;
+import dev.kscott.bonk.bukkit.utils.Colours;
+import dev.kscott.bonk.bukkit.utils.Styles;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
@@ -21,7 +21,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.checkerframework.checker.nullness.qual.NonNull;
-import org.incendo.interfaces.paper.PlayerViewer;
 import org.incendo.interfaces.paper.type.BookInterface;
 
 import java.util.Collection;
@@ -65,12 +64,12 @@ public final class BonkCommand implements BaseCommand {
         this.noticeInterface = BookInterface.builder()
                 .addTransform((pane, view) -> pane
                         .add(of(text()
-                                .append(text("Welcome to Bonk!", Styles.TEXT_DARK))
+                                .append(text("Welcome to Bonk!", Styles.STYLE_TEXT))
                                 .append(newline())
                                 .append(newline())
                                 .append(text()
-                                        .append(text("NOTE: Player movement speed is increased in Bonk. Because of this, it is ", Styles.TEXT_DARK))
-                                        .append(text("highly recommended to disable FOV effects in your video settings.", Styles.TEXT_DARK
+                                        .append(text("NOTE: Player movement speed is increased in Bonk. Because of this, it is ", Styles.STYLE_TEXT))
+                                        .append(text("highly recommended to disable FOV effects in your video settings.", Styles.STYLE_TEXT
                                                 .color(Colours.RED_DARK)
                                                 .decoration(TextDecoration.BOLD, true)
                                         ))
@@ -78,7 +77,7 @@ public final class BonkCommand implements BaseCommand {
                                 .append(newline())
                                 .append(newline())
                                 .append(text("Click here when you're ready to play.")
-                                        .style(Styles.EMPHASIS)
+                                        .style(Styles.STYLE_EMPHASIS)
                                         .hoverEvent(HoverEvent.showText(Component.text("Click to run /bonk play.")))
                                         .clickEvent(ClickEvent.runCommand("/bonk play")))
                                 .build()

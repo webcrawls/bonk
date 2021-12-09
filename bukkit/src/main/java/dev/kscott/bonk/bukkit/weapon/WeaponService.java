@@ -2,9 +2,11 @@ package dev.kscott.bonk.bukkit.weapon;
 
 import com.destroystokyo.paper.ParticleBuilder;
 import com.google.inject.Inject;
-import dev.kscott.bluetils.core.text.Colours;
-import dev.kscott.bluetils.core.text.Styles;
+
+
 import dev.kscott.bonk.bukkit.game.Constants;
+import dev.kscott.bonk.bukkit.utils.Colours;
+import dev.kscott.bonk.bukkit.utils.Styles;
 import dev.kscott.bonk.bukkit.weapon.sound.WeaponSoundDefinition;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -48,8 +50,8 @@ public class WeaponService {
         // Charged attack: absorb half of all knockback for 5 seconds
         this.register(new Weapon(
                 "stick",
-                Component.text("Stick", Styles.TEXT).color(Colours.GRAY_DARK),
-                List.of(Component.text("The original Bonk stick, circa 2019.", Styles.TEXT)),
+                Component.text("Stick", Styles.STYLE_TEXT).color(Colours.GRAY_DARK),
+                List.of(Component.text("The original Bonk stick, circa 2019.", Styles.STYLE_TEXT)),
                 Material.STICK,
                 List.of(WeaponSoundDefinition.of(Sound.BLOCK_BAMBOO_BREAK, 0.2F, 1)),
                 (event) -> {
@@ -60,13 +62,13 @@ public class WeaponService {
         // Charged move: Send firey tunnel in your direction
         this.register(new Weapon(
                 "blaze",
-                Component.text("Blaze", Styles.TEXT).color(Colours.ORANGE),
+                Component.text("Blaze", Styles.STYLE_TEXT).color(Colours.ORANGE),
                 List.of(Component.text()
                                 .append(Component.text("⚠").color(Colours.RED_DARK))
-                                .append(Component.text(" WARNING ", Styles.EMPHASIS).color(Colours.RED_LIGHT))
+                                .append(Component.text(" WARNING ", Styles.STYLE_EMPHASIS).color(Colours.RED_LIGHT))
                                 .append(Component.text("⚠").color(Colours.RED_DARK))
                                 .build(),
-                        Component.text("May create third-degree burns...", Styles.TEXT)
+                        Component.text("May create third-degree burns...", Styles.STYLE_TEXT)
                 ),
                 Material.BLAZE_ROD,
                 List.of(WeaponSoundDefinition.of(Sound.ENTITY_BLAZE_HURT, 0.2F, 1)),
@@ -96,7 +98,7 @@ public class WeaponService {
         // Charged attack: Store a location by shift right-clicking, and when activated, you teleport there.
         this.register(new Weapon(
                 "emerald",
-                Component.text("Emerald", Styles.TEXT).color(Colours.GREEN_LIGHT),
+                Component.text("Emerald", Styles.STYLE_TEXT).color(Colours.GREEN_LIGHT),
                 List.of(
                         Component.text()
                                 .append(Component.text("⛏ ", Colours.BLUE_LIGHT))
@@ -122,7 +124,7 @@ public class WeaponService {
         // Charged attack: Replaces blocks below you with slime blocks temporarily
         this.register(new Weapon(
                 "slimeball",
-                Component.text("Slimeball", Styles.TEXT).color(Colours.GREEN_LIGHT),
+                Component.text("Slimeball", Styles.STYLE_TEXT).color(Colours.GREEN_LIGHT),
                 List.of(),
                 Material.SLIME_BALL,
                 List.of(

@@ -1,13 +1,11 @@
 package dev.kscott.bonk.bukkit.weapon;
 
-import broccolai.corn.adventure.AdventureItemBuilder;
-import broccolai.corn.paper.PaperItemBuilder;
-import dev.kscott.bluetils.core.text.Styles;
+import broccolai.corn.paper.item.PaperItemBuilder;
 import dev.kscott.bonk.bukkit.game.Constants;
+import dev.kscott.bonk.bukkit.utils.Styles;
 import dev.kscott.bonk.bukkit.weapon.sound.WeaponSoundDefinition;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
@@ -38,13 +36,13 @@ public record Weapon(
      * {@return the ItemStack of this weapon}
      */
     public @NonNull ItemStack itemStack() {
-        return PaperItemBuilder.paper(this.material)
+        return PaperItemBuilder.ofType(this.material)
                 .name(Component.text()
                         .append(this.name)
-                        .style(Styles.TEXT)
+                        .style(Styles.STYLE_TEXT)
                         .build())
-                .loreComponents(this.description)
-                .data(Constants.Keys.ITEM_WEAPON_KEY, PersistentDataType.STRING, this.id)
+                .lore(this.description)
+                .setData(Constants.Keys.ITEM_WEAPON_KEY, PersistentDataType.STRING, this.id)
                 .build();
     }
 

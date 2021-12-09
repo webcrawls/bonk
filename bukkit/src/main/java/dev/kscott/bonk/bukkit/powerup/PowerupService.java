@@ -3,9 +3,11 @@ package dev.kscott.bonk.bukkit.powerup;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
-import dev.kscott.bluetils.core.text.Colours;
-import dev.kscott.bluetils.core.text.Styles;
+
+
 import dev.kscott.bonk.bukkit.player.PlayerService;
+import dev.kscott.bonk.bukkit.utils.Colours;
+import dev.kscott.bonk.bukkit.utils.Styles;
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -62,11 +64,11 @@ public class PowerupService {
 
         player.sendMessage(
                 Component.text()
-                        .append(Component.text("POWERUP! ", Styles.EMPHASIS).color(Colours.PURPLE_LIGHT))
+                        .append(Component.text("POWERUP! ", Styles.STYLE_EMPHASIS).color(Colours.PURPLE_LIGHT))
                         .append(Component.text("You received "))
                         .append(powerup.name())
                         .append(Component.text("."))
-                        .style(Styles.TEXT)
+                        .style(Styles.STYLE_TEXT)
         );
 
         this.playerService.spirit(player).addPowerup(entry);

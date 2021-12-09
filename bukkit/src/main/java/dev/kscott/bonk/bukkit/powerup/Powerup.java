@@ -1,6 +1,7 @@
 package dev.kscott.bonk.bukkit.powerup;
 
-import dev.kscott.bluetils.core.text.Styles;
+
+import dev.kscott.bonk.bukkit.utils.Styles;
 import net.kyori.adventure.text.Component;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
@@ -17,13 +18,13 @@ public interface Powerup {
     @NonNull List<Component> CONSUMABLE_LORE_FOOTER = List.of(
             Component.text()
                     .append(Component.text("Use "))
-                    .append(Component.keybind("key.use", Styles.EMPHASIS))
+                    .append(Component.keybind("key.use", Styles.STYLE_EMPHASIS))
                     .append(Component.text(" to"))
-                    .style(Styles.TEXT)
+                    .style(Styles.STYLE_TEXT)
                     .build(),
             Component.text()
                     .append(Component.text("activate this powerup."))
-                    .style(Styles.TEXT)
+                    .style(Styles.STYLE_TEXT)
                     .build()
     );
 

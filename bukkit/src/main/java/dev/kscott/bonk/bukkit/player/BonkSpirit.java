@@ -1,13 +1,13 @@
 package dev.kscott.bonk.bukkit.player;
 
-import broccolai.corn.paper.PaperItemBuilder;
-import dev.kscott.bluetils.core.text.Colours;
-import dev.kscott.bluetils.core.text.Styles;
+import broccolai.corn.paper.item.PaperItemBuilder;
 import dev.kscott.bonk.bukkit.BonkInterfaceProvider;
 import dev.kscott.bonk.bukkit.player.damage.DamageContext;
 import dev.kscott.bonk.bukkit.position.GamePosition;
 import dev.kscott.bonk.bukkit.powerup.Powerup;
 import dev.kscott.bonk.bukkit.powerup.PowerupEntry;
+import dev.kscott.bonk.bukkit.utils.Colours;
+import dev.kscott.bonk.bukkit.utils.Styles;
 import dev.kscott.bonk.bukkit.weapon.Weapon;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
@@ -93,20 +93,20 @@ public final class BonkSpirit {
                         pane = pane.hotbar(8, ItemStackElement.of(BonkInterfaceProvider.MENU_DARK_BG));
                     } else {
                         pane = pane.hotbar(8, ItemStackElement.of(
-                                PaperItemBuilder.paper(Material.FIREWORK_ROCKET)
-                                        .name(Component.text(this.rockets+" rockets", Styles.TEXT).color(Colours.GREEN_LIGHT))
-                                        .loreComponents(
+                                PaperItemBuilder.ofType(Material.FIREWORK_ROCKET)
+                                        .name(Component.text(this.rockets+" rockets", Styles.STYLE_TEXT).color(Colours.GREEN_LIGHT))
+                                        .lore(
                                                 List.of(
                                                         Component.empty(),
                                                         Component.text()
                                                                 .append(Component.keybind("key.use").color(Colours.BLUE_LIGHT))
                                                                 .append(Component.text(" while holding your weapon"))
-                                                                .style(Styles.TEXT)
+                                                                .style(Styles.STYLE_TEXT)
                                                                 .build(),
-                                                        Component.text("to fire a rocket.", Styles.TEXT)
+                                                        Component.text("to fire a rocket.", Styles.STYLE_TEXT)
                                                 )
                                         )
-                                        .flags(ItemFlag.values())
+                                        .addFlag(ItemFlag.values())
                                         .amount(this.rockets)
                                         .build()
                         ));

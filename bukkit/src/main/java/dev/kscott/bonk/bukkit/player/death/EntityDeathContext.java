@@ -1,7 +1,9 @@
 package dev.kscott.bonk.bukkit.player.death;
 
-import dev.kscott.bluetils.core.text.Colours;
-import dev.kscott.bluetils.core.text.Styles;
+
+
+import dev.kscott.bonk.bukkit.utils.Colours;
+import dev.kscott.bonk.bukkit.utils.Styles;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -58,13 +60,13 @@ public class EntityDeathContext implements DeathContext {
         return Component.text()
                 .append(
                         this.player.displayName()
-                                .style(Styles.TEXT)
+                                .style(Styles.STYLE_TEXT)
                                 .color(Colours.BLUE_LIGHT)
                 )
                 .append(Component.text(" ⚔ "))
                 .append(
                         this.player.displayName()
-                                .style(Styles.TEXT)
+                                .style(Styles.STYLE_TEXT)
                                 .color(Colours.RED_LIGHT))
                 .build();
     }

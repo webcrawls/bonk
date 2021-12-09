@@ -1,9 +1,9 @@
 package dev.kscott.bonk.bukkit.powerup;
 
-import broccolai.corn.paper.PaperItemBuilder;
-import dev.kscott.bluetils.core.text.Colours;
-import dev.kscott.bluetils.core.text.Styles;
+import broccolai.corn.paper.item.PaperItemBuilder;
 import dev.kscott.bonk.bukkit.game.Constants;
+import dev.kscott.bonk.bukkit.utils.Colours;
+import dev.kscott.bonk.bukkit.utils.Styles;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -43,16 +43,16 @@ public class LevitationPowerup implements Powerup {
         final @NonNull List<Component> lore = new ArrayList<>();
 
         lore.add(Component.empty());
-        lore.add(Component.text("A strange object that makes you hover.", Styles.TEXT));
+        lore.add(Component.text("A strange object that makes you hover.", Styles.STYLE_TEXT));
         lore.add(Component.empty());
 
         lore.addAll(Powerup.CONSUMABLE_LORE_FOOTER);
 
-        return PaperItemBuilder.paper(Material.PHANTOM_MEMBRANE)
+        return PaperItemBuilder.ofType(Material.PHANTOM_MEMBRANE)
                 .name(NAME)
-                .loreComponents(lore)
-                .flags(ItemFlag.values())
-                .data(Powerup.POWERUP_ITEM_ID_KEY, PersistentDataType.STRING, "levitation")
+                .lore(lore)
+                .addFlag(ItemFlag.values())
+                .setData(Powerup.POWERUP_ITEM_ID_KEY, PersistentDataType.STRING, "levitation")
                 .build();
     }
 }

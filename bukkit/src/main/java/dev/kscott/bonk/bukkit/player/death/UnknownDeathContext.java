@@ -1,7 +1,7 @@
 package dev.kscott.bonk.bukkit.player.death;
 
-import dev.kscott.bluetils.core.text.Colours;
-import dev.kscott.bluetils.core.text.Styles;
+import dev.kscott.bonk.bukkit.utils.Colours;
+import dev.kscott.bonk.bukkit.utils.Styles;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -46,12 +46,12 @@ public class UnknownDeathContext implements DeathContext {
         return Component.text()
                 .append(
                         this.player.displayName()
-                                .style(Styles.TEXT)
+                                .style(Styles.STYLE_TEXT)
                                 .color(Colours.BLUE_LIGHT)
                 )
                 .append(
                         Component.text(" 404'd.")
-                                .style(Styles.TEXT)
+                                .style(Styles.STYLE_TEXT)
                 )
                 .build();
     }

@@ -1,8 +1,8 @@
 package dev.kscott.bonk.bukkit.player;
 
 import com.google.inject.Inject;
-import dev.kscott.bluetils.core.text.Colours;
-import dev.kscott.bluetils.core.text.Styles;
+
+
 import dev.kscott.bonk.bukkit.BonkInterfaceProvider;
 import dev.kscott.bonk.bukkit.game.Constants;
 import dev.kscott.bonk.bukkit.game.DeathfeedService;
@@ -17,7 +17,9 @@ import dev.kscott.bonk.bukkit.player.death.PlayerDeathContext;
 import dev.kscott.bonk.bukkit.player.death.PlayerLaunchDeathContext;
 import dev.kscott.bonk.bukkit.position.PositionService;
 import dev.kscott.bonk.bukkit.utils.ArrayHelper;
+import dev.kscott.bonk.bukkit.utils.Colours;
 import dev.kscott.bonk.bukkit.utils.PlayerUtils;
+import dev.kscott.bonk.bukkit.utils.Styles;
 import dev.kscott.bonk.bukkit.weapon.Weapon;
 import dev.kscott.bonk.bukkit.weapon.WeaponService;
 import net.kyori.adventure.text.Component;
@@ -255,12 +257,12 @@ public final class PlayerService {
         if (ctx instanceof PlayerLaunchDeathContext playerCtx) {
             playerCtx.killerSpirit().player().sendMessage(
                     Component.text()
-                            .append(Component.text("NICE HIT! ").style(Styles.EMPHASIS).color(Colours.YELLOW))
+                            .append(Component.text("NICE HIT! ").style(Styles.STYLE_EMPHASIS).color(Colours.YELLOW))
                             .append(playerCtx.killerSpirit().player().displayName().color(Colours.BLUE_LIGHT))
                             .append(Component.text(" was launched "))
                             .append(Component.text(this.decimalFormat.format(playerCtx.distance())).color(Colours.RED_LIGHT))
                             .append(Component.text(" meters"))
-                            .style(Styles.TEXT)
+                            .style(Styles.STYLE_TEXT)
             );
         }
 
